@@ -3,5 +3,7 @@ export const USER_ROUTES = {
     VERIFY_OTP: "/verifyotp",
     LOGIN: "/login",
     LOGOUT: "/logout",
-    GETUSERDATAFIRST: "/getUserDataFirst"
+    GETUSERDATAFIRST: "/getUserDataFirst",
+    RESEND_OTP: "/resendotp",
+    FORGOT_PASSWORD: "/forgotpassword",
 }

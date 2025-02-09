@@ -20,7 +20,7 @@ const OTP = new Schema<OtpDoc>({
     createdAt: {
       type: Date,
       default: Date.now,
-      expires: 60 * 2
+      expires: 60 * 1
     },
     expiresAt: {
         type: Date,

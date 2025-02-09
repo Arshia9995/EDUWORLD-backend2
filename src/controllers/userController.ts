@@ -216,6 +216,61 @@ class UserController {
             console.log("Error in getUserDataFirst Controller",error)
         }
     }
+
+    async resendOtp(req: Request, res: Response) {
+
+        try {
+            const { email } = req.body;
+            if(!email){
+                return res.status(Status.UN_AUTHORISED)
+                .json({ success: false, message: "UnAuthorised Approach" });
+
+            }
+
+            const result = await this._userService.resendOtp(email);
+
+            return res.status(Status.OK).json(result);
+
+        } catch (error) {
+            console.error("Error in user resend otp controler:", error);
+
+            if (error instanceof Error) {
+                if (error.message === "NO User Found") {
+                  res
+                    .status(Status.UN_AUTHORISED)
+                    .json({ message: "Unauthorized: Email not valid" });
+                  return;
+                }
+              }
+
+              return res
+              .status(Status.INTERNAL_SERVER_ERROR)
+              .json({ success: false, message: "Internal Server Error" });
+            
+        }
+
+    }
+
+    async forgotPassword(req: Request, res:Response) {
+        try {
+            const { email} = req.body;
+            const result = await this._userService.forgotPassword(email);
+            return res.status(Status.OK).json(result);
+        } catch (error:any) {
+            console.error(error);
+            if (error.message === "Your email is not registered") {
+                return res.status(404).json({ success: false, message: error.message });
+            }
+    
+            return res
+              .status(Status.INTERNAL_SERVER_ERROR)
+              .json({ success: false, message: "Internal server error" });
+          
+            
+        }
+    }
+
+
 }
 
 export default UserController;

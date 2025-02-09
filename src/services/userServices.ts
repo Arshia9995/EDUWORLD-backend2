@@ -63,7 +63,7 @@ export class UserService implements IUserService {
             email: email,
             otp: newOtp,
             CreatedAt: new Date(),
-            ExpiresAt: new Date(Date.now() + 2 * 60 * 1000),
+            ExpiresAt: new Date(Date.now() + 1* 60 * 1000),
             isUpdated: false,
           };
 
@@ -214,6 +214,81 @@ export class UserService implements IUserService {
             return userDetails;
         } catch (error) {
             console.error("Error fetching user data:", error);
+        }
+    }
+
+
+    async resendOtp(email : string) {
+        try {
+            const registeredUser = await this._userRepository.findByQuery({ email: email});
+
+            if(!registeredUser){
+                return { success: false, message: "No user Found" };
+            }
+
+            const otp = generateOtp();
+            sendMail("EduWorld", "Resended Otp", email, otp);
+            console.log("resend otp",otp);
+            const otpData = {
+                otp: otp,
+                ExpiresAt: new Date(Date.now() + 1* 60 * 1000),
+            };
+
+            const existingOtp = await this._otpRepository.findByQuery({email: email});
+
+            await this._otpRepository.update(existingOtp?._id as string, otpData);
+            return {
+                success: true,
+                message: "otp resend successfully",
+            };
+
+            
+        } catch (error) {
+            console.error("Error from Userservice.resendOtp", error);
+            return {
+                success: false,
+                message:'Failed to Resend Otp'
+              }
+            
+        }
+    }
+
+    async forgotPassword(email: string) {
+        try {
+            const user = await this._userRepository.findByQuery({ email: email});
+            if (!user) {
+                throw new Error("Your email is not registered");
+              }
+
+              const newOtp = generateOtp();
+              sendMail("EduWorld","Forgot password", user.email, newOtp);
+              const otpData = {
+                otp: newOtp,
+                ExpiresAt: new Date(Date.now() + 1* 60 * 1000),
+
+              };
+
+              const existingOtp = await this._otpRepository.findByQuery({ email: email});
+
+              await this._otpRepository.update(existingOtp?._id as string, otpData);
+
+              console.log(newOtp, "the forgot password otp");
+
+              return {
+                success: true,
+                message: "Otp sent to your email successfully",
+                data: null,
+              };
+
+        } catch (error) {
+
+            console.error(error);
+      return {
+        success: false,
+        message: "sever error please try again later",
+        data: null,
+      };
+            
         }
     }
     
