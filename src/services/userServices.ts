@@ -71,7 +71,7 @@ export class UserService implements IUserService {
           
 
           await this._otpRepository.create(newOtpData);
-        
+        console.log("user has been created")
           return {
             success: true,
             message: "User created successfully",
@@ -129,7 +129,7 @@ export class UserService implements IUserService {
             user.save();
 
             const token = generateToken({ id: user._id, email: user.email, role: user.role });
-            const refreshToken = generateRefreshToken({ id: user._id, email: user.email });
+            const refreshToken = generateRefreshToken({ id: user._id, email: user.email, role: user.role});
 
             const existingOtp = await this._otpRepository.findByQuery({ email: email});
 
@@ -184,26 +184,17 @@ export class UserService implements IUserService {
 
                 };
             }
-
-
-            const token = generateToken({ id: user._id, email: user.email, role: user.role });
-            const refreshToken = generateRefreshToken({ id: user._id, email: user.email });
-
             
-
-
-
             return {
                 success: true,
                 message: "Login successful",
-                data: {
-                    token,
-                    refreshToken,
-                    user: {
-                        email: user.email,
-                        role: user.role,
-                    },
-                },
+                data: { name: user.name, 
+                    email: user.email,
+                    role: user.role,
+                    isBlocked : user.isBlocked,
+                    verified: user.verified,
+                    _id: user._id
+                    } 
             };
 
 
@@ -217,10 +208,15 @@ export class UserService implements IUserService {
         }
     }
 
-
-    async getUserDataFirst(){
-        
+    async getUserDataFirst(id: string) {
+        try {
+            const userDetails = await this._userRepository.findById(id);
+            return userDetails;
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
     }
+    
 
 
 
