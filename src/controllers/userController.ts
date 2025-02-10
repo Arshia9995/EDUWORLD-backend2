@@ -255,12 +255,19 @@ class UserController {
         try {
             const { email} = req.body;
             const result = await this._userService.forgotPassword(email);
+
+            if (!result.success) {
+                if (result.message === "Your email is not registered") {
+                  return res.status(404).json(result); // ✅ Send 404 for unregistered email
+                }
+                return res.status(500).json(result);
+              }
+
             return res.status(Status.OK).json(result);
+
         } catch (error:any) {
             console.error(error);
-            if (error.message === "Your email is not registered") {
-                return res.status(404).json({ success: false, message: error.message });
-            }
+           
     
             return res
               .status(Status.INTERNAL_SERVER_ERROR)
@@ -269,6 +276,57 @@ class UserController {
             
         }
     }
+
+    async forgotOtpVerify(req: Request, res: Response) {
+            
+       try {
+        const{ email, otp } = req.body;
+
+        if(!otp || !email){
+            return res.status(Status.BAD_REQUEST).json({message: "Email and OTP required"});
+            
+        }
+
+        const result = await this._userService.forgotOtpVerify( email,otp);
+
+        if (!result.success) {
+            return res.status(400).json(result);
+        }
+        // if(result?.success && result.data) {
+
+        //     return res.status(Status.OK).json(result);
+        // }
+        return res.status(result.success ? Status.OK : Status.BAD_REQUEST).json(result);
+
+
+       } catch (error) {
+        console.error("Error creating user:", error);
+        return res.status(Status.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: "Internal Server Error",
+        });
+        
+       }
+    }
+
+    async resetPassword(req: Request, res: Response) {
+        try {
+
+            const result = await this._userService.resetPassword(
+                req.body.email,
+                req.body.password
+
+            );
+            return res.status(Status.OK).json(result);
+        } catch (error) {
+            console.log(error);
+            return res
+              .status(Status.INTERNAL_SERVER_ERROR)
+              .json({ success: false, message: "Internal server error" });
+            
+        }
+    }
+
 
 
 }

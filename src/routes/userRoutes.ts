@@ -24,6 +24,8 @@ userRouter.post(USER_ROUTES.LOGOUT, userController.logoutUser.bind(userControlle
 userRouter.post(USER_ROUTES.GETUSERDATAFIRST, userController.getUserDataFirst.bind(userController) as any);
 userRouter.post(USER_ROUTES.RESEND_OTP, userController.resendOtp.bind(userController) as any);
 userRouter.post(USER_ROUTES.FORGOT_PASSWORD, userController.forgotPassword.bind(userController) as any);
+userRouter.post(USER_ROUTES.FORGOTOTP_VERIFIED,userController.forgotOtpVerify.bind(userController) as any);
+userRouter.post(USER_ROUTES.RESET_PASSWORD,userController.resetPassword.bind(userController) as any);
 
 
 

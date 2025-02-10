@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import userRouter from "./routes/userRoutes";
+import adminRouter from "./routes/adminRoutes";
 import cookieParser from "cookie-parser";
 
 export const app: Express = express();
@@ -28,5 +29,6 @@ app.get("/", (req,res)=>{
     res.send("backend is running...");
 });
 app.use('/users',userRouter);
+app.use('/admin',adminRouter);
 
 export default app;

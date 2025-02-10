@@ -270,7 +270,11 @@ export class UserService implements IUserService {
 
               const existingOtp = await this._otpRepository.findByQuery({ email: email});
 
-              await this._otpRepository.update(existingOtp?._id as string, otpData);
+              if (existingOtp) {
+                await this._otpRepository.update(existingOtp._id as string, otpData);
+            } else {
+                await this._otpRepository.create({ email, ...otpData }); // ✅ Insert new OTP if none exists
+            }
 
               console.log(newOtp, "the forgot password otp");
 
@@ -280,20 +284,122 @@ export class UserService implements IUserService {
                 data: null,
               };
 
-        } catch (error) {
-
+        } catch (error: any){
             console.error(error);
+            if (error.message === "Your email is not registered") {
       return {
         success: false,
-        message: "sever error please try again later",
+        message: error.message,
         data: null,
       };
             
         }
+        return {
+            success: false,
+            message: "Server error, please try again later",
+            data: null,
+          };
+
     }
+}
+
+
+async forgotOtpVerify(email: string, otp: string) {
+    try {
+        const otpData = await this._otpRepository.findByQuery({ email: email})
+        if(!otpData ||  !otpData.otp) {
+            console.log("otp not found");
+            return {
+                success: false,
+                message: "Invalid Otp",
+                data: null,
+            };   
+        }
+        if(otpData.otp !== otp) {
+            console.log("invalid Otp");
+            return {
+                success: false,
+                message: "Invalid OTP",
+                data: null,
+            };
+            
+        }
+        if(otpData.expiresAt < new Date()) {
+            console.log("otp expired");
+            return {
+                success: false,
+                message: "OTP expired",
+                data:null,
+            };
+            
+        }
+     
+
+        // const existingOtp = await this._otpRepository.findByQuery({ email: email});
+
+        await this._otpRepository.update(otpData._id as string, { otp: "" });
+        return {
+            success: true,
+            message: "OTP verified successfully!",
+            data: null,
+          };
+
+    } catch (error) {
+        console.error("User verification error:",error);
+        return {
+            success: false,
+            message: 'Failed to verify User Otp',
+            data: null,
+        }
+
+        
+    }
+}
+
+async resetPassword(email: string,password:{newPassword: string, confirmPassword: string}) {
+    try {
+        const salt = bcrypt.genSaltSync(10);
+        validatePassword(password.newPassword);
+
+        const hashedPassword = bcrypt.hashSync(password.newPassword, salt);
+        const userExist = await this._userRepository.findByQuery({email: email});
+        if (!userExist) {
+            return {
+              success: false,
+              message: "No User Found",
+            };
+          }
+
+          const id: string = userExist?._id.toString();
+          const user = await this._userRepository.update(id, {
+           password: hashedPassword,
+          });
+
+          if (!user) {
+            return {
+              success: false,
+              message: "Something went wrong",
+              data: null,
+            };
+          }
+          return {
+            success: true,
+            message: "Password changed successfully",
+            data: null,
+          };
+
+
+    } catch (error) {
+        console.log(error);
+      return {
+        success: false,
+        message:'Failed to change password'
+      }
+        
+    }
+}
+
     
-
-
 
 }
 
