@@ -12,5 +12,6 @@ export const USER_ROUTES = {
 
 export const Admin_Routes = {
   
-    ADMIN_LOGIN: "/login"
+    ADMIN_LOGIN: "/login",
+    GETALL_STUDENTS:"/getallstudents"
 }

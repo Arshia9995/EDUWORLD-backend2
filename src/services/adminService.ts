@@ -12,10 +12,10 @@ dotenv.config();
 
 export class AdminServices implements IAdminService {
     constructor(
-        // private _userRepository: UserRepository,
+        private _userRepository: UserRepository,
         private _adminRepository: AdminRepository
     ){
-        // this._userRepository = _userRepository;
+        this._userRepository = _userRepository;
         this._adminRepository = _adminRepository;
     }
 
@@ -41,6 +41,20 @@ export class AdminServices implements IAdminService {
 
           return { success: true, message: "Login successful" };
 
+    }
+
+    async getAllStudents() {
+        try {
+            const students = await this._userRepository.findAll({ role: "student"});
+            if (students.length === 0) {
+                return { success: false, message: "No students found" };
+            }
+            return { success: true, message: "Students retrieved successfully", data: students };
+        } catch (error) {
+            console.error("Error fetching students:", error);
+            return { success: false, message: "Internal server error" };
+            
+        }
     }
 
 

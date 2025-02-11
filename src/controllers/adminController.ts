@@ -29,6 +29,23 @@ class AdminController {
         }
     }
 
+    async getAllStudents(re: Request, res: Response) {
+        try {
+            const result = await this._adminService.getAllStudents();
+
+            if (!result.success) {
+                return res.status(404).json({ message: result.message });
+            }
+           return res.status(200).json({ message: result.message, students: result.data });
+
+
+        } catch (error) {
+            console.error("Error in getAllStudents controller:", error);
+            return res.status(500).json({ message: "Internal server error" });
+            
+        }
+    }
+
 
 
 

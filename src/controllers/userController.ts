@@ -113,11 +113,11 @@ class UserController {
     
             const { _id, email: userEmail, role } = result.data;
     
-            // Generate tokens
+           
             const token = generateToken({ id: _id, email: userEmail, role });
             const refreshToken = generateRefreshToken({ id: _id, email: userEmail, role });
     
-            // Set cookies
+           
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: true,
@@ -135,7 +135,7 @@ class UserController {
             return res.status(Status.OK).json({
                 success: true,
                 message: "Login successful",
-                data: { ...result.data, token, refreshToken }, // Return tokens in response if needed
+                data: { ...result.data, token, refreshToken }, 
             });
     
         } catch (error) {
@@ -152,8 +152,7 @@ class UserController {
 
     async logoutUser(req: Request, res: Response) {
         try {
-            console.log("going to logout by JAVED");
-            // Clear cookies (even if not in req.cookies)
+          
             res.clearCookie("token", {
                 httpOnly: true,
                 secure: true,
@@ -258,7 +257,7 @@ class UserController {
 
             if (!result.success) {
                 if (result.message === "Your email is not registered") {
-                  return res.status(404).json(result); // ✅ Send 404 for unregistered email
+                  return res.status(404).json(result); 
                 }
                 return res.status(500).json(result);
               }

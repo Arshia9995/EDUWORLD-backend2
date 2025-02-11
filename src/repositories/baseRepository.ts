@@ -7,12 +7,12 @@ export class BaseRepository <T extends Document> implements IBaseRepository<T>{
    }
 
 
-async findAll(filter: Record<string, unknown>, skip: number, sort:any,limit: number = 5): Promise<T[]> {
+async findAll(filter: Record<string, unknown>,  sort?: any): Promise<T[]> {
     try {
         if (sort) {             
-            return await this._model.find(filter).sort(sort ).skip(skip).limit(limit);
+            return await this._model.find(filter).sort(sort );
         }
-        return await this._model.find(filter).skip(skip).limit(limit);
+        return await this._model.find(filter)
     } catch (error) {
         console.error("Error fetching data:", error);
         throw new Error("Could not fetch records");

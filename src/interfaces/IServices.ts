@@ -16,4 +16,5 @@ export interface IUserService {
 
 export interface IAdminService {
     adminLogin(email: string, password: string): Promise<IResponse>;
+    getAllStudents(): Promise<IResponse>;
 }
