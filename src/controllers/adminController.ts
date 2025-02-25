@@ -6,6 +6,7 @@ import { AdminServices } from "../services/adminService";
 import AdminRepository from "../repositories/adminRepository";
 import { AdminDoc } from "../interfaces/IAdmin";
 import { IAdminService } from "../interfaces/IServices";
+import { generateToken, generateRefreshToken } from "../utils/jwt";
 
 
 
@@ -20,10 +21,39 @@ class AdminController {
             const { email, password } = req.body;
             const result = await this._adminService.adminLogin(email, password);
 
-            if(!result.success) {
+            if(!result.success || !result.data) {
                 return res.status(401).json({ message: result.message });
+            
             }
-            return res.status(200).json({ message: result.message });
+
+            const token = generateToken({ id: result.data._id, email: result.data.email, role: 'admin' });
+            const refreshToken = generateRefreshToken({ id: result.data._id, email: result.data.email, role: 'admin' });
+
+
+            // Set cookies
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+        });
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        });
+
+        return res.status(200).json({ 
+            message: result.message,
+            data: {
+                ...result.data,
+                token,
+                refreshToken
+            }
+        });
+
         } catch (error: any) {
             return res.status(500).json({ message: "Server error", error: error.message });
         }
@@ -46,9 +76,97 @@ class AdminController {
         }
     }
 
+    async blockUser(req: Request, res: Response) {
+        try {
+            const { userId } = req.body;
+            if(!userId) {
+                return res.status(400).json({ message: "User ID is required" }); 
+            }
+
+            const result = await this._adminService.blockUser(userId);
+
+            if(!result.success) {
+                return res.status(400).json({ message: result.message });
+            }
+            return res.status(200).json({
+                message: result.message,
+                user: result.data
+              });
+        } catch (error) {
+            console.error("Error in blockUser controller:", error);
+      return res.status(500).json({ message: "Internal server error" });
+        }
+    }
+
+    async unblockUser(req: Request, res: Response) {
+        try {
+            const { userId } = req.body;
+
+            if(!userId) {
+                return res.status(400).json({message:"User ID is required" });
+            }
+
+            const result = await this._adminService.unblockUser(userId);
+            if(!result.success) {
+                return res.status(400).json({message: result.message});
+            }
+
+            return res.status(200).json({
+                message: result.message,
+                user: result.data
+              });
+        } catch (error) {
+            console.error("Error in unblockUser controller:", error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    }
+
+    
+    async getAllInstructors(re: Request, res: Response) {
+        try {
+            const result = await this._adminService.getAllInstructors();
+
+            if (!result.success) {
+                return res.status(404).json({ message: result.message });
+            }
+           return res.status(200).json({ message: result.message, instructors: result.data });
 
 
+        } catch (error) {
+            console.error("Error in getAllInstructors controller:", error);
+            return res.status(500).json({ message: "Internal server error" });
+            
+        }
+    }
 
+    async approveInstructor (req: Request, res: Response) {
+        try {
+            const { instructorId } = req.body;
+            const result = await this._adminService.approveInstructor(instructorId);
+            if (!result.success) {
+                return res.status(400).json({ message: result.message });
+              }
+             return res.status(200).json(result.data); 
+        } catch (error) {
+            console.error("Error approving instructor:", error);
+            return res.status(500).json({ message: "Internal server error" });
+            
+        }
+    }
+
+    async rejectInstructor(req: Request, res: Response) {
+        try {
+          const { instructorId } = req.body;
+          const result = await this._adminService.rejectInstructor(instructorId);
+          if (!result.success) {
+            return res.status(400).json({ message: result.message });
+          }
+          return res.status(200).json(result.data);
+        } catch (error) {
+          console.error("Error rejecting instructor:", error);
+          return res.status(500).json({ message: "Internal server error" });
+        }
+      }
 
 }
 

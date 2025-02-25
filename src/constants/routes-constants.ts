@@ -8,10 +8,18 @@ export const USER_ROUTES = {
     FORGOT_PASSWORD: "/forgotpassword",
     FORGOTOTP_VERIFIED:"/forgototpverify",
     RESET_PASSWORD: "/resetpassword",
+    UPDATE_PROFILE: "/updateprofile",
+    ISEXIST: "/isexist",
+    REGISTER_INSTRUCTOR: "/registerinstructor",
 }
 
 export const Admin_Routes = {
   
     ADMIN_LOGIN: "/login",
-    GETALL_STUDENTS:"/getallstudents"
+    GETALL_STUDENTS:"/getallstudents",
+    BLOCK_STUDENT: "/blockstudent",
+    UNBLOCK_STUDENT: "/unblockstudent",
+    GETALL_INSTRUCTORS:"/getallinstructors",
+    APPROVE_INSTRUCTOR: "/approveinstructor",
+    REJECT_INSTRUCTOR: "/rejectinstructor"
 }

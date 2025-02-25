@@ -12,9 +12,29 @@ export interface IUserService {
         email: string,
         password: { newPassword: string; confirmPassword: string }
       ): Promise<IResponse>;
+      updateProfile(email: string, userData: UserDoc): Promise<IResponse>;
+      isExist(id: string):Promise<IResponse>;
+      registerInstructor(
+        email: string,
+        profileData: {
+          dob: string;
+          gender: string;
+          phone: string;
+          address: string;
+        },
+        instructorData: {
+          qualification: string;
+        }
+      ): Promise<IResponse>;
+      
 }
 
 export interface IAdminService {
     adminLogin(email: string, password: string): Promise<IResponse>;
     getAllStudents(): Promise<IResponse>;
+    blockUser(userId: string): Promise<IResponse>;      // New method
+    unblockUser(userId: string): Promise<IResponse>;
+    getAllInstructors(): Promise<IResponse>;
+    approveInstructor(instructorId: string): Promise<IResponse>;
+    rejectInstructor(instructorId: string): Promise<IResponse>;
 }

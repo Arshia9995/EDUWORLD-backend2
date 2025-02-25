@@ -17,5 +17,10 @@ const adminRouter = Router();
 
 adminRouter.post(Admin_Routes.ADMIN_LOGIN, adminController.adminLogin.bind(adminController) as any);
 adminRouter.get(Admin_Routes.GETALL_STUDENTS, adminController.getAllStudents.bind(adminController) as any);
+adminRouter.post(Admin_Routes.BLOCK_STUDENT,adminController.blockUser.bind(adminController) as any);
+adminRouter.post(Admin_Routes.UNBLOCK_STUDENT,adminController.unblockUser.bind(adminController) as any);
+adminRouter.get(Admin_Routes.GETALL_INSTRUCTORS, adminController.getAllInstructors.bind(adminController) as any);
+adminRouter.post(Admin_Routes.APPROVE_INSTRUCTOR,adminController.approveInstructor.bind(adminController) as any);
+adminRouter.post(Admin_Routes.REJECT_INSTRUCTOR,adminController.rejectInstructor.bind(adminController) as any);
 
 export default adminRouter;

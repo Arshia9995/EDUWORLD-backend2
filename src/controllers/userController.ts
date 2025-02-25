@@ -6,6 +6,11 @@ import { UserDoc } from "../interfaces/IUser";
 import { generateRefreshToken, generateToken, verifyToken } from "../utils/jwt";
 
 
+interface UserData {
+    _id: string;
+    isBlocked: boolean;
+}
+
 const userRepository = new UserRepository();
 
 class UserController {
@@ -148,6 +153,7 @@ class UserController {
     }
     
     
+    
 
 
     async logoutUser(req: Request, res: Response) {
@@ -213,6 +219,10 @@ class UserController {
             })
         } catch (error) {
             console.log("Error in getUserDataFirst Controller",error)
+            return res.status(500).json({ 
+                success: false, 
+                message: "Internal server error" 
+            });
         }
     }
 
@@ -326,7 +336,144 @@ class UserController {
         }
     }
 
+    async updateProfile(req: Request, res: Response) {
+        try {
+            // const userEmail = req.body.email;
+           const { name, email, phone, dob, address, gender } = req.body;
 
+
+           if (!email) {
+            return res.status(Status.UN_AUTHORISED).json({
+                success: false,
+                message: "Unauthorized. Please login again."
+            });
+        }
+        
+        // const use
+        // const userId: string = userEmail?._id.toString();
+
+        const result = await this._userService.updateProfile(email, {
+            name,
+            profile: {
+                phone,
+                dob,
+                address,
+                gender
+            } 
+        } as UserDoc);
+        if(result.success){
+            return res.status(Status.OK).json(result);
+        } else {
+            return res.status(Status.INTERNAL_SERVER_ERROR).json(result);
+        }
+
+        } catch (error) {
+            console.log(error);
+            return res
+                .status(Status.INTERNAL_SERVER_ERROR)
+                .json({ success: false, message: "Internal server error" });
+            
+        }
+    }
+
+    async isExist(req: Request, res: Response) {
+        try {
+            const token = req.cookies.token;
+            console.log("isExist in the backend", token);
+    
+            if (!token) {
+                return res.status(401).json({ 
+                    success: false, 
+                    message: "No token provided" 
+                });
+            }
+    
+            const decoded: any = await verifyToken(token);
+    
+            if (!decoded || !decoded.payload?.id) {  
+                return res.status(401).json({ 
+                    success: false, 
+                    message: "Invalid token" 
+                });
+            }
+    
+            const userDetails = await this._userService.isExist(decoded.payload.id);
+    
+            // Check if the response is successful and data exists
+            if (!userDetails.success || !userDetails.data) {
+                return res.status(404).json({ 
+                    success: false, 
+                    message: userDetails.message || "User not found" 
+                });
+            }
+    
+            // Safely access data properties since we’ve confirmed it exists
+            const userData = userDetails.data;
+    
+            if (userData.isBlocked) {
+                return res.status(200).json({
+                    success: false,
+                    message: "User account is blocked",
+                    data: {
+                        _id: userData._id,
+                        isBlocked: true
+                    }
+                });
+            }
+    
+            // Return the user data
+            return res.status(Status.OK).json({
+                success: true,
+                data: {
+                    _id: userData._id,
+                    isBlocked: userData.isBlocked
+                },
+                message: "Data successfully fetched"
+            });
+    
+        } catch (error) {
+            console.log("Error in isExist Controller", error);
+            return res.status(500).json({ 
+                success: false, 
+                message: "Internal server error" 
+            });
+        }
+    }
+
+    async registerInstructor(req : Request, res: Response) {
+        try {
+            const { name, email, dob, gender, phone, address, qualification } = req.body;
+            const profileData = {
+                dob,
+                gender,
+                phone,
+                address, 
+            }
+            const instructorData = {
+                qualification,
+              };
+
+            const result = await this._userService.registerInstructor( email, profileData, instructorData);
+
+            if (!result.success) {
+                return res.status(Status.BAD_REQUEST).json(result);
+              }
+
+              return res.status(Status.OK).json({
+                success: true,
+                message: "Instructor registration submitted successfully",
+                data: result.data,
+              });
+
+        } catch (error) {
+            console.error("Error registering instructor:", error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+            
+        }
+    }
 
 }
 

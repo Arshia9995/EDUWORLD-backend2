@@ -26,6 +26,10 @@ userRouter.post(USER_ROUTES.RESEND_OTP, userController.resendOtp.bind(userContro
 userRouter.post(USER_ROUTES.FORGOT_PASSWORD, userController.forgotPassword.bind(userController) as any);
 userRouter.post(USER_ROUTES.FORGOTOTP_VERIFIED,userController.forgotOtpVerify.bind(userController) as any);
 userRouter.post(USER_ROUTES.RESET_PASSWORD,userController.resetPassword.bind(userController) as any);
+userRouter.put(USER_ROUTES.UPDATE_PROFILE, userController.updateProfile.bind(userController) as any);
+userRouter.get(USER_ROUTES.ISEXIST, userController.isExist.bind(userController) as any);
+userRouter.put(USER_ROUTES.REGISTER_INSTRUCTOR, userController.registerInstructor.bind(userController) as any);
+
 
 
 

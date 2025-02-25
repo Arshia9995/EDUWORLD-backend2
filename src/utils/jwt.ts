@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv"
 dotenv.config();
 
@@ -17,7 +17,14 @@ export const generateRefreshToken = (payload: unknown) => {
 };
 
 
-export const verifyToken = (token: string) => {
+export const verifyToken = (token: string): Promise<JwtPayload> => {
     console.log("Reached verify token")
-    return  jwt.verify(token, secret);
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) reject(err);
+            resolve(decoded as JwtPayload);
+        });
+    });
 }
+
+

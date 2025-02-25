@@ -8,11 +8,18 @@ export interface UserDoc extends Document  {
     email: string;
     profile?: {
         dob?: string;
-        first_name?: string;
+    
         gender?: 'male' | 'female' | 'other';
-        last_name?: string;
+        phone?: string,
+        address?: string,
         profile_picture?: string;
     };
+    qualification?: string;
+    cv?: string;
+    isApproved?: boolean;
+    isRequested?: boolean;
+    isRejected?: boolean;
+
     created_at?: Date;
     updated_at?: Date;
     student_details?: {
@@ -21,7 +28,7 @@ export interface UserDoc extends Document  {
             courseid?: string;
             progress?: number;
         }>;
-        phone?: number;
+       
     };
     instructor_details?: {
         createdCourses?: string[];

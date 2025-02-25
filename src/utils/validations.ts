@@ -81,10 +81,65 @@ const validateName = (name: string): void => {
         }
       };
 
+  
+const validatePhone = (phone: string): void => {
+  isEmpty(phone, "phone");
+  phone = phone.trim();
+
+  if (!mobileNumberRegex.test(phone)) {
+    throw new CustomError(
+      "Phone number must be 10 digits.",
+      Status.BAD_REQUEST,
+      "phone"
+    );
+  }
+};
+
+const validateDOB = (dob: string): void => {
+  isEmpty(dob, "dob");
+  dob = dob.trim();
+
+  const dobRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
+  
+  if (!dobRegex.test(dob)) {
+    throw new CustomError(
+      "Invalid DOB format. Use YYYY-MM-DD.",
+      Status.BAD_REQUEST,
+      "dob"
+    );
+  }
+};
+
+const validateAddress = (address: string): void => {
+  if (!address || address.trim() === "") return; // Address is optional
+
+  if (address.length < 5) {
+    throw new CustomError(
+      "Address must be at least 5 characters long.",
+      Status.BAD_REQUEST,
+      "address"
+    );
+  }
+};
+
+const validateGender = (gender: string): void => {
+  if (!["male", "female", "other", ""].includes(gender.toLowerCase())) {
+    throw new CustomError(
+      "Invalid gender. Must be 'male', 'female', or 'other'.",
+      Status.BAD_REQUEST,
+      "gender"
+    );
+  }
+};
+
       export {
         validateName,
         validateEmail,
-        validatePassword
+        validatePassword,
+        validatePhone,
+        validateDOB,
+        validateAddress,
+        validateGender
       }
 
 

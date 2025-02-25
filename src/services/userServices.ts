@@ -6,9 +6,10 @@ import bcrypt from "bcryptjs";
 import sendMail from "../utils/mailer";
 import { generateRefreshToken, generateToken, verifyToken } from "../utils/jwt";
 import User from "../models/userModel";
-import { validateName, validateEmail, validatePassword } from "../utils/validations";
+import { validateName, validateEmail, validatePassword, validatePhone, validateDOB, validateAddress, validateGender } from "../utils/validations";
 import { Role } from "../utils/enums";
 import { IUserService } from "../interfaces/IServices";
+import { profile } from "console";
 
 
 
@@ -24,6 +25,7 @@ export class UserService implements IUserService {
     async signUp(user: UserDoc) {
         const email = user.email;
         const name = user.name;
+        const role = user.role;
 
         const existingEmail = await this._userRepository.findByQuery({ email : email});
         if (existingEmail) {
@@ -42,7 +44,7 @@ export class UserService implements IUserService {
         validatePassword(password);
 
         user.password = bcrypt.hashSync(password, salt);
-        user.role = Role.student
+        // user.role = Role.student
       
         const newUser = await this._userRepository.create(user)
         
@@ -77,7 +79,7 @@ export class UserService implements IUserService {
             message: "User created successfully",
             data: { name: newUser.name, 
                 email: newUser.email,
-                role: user.role,
+                role: newUser.role,
                 isBlocked : newUser.isBlocked,
                 verified: newUser.verified,
                 _id: newUser._id
@@ -193,7 +195,14 @@ export class UserService implements IUserService {
                     role: user.role,
                     isBlocked : user.isBlocked,
                     verified: user.verified,
-                    _id: user._id
+                    _id: user._id,
+                    profile: {
+                    phone: user.profile?.phone,
+                    dob: user.profile?.dob,
+                    address: user.profile?.address,
+                    gender: user.profile?.gender
+                    }
+                
                     } 
             };
 
@@ -211,9 +220,13 @@ export class UserService implements IUserService {
     async getUserDataFirst(id: string) {
         try {
             const userDetails = await this._userRepository.findById(id);
+            if (!userDetails) {
+                return null;
+            }
             return userDetails;
         } catch (error) {
             console.error("Error fetching user data:", error);
+            throw error;
         }
     }
 
@@ -396,6 +409,162 @@ async resetPassword(email: string,password:{newPassword: string, confirmPassword
         message:'Failed to change password'
       }
         
+    }
+}
+
+async updateProfile(email: string, userData :UserDoc) {
+    try {
+        const userExists = await this._userRepository.findByQuery({email: email});
+        if (!userExists) {
+            return {
+                success: false,
+                message: "User not found",
+                data: null
+            };
+        }
+
+        if (userData.email && userData.email !== userExists.email) {
+            return {
+                success: false,
+                message: "Email cannot be updated",
+                data: null
+            };
+        }
+
+        const { name, profile } = userData;
+        const { phone, dob, address, gender } = profile || {};
+
+
+        if (name) validateName(name);
+        if (phone) validatePhone(phone);
+        if (dob) validateDOB(dob);
+        if (address) validateAddress(address);
+        if (gender) validateGender(gender);
+
+        const updatedUser = await this._userRepository.update(userExists._id, {
+            name: name,
+            profile: {
+                phone,
+                dob,
+                address,
+                gender
+            }
+        });
+
+        if (!updatedUser) {
+            return {
+                success: false,
+                message: "Failed to update profile",
+                data: null
+            };
+        }
+
+        return {
+            success: true,
+            message: "Profile updated successfully",
+            data: {
+                name: updatedUser.name,
+                email: updatedUser.email,
+                profile : {
+                    phone: updatedUser.profile?.phone,
+                    dob: updatedUser.profile?.dob,
+                    address: updatedUser.profile?.address,
+                    gender: updatedUser.profile?.gender
+                }
+            }
+        };
+
+    } catch (error) {
+        console.log(error);
+        return {
+            success: false,
+            message: 'Failed to update profile',
+            data: null
+        };
+        
+    }
+}
+
+async isExist(id: string) {
+    try {
+        const userDetails = await this._userRepository.findById(id);
+
+        if (!userDetails) {
+            return {
+                success: false,
+                data: null,
+                message: "User not found"
+            };
+        }
+
+        return {
+            success: true,
+            data: {
+                _id: userDetails._id,
+                isBlocked: userDetails.isBlocked
+            },
+            message: "User found"   
+        };
+
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        return {
+            success: false,
+            data: null,
+            message: "Error checking user existence"
+        };
+    }
+}
+
+async registerInstructor( email: string,
+    profileData: {
+        dob: string;
+        gender: string;
+        phone: string;
+        address: string; 
+    },
+    instructorData: {
+        qualification: string;
+      }
+) {
+    try {
+      const user = await this._userRepository.findByQuery({ email : email});
+      if (!user) {
+        return { success: false, message: "User not found", data: null };
+      }
+      if (user.role !== "instructor") {
+        return { success: false, message: "User is not an instructor", data: null };
+      }
+
+      user.profile = {
+        ...user.profile,
+        dob: profileData.dob,
+        gender: profileData.gender as "male" | "female" | "other",
+        phone: profileData.phone,
+        address: profileData.address,
+      };
+
+      user.qualification = instructorData.qualification;
+      user.isRequested = true;
+
+      const updatedUser = await user.save();
+      return {
+        success: true,
+        message: "Instructor data updated successfully",
+        data: {
+          name: updatedUser.name,
+          email: updatedUser.email,
+          profile: updatedUser.profile,
+          qualification: updatedUser.qualification,
+          isRequested: updatedUser.isRequested,
+          role: updatedUser.role,
+          isApproved: updatedUser.isApproved,
+          isRejected: updatedUser.isRejected
+        },
+      };
+    } catch (error) {
+        console.error("Error in registerInstructor service:", error);
+      return { success: false, message: "Failed to register instructor", data: null };
     }
 }
 

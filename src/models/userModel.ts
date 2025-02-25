@@ -8,20 +8,47 @@ const userSchema = new Schema<UserDoc>({
     name: { type: String, required: true },
     role: { 
         type: String, 
-        required: true,
+        // required: true,
         enum: ['student', 'instructor', 'admin'] 
     },
-    email: { type: String, required: true, unique: true },
+    email: { type: String,
+        //  required: true,
+          unique: true },
     profile: {
         dob: { type: String },
-        first_name: { type: String},
         gender: { 
             type: String,
             enum: ['male', 'female', 'other'],
             // required: true 
         },
-        last_name: { type: String },
-        profile_picture: { type: String }
+        profile_picture: { type: String },
+        phone: { 
+            type: String, 
+            // required: false 
+        },
+        address: { 
+            type: String, 
+            // required: false 
+        }
+    },
+    qualification: {
+        type: String,
+    },
+    cv: {
+        type: String,
+        
+    },
+    isApproved: {
+        type: Boolean,
+        default: false,
+    },
+    isRequested: {
+        type: Boolean,
+        default: false,
+    },
+    isRejected: {
+        type: Boolean,
+        default: false,
     },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
@@ -31,7 +58,7 @@ const userSchema = new Schema<UserDoc>({
             courseid: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
             progress: { type: Number, default: 0 }
         }],
-        phone: { type: Number }
+     
     },
     instructor_details: {
         createdCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],

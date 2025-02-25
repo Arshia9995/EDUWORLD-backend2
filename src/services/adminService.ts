@@ -28,18 +28,31 @@ export class AdminServices implements IAdminService {
                     email,
                     password: await bcrypt.hash(password, 10),
                 } as AdminDoc);
-                return { success: true, message: "Admin account created and logged in successfully" };
+                return { success: true, message: "Admin account created and logged in successfully",
+                    data: {
+                        _id: admin._id,
+                        email: admin.email,
+                        role: 'admin'
+                    
+                    }
+                };
             } else {
-                return { success: false, message: "Invalid credentials" };
+                return { success: false, message: "Invalid credentials", data: null };
             }
         }
 
         const isPasswordValid = await bcrypt.compare(password, admin.password);
         if (!isPasswordValid) {
-            return { success: false, message: "Invalid credentials" };
+            return { success: false, message: "Invalid credentials", data: null };
           }
 
-          return { success: true, message: "Login successful" };
+          return { success: true, message: "Login successful",
+            data: {
+                _id: admin._id,
+                email: admin.email,
+                role: 'admin'
+            }
+           };
 
     }
 
@@ -57,8 +70,113 @@ export class AdminServices implements IAdminService {
         }
     }
 
+    async blockUser(userId: string) {
+        try {
+            const user = await this._userRepository.findById(userId);
+            if(!user) {
+                return { success: false, message: "User not found" };
+            }
 
+            if(user.isBlocked) {
+                return { success: false, message: "User is already blocked" }; 
+            }
 
+            const updatedUser = await this._userRepository.update(userId, {isBlocked: true});
+            if(!updatedUser) {
+                return { success: false, message: "Failed to block user" };
+            }
+
+            return { 
+                success: true, 
+                message: "User blocked successfully", 
+                data: updatedUser 
+              };
+        } catch (error) {
+            console.error("Error blocking user:", error);
+      return { success: false, message: "Internal server error" };
+            
+        }
+    }
+
+    async unblockUser(userId: string) {
+        try {
+            const user = await this._userRepository.findById(userId);
+            if (!user) {
+                return { success: false, message: "User not found" };
+              }
+
+              if (!user.isBlocked) {
+                return { success: false, message: "User is not blocked" };
+              }
+
+            const updatedUser = await this._userRepository.update(userId, {isBlocked: false});
+            if (!updatedUser) {
+                return { success: false, message: "Failed to unblock user" };
+              }
+
+              return { 
+                success: true, 
+                message: "User unblocked successfully", 
+                data: updatedUser 
+              }; 
+        } catch (error) {
+            console.error("Error unblocking user:", error);
+      return { success: false, message: "Internal server error" };
+        }
+    }
+
+    async getAllInstructors() {
+        try {
+            const instructors = await this._userRepository.findAll({ role: "instructor"});
+            if (instructors.length === 0) {
+                return { success: false, message: "No instructors found" };
+            }
+            return { success: true, message: "Instructors retrieved successfully", data: instructors };
+        } catch (error) {
+            console.error("Error fetching instructors:", error);
+            return { success: false, message: "Internal server error" };
+            
+        }
+    }
+
+    async approveInstructor(instructorId: string) {
+        try {
+          const instructor = await this._userRepository.findById(instructorId);
+          if (!instructor || instructor.role !== "instructor") {
+            return { success: false, message: "Instructor not found" };
+          }
+          instructor.isApproved = true;
+          instructor.isRequested = false;
+          instructor.isRejected = false;
+          const updatedInstructor = await instructor.save();
+          const instructors = await this._userRepository.findAll({ role: "instructor"});
+
+          return { success: true, message: "Instructor approved", data: instructors };
+        } catch (error) {
+          console.error("Error approving instructor:", error);
+          return { success: false, message: "Internal server error" };
+        }
+      }
+
+      async rejectInstructor(instructorId: string) {
+        try {
+          const instructor = await this._userRepository.findById(instructorId);
+          if (!instructor || instructor.role !== "instructor") {
+            return { success: false, message: "Instructor not found" };
+          }
+          instructor.isApproved = false;
+          instructor.isRequested = false;
+          instructor.isRejected = true;
+          const updatedInstructor = await instructor.save();
+
+          const instructors = await this._userRepository.findAll({ role: "instructor"});
+
+          return { success: true, message: "Instructor rejected", data: instructors };
+        } catch (error) {
+          console.error("Error rejecting instructor:", error);
+          return { success: false, message: "Internal server error" };
+        }
+      }
 
 
 }
