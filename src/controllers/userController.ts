@@ -6,6 +6,7 @@ import { UserDoc } from "../interfaces/IUser";
 import { generateRefreshToken, generateToken, verifyToken } from "../utils/jwt";
 
 
+
 interface UserData {
     _id: string;
     isBlocked: boolean;
@@ -336,10 +337,30 @@ class UserController {
         }
     }
 
+    async getS3Url(req: Request, res: Response) {
+        try {
+          const { fileName, fileType } = req.body;
+          console.log("Received request for S3 URL:", fileName, fileType);
+          
+          
+          const result = await this._userService.getS3Url(fileName, fileType);
+
+          console.log("Generated S3 URL response:", result);
+
+          return res.status(Status.OK).json(result);
+        } catch (error) {
+          console.log(error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: 'Failed to generate S3 URL',
+          });
+        }
+      }
+
     async updateProfile(req: Request, res: Response) {
         try {
             // const userEmail = req.body.email;
-           const { name, email, phone, dob, address, gender } = req.body;
+           const { name, email, phone, dob, address, gender, profileImage } = req.body;
 
 
            if (!email) {
@@ -358,7 +379,8 @@ class UserController {
                 phone,
                 dob,
                 address,
-                gender
+                gender,
+                profileImage
             } 
         } as UserDoc);
         if(result.success){
@@ -426,7 +448,8 @@ class UserController {
                 success: true,
                 data: {
                     _id: userData._id,
-                    isBlocked: userData.isBlocked
+                    isBlocked: userData.isBlocked,
+                    role: userData.role
                 },
                 message: "Data successfully fetched"
             });
@@ -442,12 +465,13 @@ class UserController {
 
     async registerInstructor(req : Request, res: Response) {
         try {
-            const { name, email, dob, gender, phone, address, qualification } = req.body;
+            const { name, email, dob, gender, phone, address, qualification, profileImage } = req.body;
             const profileData = {
                 dob,
                 gender,
                 phone,
                 address, 
+                profileImage
             }
             const instructorData = {
                 qualification,

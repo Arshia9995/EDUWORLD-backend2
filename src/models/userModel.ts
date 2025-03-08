@@ -21,7 +21,7 @@ const userSchema = new Schema<UserDoc>({
             enum: ['male', 'female', 'other'],
             // required: true 
         },
-        profile_picture: { type: String },
+        profileImage: { type: String },
         phone: { 
             type: String, 
             // required: false 

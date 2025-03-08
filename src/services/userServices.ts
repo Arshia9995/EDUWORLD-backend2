@@ -10,16 +10,34 @@ import { validateName, validateEmail, validatePassword, validatePhone, validateD
 import { Role } from "../utils/enums";
 import { IUserService } from "../interfaces/IServices";
 import { profile } from "console";
+import AWS from 'aws-sdk';
+import dotenv from "dotenv";
+
+dotenv.config();
+
+
 
 
 
 export class UserService implements IUserService {
+    private s3: AWS.S3; 
+
     constructor(
         private _userRepository: UserRepository,
-        private _otpRepository: OtpRepository
+        private _otpRepository: OtpRepository,
+      
+        
     ){
         this._userRepository = _userRepository;
         this._otpRepository = _otpRepository;
+        this.s3 = new AWS.S3({
+            accessKeyId: process.env.ACCESS_KEY,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY,
+            region: process.env.AWS_REGION,
+            signatureVersion: 'v4' // Add this for newer AWS SDK versions
+        });
+
+          console.log("S3 Initialized:", this.s3);
     }
 
     async signUp(user: UserDoc) {
@@ -200,7 +218,8 @@ export class UserService implements IUserService {
                     phone: user.profile?.phone,
                     dob: user.profile?.dob,
                     address: user.profile?.address,
-                    gender: user.profile?.gender
+                    gender: user.profile?.gender,
+                    profileImage: user.profile?.profileImage
                     }
                 
                     } 
@@ -412,6 +431,59 @@ async resetPassword(email: string,password:{newPassword: string, confirmPassword
     }
 }
 
+async getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string }> {
+    try {
+        this.s3 = new AWS.S3({
+            accessKeyId: process.env.ACCESS_KEY,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY,
+            region: process.env.AWS_REGION,
+            signatureVersion: 'v4'
+        });
+        // Validate required environment variables
+        if (!process.env.BUCKET_NAME) {
+            throw new Error('BUCKET_NAME is not defined in environment');
+        }
+
+        let folder = 'uploads';
+        if (fileType.startsWith('image/')) {
+            folder = 'profiles';
+        } else if (fileType === 'application/pdf') {
+            folder = 'resumes';
+        }
+
+        const params = {
+            Bucket: process.env.BUCKET_NAME,
+            Key: `${folder}/${Date.now()}-${fileName}`,
+            Expires: 60,
+            ContentType: fileType,
+        };
+
+        console.log("Generating S3 URL with params:", params);
+
+        // Use callback-based method for better compatibility
+        const url = await new Promise<string>((resolve, reject) => {
+            this.s3.getSignedUrl('putObject', params, (err:any, url:any) => {
+                if (err) {
+                    console.error('S3 Signed URL Error:', err);
+                    reject(err);
+                } else {
+                    resolve(url);
+                }
+            });
+        });
+
+        const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
+
+        console.log("Generated Signed URL:", url);
+        console.log("Generated Image URL:", fileUrl);
+        
+        return { url, imageUrl: fileUrl };
+    } catch (error) {
+        console.error("Comprehensive S3 URL Generation Error:", error);
+        throw error; // Rethrow to allow proper error handling
+    }
+}
+
 async updateProfile(email: string, userData :UserDoc) {
     try {
         const userExists = await this._userRepository.findByQuery({email: email});
@@ -432,7 +504,7 @@ async updateProfile(email: string, userData :UserDoc) {
         }
 
         const { name, profile } = userData;
-        const { phone, dob, address, gender } = profile || {};
+        const { phone, dob, address, gender, profileImage } = profile || {};
 
 
         if (name) validateName(name);
@@ -447,7 +519,8 @@ async updateProfile(email: string, userData :UserDoc) {
                 phone,
                 dob,
                 address,
-                gender
+                gender,
+                profileImage
             }
         });
 
@@ -465,11 +538,14 @@ async updateProfile(email: string, userData :UserDoc) {
             data: {
                 name: updatedUser.name,
                 email: updatedUser.email,
+                role: updatedUser.role,
                 profile : {
                     phone: updatedUser.profile?.phone,
                     dob: updatedUser.profile?.dob,
                     address: updatedUser.profile?.address,
-                    gender: updatedUser.profile?.gender
+                    gender: updatedUser.profile?.gender,
+                    profileImage: updatedUser.profile?.profileImage,
+                    
                 }
             }
         };
@@ -501,7 +577,8 @@ async isExist(id: string) {
             success: true,
             data: {
                 _id: userDetails._id,
-                isBlocked: userDetails.isBlocked
+                isBlocked: userDetails.isBlocked,
+                role: userDetails.role
             },
             message: "User found"   
         };
@@ -522,9 +599,11 @@ async registerInstructor( email: string,
         gender: string;
         phone: string;
         address: string; 
+        profileImage: string;
     },
     instructorData: {
         qualification: string;
+        
       }
 ) {
     try {
@@ -542,6 +621,7 @@ async registerInstructor( email: string,
         gender: profileData.gender as "male" | "female" | "other",
         phone: profileData.phone,
         address: profileData.address,
+        profileImage: profileData.profileImage
       };
 
       user.qualification = instructorData.qualification;

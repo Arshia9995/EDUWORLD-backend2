@@ -11,6 +11,7 @@ export const USER_ROUTES = {
     UPDATE_PROFILE: "/updateprofile",
     ISEXIST: "/isexist",
     REGISTER_INSTRUCTOR: "/registerinstructor",
+    GETS3URL:"/get-s3-url"
 }
 
 export const Admin_Routes = {

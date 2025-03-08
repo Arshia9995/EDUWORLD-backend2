@@ -12,7 +12,7 @@ export interface UserDoc extends Document  {
         gender?: 'male' | 'female' | 'other';
         phone?: string,
         address?: string,
-        profile_picture?: string;
+        profileImage?: string;
     };
     qualification?: string;
     cv?: string;
