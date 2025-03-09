@@ -26,7 +26,7 @@ export interface IUserService {
           qualification: string;
         }
       ): Promise<IResponse>;
-     getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string }>;
+     getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string; downloadUrl: string }>;
       
 }
 
@@ -35,6 +35,8 @@ export interface IAdminService {
     getAllStudents(): Promise<IResponse>;
     blockUser(userId: string): Promise<IResponse>;      // New method
     unblockUser(userId: string): Promise<IResponse>;
+    blockInstructor(instructorId: string): Promise<IResponse>;      // New method
+    unblockInstructor(instructorId: string): Promise<IResponse>;
     getAllInstructors(): Promise<IResponse>;
     approveInstructor(instructorId: string): Promise<IResponse>;
     rejectInstructor(instructorId: string): Promise<IResponse>;

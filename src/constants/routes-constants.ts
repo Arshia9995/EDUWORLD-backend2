@@ -22,5 +22,7 @@ export const Admin_Routes = {
     UNBLOCK_STUDENT: "/unblockstudent",
     GETALL_INSTRUCTORS:"/getallinstructors",
     APPROVE_INSTRUCTOR: "/approveinstructor",
-    REJECT_INSTRUCTOR: "/rejectinstructor"
+    REJECT_INSTRUCTOR: "/rejectinstructor",
+    BLOCK_INSTRUCTOR: "/blockinstructor",
+    UNBLOCK_INSTRUCTOR: "/unblockinstructor",
 }

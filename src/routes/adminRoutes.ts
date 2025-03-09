@@ -22,5 +22,7 @@ adminRouter.post(Admin_Routes.UNBLOCK_STUDENT,adminController.unblockUser.bind(a
 adminRouter.get(Admin_Routes.GETALL_INSTRUCTORS, adminController.getAllInstructors.bind(adminController) as any);
 adminRouter.post(Admin_Routes.APPROVE_INSTRUCTOR,adminController.approveInstructor.bind(adminController) as any);
 adminRouter.post(Admin_Routes.REJECT_INSTRUCTOR,adminController.rejectInstructor.bind(adminController) as any);
+adminRouter.put(Admin_Routes.BLOCK_INSTRUCTOR,adminController.blockInstructor.bind(adminController) as any);
+adminRouter.put(Admin_Routes.UNBLOCK_INSTRUCTOR,adminController.unblockInstructor.bind(adminController) as any);
 
 export default adminRouter;

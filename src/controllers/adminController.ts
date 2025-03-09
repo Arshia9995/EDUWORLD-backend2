@@ -168,6 +168,54 @@ class AdminController {
         }
       }
 
+      async blockInstructor(req: Request, res: Response) {
+        try {
+          const { instructorId } = req.body;
+    
+          if (!instructorId) {
+            return res.status(400).json({ message: "Instructor ID is required" });
+          }
+    
+          const result = await this._adminService.blockInstructor(instructorId);
+    
+          if (!result.success) {
+            return res.status(400).json({ message: result.message });
+          }
+    
+          return res.status(200).json({
+            message: result.message,
+            instructor: result.data,
+          });
+        } catch (error) {
+          console.error("Error in blockInstructor controller:", error);
+          return res.status(500).json({ message: "Internal server error" });
+        }
+      }
+    
+      async unblockInstructor(req: Request, res: Response) {
+        try {
+          const { instructorId } = req.body;
+    
+          if (!instructorId) {
+            return res.status(400).json({ message: "Instructor ID is required" });
+          }
+    
+          const result = await this._adminService.unblockInstructor(instructorId);
+    
+          if (!result.success) {
+            return res.status(400).json({ message: result.message });
+          }
+    
+          return res.status(200).json({
+            message: result.message,
+            instructor: result.data,
+          });
+        } catch (error) {
+          console.error("Error in unblockInstructor controller:", error);
+          return res.status(500).json({ message: "Internal server error" });
+        }
+      }
+
 }
 
 

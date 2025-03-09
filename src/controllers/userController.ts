@@ -339,24 +339,22 @@ class UserController {
 
     async getS3Url(req: Request, res: Response) {
         try {
-          const { fileName, fileType } = req.body;
-          console.log("Received request for S3 URL:", fileName, fileType);
-          
-          
-          const result = await this._userService.getS3Url(fileName, fileType);
-
-          console.log("Generated S3 URL response:", result);
-
-          return res.status(Status.OK).json(result);
+            const { fileName, fileType, getUrl } = req.body;
+            console.log("Received request for S3 URL:", fileName, fileType, getUrl ? "(fetching existing)" : "(new upload)");
+            
+            const result = await this._userService.getS3Url(fileName, fileType, getUrl);
+    
+            console.log("Generated S3 URL response:", result);
+    
+            return res.status(Status.OK).json(result);
         } catch (error) {
-          console.log(error);
-          return res.status(Status.INTERNAL_SERVER_ERROR).json({
-            success: false,
-            message: 'Failed to generate S3 URL',
-          });
+            console.log(error);
+            return res.status(Status.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: 'Failed to generate S3 URL',
+            });
         }
-      }
-
+    }
     async updateProfile(req: Request, res: Response) {
         try {
             // const userEmail = req.body.email;

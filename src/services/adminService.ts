@@ -178,5 +178,59 @@ export class AdminServices implements IAdminService {
         }
       }
 
+      async blockInstructor(instructorId: string) {
+        try {
+          const instructor = await this._userRepository.findById(instructorId);
+          if (!instructor) {
+            return { success: false, message: "Instructor not found" };
+          }
+    
+          if (instructor.isBlocked) {
+            return { success: false, message: "Instructor is already blocked" };
+          }
+    
+          const updatedInstructor = await this._userRepository.update(instructorId, { isBlocked: true });
+          if (!updatedInstructor) {
+            return { success: false, message: "Failed to block instructor" };
+          }
+    
+          return {
+            success: true,
+            message: "Instructor blocked successfully",
+            data: updatedInstructor,
+          };
+        } catch (error) {
+          console.error("Error blocking instructor:", error);
+          return { success: false, message: "Internal server error" };
+        }
+      }
+    
+      async unblockInstructor(instructorId: string) {
+        try {
+          const instructor = await this._userRepository.findById(instructorId);
+          if (!instructor) {
+            return { success: false, message: "Instructor not found" };
+          }
+    
+          if (!instructor.isBlocked) {
+            return { success: false, message: "Instructor is not blocked" };
+          }
+    
+          const updatedInstructor = await this._userRepository.update(instructorId, { isBlocked: false });
+          if (!updatedInstructor) {
+            return { success: false, message: "Failed to unblock instructor" };
+          }
+    
+          return {
+            success: true,
+            message: "Instructor unblocked successfully",
+            data: updatedInstructor,
+          };
+        } catch (error) {
+          console.error("Error unblocking instructor:", error);
+          return { success: false, message: "Internal server error" };
+        }
+      }
+
 
 }

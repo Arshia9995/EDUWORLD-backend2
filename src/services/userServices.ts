@@ -431,7 +431,7 @@ async resetPassword(email: string,password:{newPassword: string, confirmPassword
     }
 }
 
-async getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string }> {
+async getS3Url(fileName: string, fileType: string, getUrl: boolean = false): Promise<{ url: string; imageUrl: string; downloadUrl: string }> {
     try {
         this.s3 = new AWS.S3({
             accessKeyId: process.env.ACCESS_KEY,
@@ -439,6 +439,7 @@ async getS3Url(fileName: string, fileType: string): Promise<{ url: string; image
             region: process.env.AWS_REGION,
             signatureVersion: 'v4'
         });
+        
         // Validate required environment variables
         if (!process.env.BUCKET_NAME) {
             throw new Error('BUCKET_NAME is not defined in environment');
@@ -450,37 +451,48 @@ async getS3Url(fileName: string, fileType: string): Promise<{ url: string; image
         } else if (fileType === 'application/pdf') {
             folder = 'resumes';
         }
-
-        const params = {
-            Bucket: process.env.BUCKET_NAME,
-            Key: `${folder}/${Date.now()}-${fileName}`,
-            Expires: 60,
-            ContentType: fileType,
-        };
-
-        console.log("Generating S3 URL with params:", params);
-
-        // Use callback-based method for better compatibility
-        const url = await new Promise<string>((resolve, reject) => {
-            this.s3.getSignedUrl('putObject', params, (err:any, url:any) => {
-                if (err) {
-                    console.error('S3 Signed URL Error:', err);
-                    reject(err);
-                } else {
-                    resolve(url);
-                }
-            });
-        });
-
-        const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
-
-        console.log("Generated Signed URL:", url);
-        console.log("Generated Image URL:", fileUrl);
         
-        return { url, imageUrl: fileUrl };
+        let key;
+        
+        // If this is a request for an existing file
+        if (getUrl && fileName.includes('/')) {
+            // The fileName is already the full key
+            key = fileName;
+        } else if (getUrl) {
+            // Extract just the filename without path for existing files
+            key = `${folder}/${fileName}`;
+        } else {
+            // This is a new upload, generate a new key
+            key = `${folder}/${Date.now()}-${fileName}`;
+        }
+        
+        // Generate upload URL if needed (only for new files)
+        let uploadUrl = '';
+        if (!getUrl) {
+            const params = {
+                Bucket: process.env.BUCKET_NAME,
+                Key: key,
+                Expires: 60,
+                ContentType: fileType,
+            };
+            uploadUrl = await this.s3.getSignedUrlPromise("putObject", params);
+        }
+
+        // Generate download URL (always needed)
+        const downloadParams = {
+            Bucket: process.env.BUCKET_NAME,
+            Key: key,
+            Expires: 86400, // Extend to 24 hours
+        };
+        const downloadUrl = await this.s3.getSignedUrlPromise("getObject", downloadParams);
+
+        // Permanent URL (S3 object URL - will only work if bucket has public access)
+        const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+        
+        return { url: uploadUrl, imageUrl: fileUrl, downloadUrl };
     } catch (error) {
         console.error("Comprehensive S3 URL Generation Error:", error);
-        throw error; // Rethrow to allow proper error handling
+        throw error;
     }
 }
 
