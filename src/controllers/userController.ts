@@ -465,7 +465,7 @@ class UserController {
 
     async registerInstructor(req : Request, res: Response) {
         try {
-            const { name, email, dob, gender, phone, address, qualification, profileImage } = req.body;
+            const { name, email, dob, gender, phone, address, qualification, profileImage, cv } = req.body;
             const profileData = {
                 dob,
                 gender,
@@ -475,6 +475,7 @@ class UserController {
             }
             const instructorData = {
                 qualification,
+                cv
               };
 
             const result = await this._userService.registerInstructor( email, profileData, instructorData);

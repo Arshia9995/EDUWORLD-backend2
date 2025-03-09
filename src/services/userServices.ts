@@ -603,6 +603,7 @@ async registerInstructor( email: string,
     },
     instructorData: {
         qualification: string;
+        cv: string;
         
       }
 ) {
@@ -625,6 +626,7 @@ async registerInstructor( email: string,
       };
 
       user.qualification = instructorData.qualification;
+      user.cv = instructorData.cv;
       user.isRequested = true;
 
       const updatedUser = await user.save();
@@ -636,6 +638,7 @@ async registerInstructor( email: string,
           email: updatedUser.email,
           profile: updatedUser.profile,
           qualification: updatedUser.qualification,
+          cv: updatedUser.cv,
           isRequested: updatedUser.isRequested,
           role: updatedUser.role,
           isApproved: updatedUser.isApproved,
