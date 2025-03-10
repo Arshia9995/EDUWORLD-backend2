@@ -7,7 +7,7 @@ export class BaseRepository <T extends Document> implements IBaseRepository<T>{
    }
 
 
-async findAll(filter: Record<string, unknown>,  sort?: any): Promise<T[]> {
+   async findAll(filter: Record<string, unknown>,  sort?: any): Promise<T[]> {
     try {
         if (sort) {             
             return await this._model.find(filter).sort(sort );
@@ -18,6 +18,8 @@ async findAll(filter: Record<string, unknown>,  sort?: any): Promise<T[]> {
         throw new Error("Could not fetch records");
     }
 }
+
+
 
 async findById(id: string): Promise<T | null> {
     try {

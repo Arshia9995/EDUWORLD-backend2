@@ -122,8 +122,9 @@ class AdminController {
     }
 
     
-    async getAllInstructors(re: Request, res: Response) {
+    async getAllInstructors(req: Request, res: Response) {
         try {
+            
             const result = await this._adminService.getAllInstructors();
 
             if (!result.success) {
