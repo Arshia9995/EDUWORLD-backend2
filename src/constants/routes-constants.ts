@@ -25,4 +25,5 @@ export const Admin_Routes = {
     REJECT_INSTRUCTOR: "/rejectinstructor",
     BLOCK_INSTRUCTOR: "/blockinstructor",
     UNBLOCK_INSTRUCTOR: "/unblockinstructor",
+    ADMIN_LOGOUT: "/adminlogout"
 }

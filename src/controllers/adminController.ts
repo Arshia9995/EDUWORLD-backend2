@@ -7,6 +7,7 @@ import AdminRepository from "../repositories/adminRepository";
 import { AdminDoc } from "../interfaces/IAdmin";
 import { IAdminService } from "../interfaces/IServices";
 import { generateToken, generateRefreshToken } from "../utils/jwt";
+import { Status } from "../utils/enums";
 
 
 
@@ -216,6 +217,39 @@ class AdminController {
           return res.status(500).json({ message: "Internal server error" });
         }
       }
+ async logoutAdmin(req: Request, res: Response) {
+        try {
+          
+            res.clearCookie("token", {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            });
+    
+            res.clearCookie("refreshToken",{
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            });
+    
+            console.log("Admin logged out successfully");
+    
+            return res.status(Status.OK).json({
+                success: true,
+                message: "Admin Logout successful",
+            });
+        } catch (error) {
+            console.error("Logout error:", error);
+            return res.status(Status.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: "Internal Server Error",
+            });
+        }
+    }
+    
+    
+    
+
 
 }
 

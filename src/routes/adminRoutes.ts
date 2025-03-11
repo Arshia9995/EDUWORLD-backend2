@@ -24,5 +24,6 @@ adminRouter.post(Admin_Routes.APPROVE_INSTRUCTOR,adminController.approveInstruct
 adminRouter.post(Admin_Routes.REJECT_INSTRUCTOR,adminController.rejectInstructor.bind(adminController) as any);
 adminRouter.put(Admin_Routes.BLOCK_INSTRUCTOR,adminController.blockInstructor.bind(adminController) as any);
 adminRouter.put(Admin_Routes.UNBLOCK_INSTRUCTOR,adminController.unblockInstructor.bind(adminController) as any);
+adminRouter.post(Admin_Routes.ADMIN_LOGOUT,adminController.logoutAdmin.bind(adminController) as any);
 
 export default adminRouter;
