@@ -36,6 +36,7 @@ userRouter.put(USER_ROUTES.UPDATE_PROFILE, userController.updateProfile.bind(use
 userRouter.get(USER_ROUTES.ISEXIST, userController.isExist.bind(userController) as any);
 userRouter.put(USER_ROUTES.REGISTER_INSTRUCTOR, userController.registerInstructor.bind(userController) as any);
 userRouter.post(USER_ROUTES.GETS3URL, userController.getS3Url.bind(userController) as any);
+userRouter.get(USER_ROUTES.GETINSTRUCTORBYID, userController.getInstructorById.bind(userController) as any);
 
 
 

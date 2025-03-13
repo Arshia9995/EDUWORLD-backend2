@@ -498,6 +498,58 @@ class UserController {
         }
     }
 
+    async getInstructorById(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            // const token = req.cookies.token;
+
+            // if (!token) {
+            //     return res.status(Status.UN_AUTHORISED).json({
+            //         success: false,
+            //         message: "No token provided",
+            //     });
+            // }
+
+            // const decoded: any = await verifyToken(token);
+            // if (!decoded || !decoded.payload?.id) {
+            //     return res.status(Status.UN_AUTHORISED).json({
+            //         success: false,
+            //         message: "Invalid token",
+            //     });
+            // }
+
+            // Optional: Restrict access to the instructor themselves or admins
+            // if (decoded.payload.id !== id && decoded.payload.role !== "admin") {
+            //     return res.status(Status.FORBIDDEN).json({
+            //         success: false,
+            //         message: "Unauthorized access",
+            //     });
+            // }
+
+            console.log("getting the id : ", id)
+
+            const result = await this._userService.getInstructorById(id);
+
+            console.log("Taken data from db : ", result)
+
+            if (!result.success || !result.data) {
+                return res.status(Status.NOT_FOUND).json(result);
+            }
+
+            return res.status(Status.OK).json({
+                success: true,
+                data: result.data,
+                message: "Instructor data fetched successfully",
+            });
+        } catch (error) {
+            console.error("Error in getInstructorById Controller:", error);
+            return res.status(Status.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: "Internal server error",
+            });
+        }
+    }
+
 }
 
 export default UserController;

@@ -100,7 +100,10 @@ export class UserService implements IUserService {
                 role: newUser.role,
                 isBlocked : newUser.isBlocked,
                 verified: newUser.verified,
-                _id: newUser._id
+                _id: newUser._id,
+                isApproved: newUser.isApproved,
+                isRequested: newUser.isRequested,
+                isRejected: newUser.isRejected,
                 } 
           };
 
@@ -214,6 +217,10 @@ export class UserService implements IUserService {
                     isBlocked : user.isBlocked,
                     verified: user.verified,
                     _id: user._id,
+                    isApproved: user.isApproved,
+                    isRequested: user.isRequested,
+                    isRejected: user.isRejected,
+                    cv: user.cv,
                     profile: {
                     phone: user.profile?.phone,
                     dob: user.profile?.dob,
@@ -646,6 +653,7 @@ async registerInstructor( email: string,
         success: true,
         message: "Instructor data updated successfully",
         data: {
+          _id:updatedUser._id,  
           name: updatedUser.name,
           email: updatedUser.email,
           profile: updatedUser.profile,
@@ -654,7 +662,8 @@ async registerInstructor( email: string,
           isRequested: updatedUser.isRequested,
           role: updatedUser.role,
           isApproved: updatedUser.isApproved,
-          isRejected: updatedUser.isRejected
+          isRejected: updatedUser.isRejected,
+       
         },
       };
     } catch (error) {
@@ -663,6 +672,48 @@ async registerInstructor( email: string,
     }
 }
 
+async getInstructorById(id: string) {
+    try {
+        const user = await this._userRepository.findById(id);
+
+        if (!user) {
+            return {
+                success: false,
+                message: "Instructor not found",
+                data: null,
+            };
+        }
+
+        if (user.role !== Role.instructor) {
+            return {
+                success: false,
+                message: "User is not an instructor",
+                data: null,
+            };
+        }
+
+        return {
+            success: true,
+            message: "Instructor data retrieved successfully",
+            data: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                isApproved: user.isApproved,
+                isRequested: user.isRequested,
+                isRejected: user.isRejected,
+            },
+        };
+    } catch (error) {
+        console.error("Error in getInstructorById Service:", error);
+        return {
+            success: false,
+            message: "Failed to fetch instructor data",
+            data: null,
+        };
+    }
+}
     
 
 }

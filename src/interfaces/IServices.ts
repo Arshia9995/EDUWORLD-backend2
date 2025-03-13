@@ -27,6 +27,7 @@ export interface IUserService {
         }
       ): Promise<IResponse>;
      getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string; downloadUrl: string }>;
+     getInstructorById(id: any): Promise<any>;
       
 }
 
