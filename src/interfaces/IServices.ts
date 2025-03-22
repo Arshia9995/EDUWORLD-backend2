@@ -1,5 +1,8 @@
 import { IResponse } from "./IResponse";
 import { UserDoc } from "./IUser";
+import { CategoryDoc } from "./ICategory";
+import { ICourse } from "./ICourse";
+import { ILesson } from "./ILesson";
 
 export interface IUserService {
     signUp(user: UserDoc): Promise<IResponse>;
@@ -41,4 +44,25 @@ export interface IAdminService {
     getAllInstructors(): Promise<IResponse>;
     approveInstructor(instructorId: string): Promise<IResponse>;
     rejectInstructor(instructorId: string): Promise<IResponse>;
+}
+
+export interface ICategoryService {
+  addCategory(categoryName: string): Promise<IResponse>;
+  getAllCategories(): Promise<IResponse>;
+  updateCategory(id: string, categoryName: string): Promise<IResponse>;
+  blockCategory(id: string): Promise<IResponse>;
+  unblockCategory(id: string): Promise<IResponse>;
+  fetchAllCategories(): Promise<IResponse>;
+
+}
+
+export interface ICourseService {
+
+  addCourse(courseData: Partial<ICourse>): Promise<IResponse>;
+
+}
+
+export interface ILessonService {
+  addLesson(lessonData: Partial<ILesson>, instructorId: string):Promise<IResponse>;
+
 }

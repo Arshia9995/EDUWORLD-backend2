@@ -438,7 +438,7 @@ async resetPassword(email: string,password:{newPassword: string, confirmPassword
     }
 }
 
-async getS3Url(fileName: string, fileType: string, getUrl: boolean = false): Promise<{ url: string; imageUrl: string; downloadUrl: string }> {
+async getS3Url(fileName: string, fileType: string, getUrl: boolean = false,folder?: string): Promise<{ url: string; imageUrl: string; downloadUrl: string }> {
     try {
         this.s3 = new AWS.S3({
             accessKeyId: process.env.ACCESS_KEY,
@@ -452,12 +452,14 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false): Pro
             throw new Error('BUCKET_NAME is not defined in environment');
         }
 
-        let folder = 'uploads';
-        if (fileType.startsWith('image/')) {
-            folder = 'profiles';
-        } else if (fileType === 'application/pdf') {
-            folder = 'resumes';
-        }
+        let targetFolder = folder || 'uploads';
+        if (!folder) {
+            if (fileType.startsWith('image/')) {
+              targetFolder = 'profiles';
+            } else if (fileType === 'application/pdf') {
+              targetFolder = 'resumes';
+            }
+          }
         
         let key;
         
@@ -467,10 +469,10 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false): Pro
             key = fileName;
         } else if (getUrl) {
             // Extract just the filename without path for existing files
-            key = `${folder}/${fileName}`;
+            key = `${targetFolder}/${fileName}`;
         } else {
             // This is a new upload, generate a new key
-            key = `${folder}/${Date.now()}-${fileName}`;
+            key = `${targetFolder}/${Date.now()}-${fileName}`;
         }
         
         // Generate upload URL if needed (only for new files)
@@ -558,6 +560,7 @@ async updateProfile(email: string, userData :UserDoc) {
                 name: updatedUser.name,
                 email: updatedUser.email,
                 role: updatedUser.role,
+                _id: updatedUser._id,
                 profile : {
                     phone: updatedUser.profile?.phone,
                     dob: updatedUser.profile?.dob,

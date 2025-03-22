@@ -12,7 +12,10 @@ export const USER_ROUTES = {
     ISEXIST: "/isexist",
     REGISTER_INSTRUCTOR: "/registerinstructor",
     GETS3URL:"/get-s3-url",
-    GETINSTRUCTORBYID: "/getinstructorbyid/:id"
+    GETINSTRUCTORBYID: "/getinstructorbyid/:id",
+    FETCH_ALL_CATEGORY: "/fetchallcategories",
+    ADD_COURSE: "/addcourse",
+    ADD_LESSON: "/addlesson"
 }
 
 export const Admin_Routes = {
@@ -26,5 +29,13 @@ export const Admin_Routes = {
     REJECT_INSTRUCTOR: "/rejectinstructor",
     BLOCK_INSTRUCTOR: "/blockinstructor",
     UNBLOCK_INSTRUCTOR: "/unblockinstructor",
-    ADMIN_LOGOUT: "/adminlogout"
+    ADMIN_LOGOUT: "/adminlogout",
+
+    ADD_CATEGORY: "/addcategory",
+    GET_ALL_CATEGORIES: "/getallcategories",
+    EDIT_CATEGORY: "/editcategory/:id",
+    BLOCK_CATEGORY: "/blockcategory/:id",
+    UNBLOCK_CATEGORY: "/unblockcategory/:id",
+   
+ 
 }

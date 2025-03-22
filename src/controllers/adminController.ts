@@ -220,13 +220,13 @@ class AdminController {
  async logoutAdmin(req: Request, res: Response) {
         try {
           
-            res.clearCookie("token", {
+            res.clearCookie("admintoken", {
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
             });
     
-            res.clearCookie("refreshToken",{
+            res.clearCookie("adminrefreshToken",{
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",

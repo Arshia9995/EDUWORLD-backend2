@@ -339,10 +339,10 @@ class UserController {
 
     async getS3Url(req: Request, res: Response) {
         try {
-            const { fileName, fileType, getUrl } = req.body;
-            console.log("Received request for S3 URL:", fileName, fileType, getUrl ? "(fetching existing)" : "(new upload)");
+            const { fileName, fileType, getUrl, folder } = req.body;
+            console.log("Received request for S3 URL:", fileName, fileType, getUrl ? "(fetching existing)" : "(new upload)",folder ? `Folder: ${folder}` : '');
             
-            const result = await this._userService.getS3Url(fileName, fileType, getUrl);
+            const result = await this._userService.getS3Url(fileName, fileType, getUrl, folder);
     
             console.log("Generated S3 URL response:", result);
     
