@@ -10,6 +10,4 @@ export interface ILesson extends Document{
     video: string,
     duration?: string,
     course: mongoose.Types.ObjectId,
-
-   
 }

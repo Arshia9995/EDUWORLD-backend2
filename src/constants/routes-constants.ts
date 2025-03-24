@@ -15,7 +15,11 @@ export const USER_ROUTES = {
     GETINSTRUCTORBYID: "/getinstructorbyid/:id",
     FETCH_ALL_CATEGORY: "/fetchallcategories",
     ADD_COURSE: "/addcourse",
-    ADD_LESSON: "/addlesson"
+    ADD_LESSON: "/addlesson",
+    PUBLISH_COURSE: "/publishcourse",
+    GET_PUBLISHED_COURSES: "/getpublishedcourses",
+    GET_COURSE_BYID:  "/getcoursebyid/:courseId",
+    GET_LESSONS_BY_COURSEID:"/getlessonbycourseid/:courseId",
 }
 
 export const Admin_Routes = {

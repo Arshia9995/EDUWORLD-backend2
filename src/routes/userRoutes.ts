@@ -35,8 +35,8 @@ const s3 = new S3({
 
 const userService = new UserService(userRepository, otpRepository);
 const categoryService = new CategoryServices(categoryRepository);
-const courseService = new CourseServices(courseRepository);
-const lessonService = new LessonServices(lessonRepository, courseRepository);
+const courseService = new CourseServices(courseRepository, userService);
+const lessonService = new LessonServices(lessonRepository, courseRepository,userService);
 
 
 const userController = new UserController(userService);
@@ -74,10 +74,15 @@ userRouter.get(USER_ROUTES.FETCH_ALL_CATEGORY,authenticateUser(),  categoryContr
 
 
 userRouter.post(USER_ROUTES.ADD_COURSE,authenticateUser(),  courseController.addCourse.bind(courseController) as any);
+userRouter.post(USER_ROUTES.PUBLISH_COURSE,authenticateUser(),  courseController.publishCourse.bind(courseController) as any);
+userRouter.get(USER_ROUTES.GET_PUBLISHED_COURSES,authenticateUser(),  courseController.getPublishedCourses.bind(courseController) as any);
+userRouter.get(USER_ROUTES.GET_COURSE_BYID,authenticateUser(),  courseController.getCourseById.bind(courseController) as any);
+
 
 //....................................lesson routes.....................................................................
 
 userRouter.post(USER_ROUTES.ADD_LESSON,authenticateUser(),  lessonController.addLesson.bind(lessonController) as any);
+userRouter.get(USER_ROUTES.GET_LESSONS_BY_COURSEID,authenticateUser(),  lessonController.getLessonsByCourseId.bind(lessonController) as any);
 
 
 

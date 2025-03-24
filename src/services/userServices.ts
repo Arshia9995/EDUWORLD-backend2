@@ -505,6 +505,24 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false,folde
     }
 }
 
+async getDownloadUrl(key: string): Promise<string> {
+    try {
+      if (!process.env.BUCKET_NAME) {
+        throw new Error("BUCKET_NAME is not defined in environment");
+      }
+
+      const downloadParams = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: key,
+        Expires: 86400, // 24 hours
+      };
+      return await this.s3.getSignedUrlPromise("getObject", downloadParams);
+    } catch (error) {
+      console.error("Error generating pre-signed download URL:", error);
+      throw new Error("Failed to generate pre-signed download URL");
+    }
+  }
+
 async updateProfile(email: string, userData :UserDoc) {
     try {
         const userExists = await this._userRepository.findByQuery({email: email});

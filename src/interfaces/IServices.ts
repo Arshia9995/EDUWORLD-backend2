@@ -30,6 +30,7 @@ export interface IUserService {
         }
       ): Promise<IResponse>;
      getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string; downloadUrl: string }>;
+     getDownloadUrl(key: string):Promise<string>;
      getInstructorById(id: any): Promise<any>;
       
 }
@@ -59,6 +60,10 @@ export interface ICategoryService {
 export interface ICourseService {
 
   addCourse(courseData: Partial<ICourse>): Promise<IResponse>;
+  publishCourse(courseId: string, instructorId: string): Promise<IResponse>;
+  getPublishedCoursesByInstructor(instructorId: string):Promise<IResponse>;
+  getPublishedCoursesByInstructor(instructorId: string):Promise<IResponse>;
+  getCourseById(courseId: string, instructorId: string):Promise<IResponse>;
 
 }
 

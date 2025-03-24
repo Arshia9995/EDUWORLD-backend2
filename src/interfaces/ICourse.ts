@@ -1,11 +1,12 @@
 import mongoose,{Schema,Document} from "mongoose";
+import { UserDoc } from "./IUser";
 
 export interface ICourse extends Document{
     _id: mongoose.Types.ObjectId,
     title:string,
     description:string,
     thumbnail?:string,
-    instructor?:mongoose.Types.ObjectId | string, 
+    instructor?:any, 
     category:mongoose.Types.ObjectId | string,
     price:number,  
     language:string,

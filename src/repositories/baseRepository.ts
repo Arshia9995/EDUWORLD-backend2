@@ -2,7 +2,7 @@ import { Model, Document, UpdateQuery, FilterQuery } from "mongoose";
 import { IBaseRepository } from "../interfaces/IRepositories";
 
 export class BaseRepository <T extends Document> implements IBaseRepository<T>{
-   constructor(private _model: Model<T>) {
+   constructor(protected _model: Model<T>) {
     this._model=_model
    }
 

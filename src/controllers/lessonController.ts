@@ -47,6 +47,41 @@ class LessonController {
         }
       }
 
+      async getLessonsByCourseId(req: AuthRequest, res: Response) {
+        try {
+          const { courseId } = req.params;
+    
+          if (!req.user?.id) {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: "Unauthorized: Instructor ID not found",
+            });
+          }
+    
+          const result = await this._lessonService.getLessonsByCourseId(courseId, req.user.id);
+    
+          if (!result.success) {
+            const status = result.message === 'Course not found' ? Status.NOT_FOUND : Status.BAD_REQUEST;
+            return res.status(status).json({
+              success: false,
+              message: result.message,
+            });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            lessons: result.data,
+          });
+        } catch (error: any) {
+          console.error("Error fetching lessons:", error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: error.message || "Failed to fetch lessons",
+          });
+        }
+      }
+
 
 }
 
