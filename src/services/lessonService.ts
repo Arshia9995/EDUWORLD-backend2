@@ -148,6 +148,33 @@ export class LessonServices implements ILessonService {
         }
       }
 
+      async getStudentLessonsByCourseId(courseId: string, userRole: string) {
+        try {
+          const lessons = await this._lessonRepository.findByCourseId(courseId, userRole);
+    
+          if (!lessons || lessons.length === 0) {
+            return {
+              success: false,
+              message: 'Lessons not found',
+              data: null,
+            };
+          }
+    
+          return {
+            success: true,
+            message: 'Lessons fetched successfully',
+            data: lessons,
+          };
+        } catch (error: any) {
+          console.error('Error in LessonService.getLessonsByCourseId:', error);
+          return {
+            success: false,
+            message: error.message || 'Failed to fetch lessons',
+            data: null,
+          };
+        }
+      }
+
 
 
 

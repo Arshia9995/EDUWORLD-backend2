@@ -20,6 +20,10 @@ export const USER_ROUTES = {
     GET_PUBLISHED_COURSES: "/getpublishedcourses",
     GET_COURSE_BYID:  "/getcoursebyid/:courseId",
     GET_LESSONS_BY_COURSEID:"/getlessonbycourseid/:courseId",
+    GET_ALL_PUBLISHED_COURSES: "/getallpublishedcourses",
+    GET_STUDENT_COURSE_BYID: "/getstudentcoursebyid/:courseId",
+    GET_STUDENT_LESSON_BY_COURSEID: "/getstudentlessonbycourseid/:courseId",
+    UPDATE_COURSE: "/updatecourse/:courseId"
 }
 
 export const Admin_Routes = {

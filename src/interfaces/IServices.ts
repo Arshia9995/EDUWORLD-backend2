@@ -64,10 +64,16 @@ export interface ICourseService {
   getPublishedCoursesByInstructor(instructorId: string):Promise<IResponse>;
   getPublishedCoursesByInstructor(instructorId: string):Promise<IResponse>;
   getCourseById(courseId: string, instructorId: string):Promise<IResponse>;
+  getAllPublishedCourses(): Promise<IResponse>;
+  getStudentCourseById(courseId: string): Promise<IResponse>;
+  updateCourse(courseId: string, userId: string, updateData: ICourse): Promise<IResponse>;
 
 }
 
 export interface ILessonService {
   addLesson(lessonData: Partial<ILesson>, instructorId: string):Promise<IResponse>;
+  getLessonsByCourseId(courseId: string, instructorId: string) :Promise<IResponse>;
+  getStudentLessonsByCourseId(courseId: string, userRole: string):Promise<IResponse>;
 
+  
 }

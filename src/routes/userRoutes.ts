@@ -77,12 +77,17 @@ userRouter.post(USER_ROUTES.ADD_COURSE,authenticateUser(),  courseController.add
 userRouter.post(USER_ROUTES.PUBLISH_COURSE,authenticateUser(),  courseController.publishCourse.bind(courseController) as any);
 userRouter.get(USER_ROUTES.GET_PUBLISHED_COURSES,authenticateUser(),  courseController.getPublishedCourses.bind(courseController) as any);
 userRouter.get(USER_ROUTES.GET_COURSE_BYID,authenticateUser(),  courseController.getCourseById.bind(courseController) as any);
+userRouter.get(USER_ROUTES.GET_ALL_PUBLISHED_COURSES,authenticateUser(),  courseController.getAllPublishedCourses.bind(courseController) as any);
+userRouter.get(USER_ROUTES.GET_STUDENT_COURSE_BYID,authenticateUser(),  courseController.getStudentCourseById.bind(courseController) as any);
+userRouter.put(USER_ROUTES.UPDATE_COURSE,authenticateUser(),  courseController.updateCourse.bind(courseController) as any);
+
 
 
 //....................................lesson routes.....................................................................
 
 userRouter.post(USER_ROUTES.ADD_LESSON,authenticateUser(),  lessonController.addLesson.bind(lessonController) as any);
 userRouter.get(USER_ROUTES.GET_LESSONS_BY_COURSEID,authenticateUser(),  lessonController.getLessonsByCourseId.bind(lessonController) as any);
+userRouter.get(USER_ROUTES.GET_STUDENT_LESSON_BY_COURSEID,authenticateUser(),  lessonController.getStudentLessonsByCourseId.bind(lessonController) as any);
 
 
 

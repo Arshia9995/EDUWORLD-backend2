@@ -16,6 +16,22 @@ class LessonRepository extends BaseRepository<ILesson>{
           throw new Error("Could not fetch lessons");
         }
       }
+      async findByCourseId(courseId: string, userRole: string): Promise<ILesson[]> {
+        try {
+          // Define the fields to exclude based on the user role
+          const selectFields = userRole === 'student' ? '-video' : ''; // Exclude video for students
+    
+          const lessons = await this._model
+            .find({ course: courseId })
+            .select(selectFields) // Exclude the video field for students
+            .lean();
+    
+          return lessons;
+        } catch (error) {
+          console.error('Error in LessonRepository.findByCourseId:', error);
+          throw new Error('Could not fetch lessons');
+        }
+      }
 }
 
 export default LessonRepository;

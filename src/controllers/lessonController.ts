@@ -82,6 +82,42 @@ class LessonController {
         }
       }
 
+      async getStudentLessonsByCourseId(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user?.id) {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: 'Unauthorized: User ID not found',
+            });
+          }
+    
+          const { courseId } = req.params;
+          const userRole = req.user.role; // Get the user's role (instructor or student)
+    
+          const result = await this._lessonService.getStudentLessonsByCourseId(courseId, userRole);
+    
+          if (!result.success) {
+            const status = result.message === 'Lessons not found' ? Status.NOT_FOUND : Status.BAD_REQUEST;
+            return res.status(status).json({
+              success: false,
+              message: result.message,
+            });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            lessons: result.data,
+          });
+        } catch (error: any) {
+          console.error('Error in getLessonsByCourseId controller:', error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: error.message || 'Failed to fetch lessons',
+          });
+        }
+      }
+
 
 }
 

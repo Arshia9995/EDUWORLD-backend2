@@ -189,6 +189,131 @@ export class CourseServices implements ICourseService {
         }
       }
 
+      async getAllPublishedCourses() {
+        try {
+          const courses = await this._courseRepository.findAllPublishedCourses();
+    
+          // Generate pre-signed URLs for thumbnails
+          const updatedCourses = await Promise.all(
+            courses.map(async (course) => {
+              if (course.thumbnail) {
+                // Extract the S3 key from the permanent URL (thumbnail)
+                const key = course.thumbnail.split(".amazonaws.com/")[1];
+                // Generate a fresh pre-signed download URL using UserService
+                const downloadUrl = await this._userService.getDownloadUrl(key);
+                // Return the course with the updated thumbnail URL
+                return { ...course, thumbnail: downloadUrl };
+              }
+              return course;
+            })
+          );
+    
+          return {
+            success: true,
+            message: 'Published courses fetched successfully',
+            data: updatedCourses,
+          };
+        } catch (error: any) {
+          console.error('Error in CourseService.getAllPublishedCourses:', error);
+          return {
+            success: false,
+            message: error.message || 'Failed to fetch published courses',
+            data: null,
+          };
+        }
+      }
+
+      async getStudentCourseById(courseId: string) {
+        try {
+          const course = await this._courseRepository.findStudentCourseById(courseId);
+    
+          if (!course) {
+            return {
+              success: false,
+              message: 'Course not found',
+              data: null,
+            };
+          }
+    
+          // Check if the course is published and not blocked
+          if (!course.isPublished || course.isBlocked) {
+            return {
+              success: false,
+              message: 'Course is not available',
+              data: null,
+            };
+          }
+    
+          // Generate pre-signed URL for thumbnail if it exists
+          if (course.thumbnail) {
+            const key = course.thumbnail.split(".amazonaws.com/")[1];
+            const downloadUrl = await this._userService.getDownloadUrl(key);
+            course.thumbnail = downloadUrl;
+          }
+    
+          return {
+            success: true,
+            message: 'Course fetched successfully',
+            data: course,
+          };
+        } catch (error: any) {
+          console.error('Error in CourseService.getStudentCourseById:', error);
+          return {
+            success: false,
+            message: error.message || 'Failed to fetch course',
+            data: null,
+          };
+        }
+      }
+
+      async updateCourse(courseId: string, userId: string, updateData: ICourse) {
+        try {
+          // Fetch the existing course
+          const course = await this._courseRepository.findById(courseId);
+      
+          if (!course) {
+            return {
+              success: false,
+              message: 'Course not found',
+              data: null,
+            };
+          }
+      
+          // Ensure the instructor can only update their own course
+          if (course.instructor._id.toString() !== userId) {
+            return {
+              success: false,
+              message: 'Unauthorized: You can only update your own courses',
+              data: null,
+            };
+          }
+      
+          // Update the course with the provided data
+          const updatedCourse = await this._courseRepository.update(courseId, updateData);
+      
+          if (!updatedCourse) {
+            return {
+              success: false,
+              message: 'Failed to update course',
+              data: null,
+            };
+          }
+      
+          return {
+            success: true,
+            message: 'Course updated successfully',
+            data: updatedCourse,
+          };
+        } catch (error: any) {
+          console.error('Error in CourseService.updateCourse:', error);
+          return {
+            success: false,
+            message: error.message || 'Failed to update course',
+            data: null,
+          };
+        }
+      }
+
       
 
 
