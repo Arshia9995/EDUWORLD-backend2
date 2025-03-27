@@ -18,7 +18,7 @@ class LessonRepository extends BaseRepository<ILesson>{
       }
       async findByCourseId(courseId: string, userRole: string): Promise<ILesson[]> {
         try {
-          // Define the fields to exclude based on the user role
+          
           const selectFields = userRole === 'student' ? '-video' : ''; // Exclude video for students
     
           const lessons = await this._model

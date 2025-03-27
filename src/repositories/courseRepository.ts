@@ -8,6 +8,13 @@ class CourseRepository extends BaseRepository<ICourse>{
         
     }
 
+    // async findcourseName(instructorId: string) {
+    //   try {
+    //     return await this._model.find({instructorId},{title:'tfyhyy'}).countDocuments()
+    //   } catch (error) {
+        
+    //   }
+    // }
 
     async findPublishedByInstructor(instructorId: string): Promise<ICourse[]> {
         try {

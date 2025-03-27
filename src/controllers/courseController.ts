@@ -53,7 +53,7 @@ class CourseController {
             });
           }
     
-          // Ensure the instructor ID is available from the authenticated user
+          
           if (!req.user?.id) {
             return res.status(Status.UN_AUTHORISED).json({
               success: false,
@@ -256,6 +256,8 @@ class CourseController {
           });
         }
       }
+
+      
 
 
 

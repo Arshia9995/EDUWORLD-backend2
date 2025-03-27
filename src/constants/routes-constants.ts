@@ -23,7 +23,9 @@ export const USER_ROUTES = {
     GET_ALL_PUBLISHED_COURSES: "/getallpublishedcourses",
     GET_STUDENT_COURSE_BYID: "/getstudentcoursebyid/:courseId",
     GET_STUDENT_LESSON_BY_COURSEID: "/getstudentlessonbycourseid/:courseId",
-    UPDATE_COURSE: "/updatecourse/:courseId"
+    UPDATE_COURSE: "/updatecourse/:courseId",
+    UPDATE_LESSON: "/updatelesson/:lessonId"
+
 }
 
 export const Admin_Routes = {

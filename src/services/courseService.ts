@@ -16,7 +16,7 @@ export class CourseServices implements ICourseService {
 
     async addCourse(courseData: Partial<ICourse>) {
         try {
-          // Validate required fields
+         
           if (
             !courseData.title ||
             !courseData.description ||
@@ -26,7 +26,7 @@ export class CourseServices implements ICourseService {
             return { success: false, message: 'Missing required fields', data: null };
           }
     
-          // Create the course in the database
+        
           const course = await this._courseRepository.create(courseData);
           return {
             success: true,
@@ -41,7 +41,7 @@ export class CourseServices implements ICourseService {
 
       async publishCourse(courseId: string, instructorId: string) {
         try {
-          // Verify the course exists
+         
           const course = await this._courseRepository.findById(courseId);
           if (!course) {
             return {
@@ -51,7 +51,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Check if the instructor is authorized to publish this course
+          
           if (!course.instructor || course.instructor.toString() !== instructorId) {
             return {
               success: false,
@@ -60,7 +60,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Validation: Ensure the course has at least one lesson
+         
           if (!course.lessons || course.lessons.length === 0) {
             return {
               success: false,
@@ -69,7 +69,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Validation: Ensure the course has a thumbnail
+         
           if (!course.thumbnail) {
             return {
               success: false,
@@ -78,7 +78,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Validation: Ensure the course is not already published
+          
           if (course.isPublished) {
             return {
               success: false,
@@ -87,7 +87,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Update the course to set isPublished to true
+          
           course.isPublished = true;
           const updatedCourse = await this._courseRepository.update(courseId, {
             isPublished: true,
@@ -168,7 +168,7 @@ export class CourseServices implements ICourseService {
             };
           }
       
-          // Refresh thumbnail URL if it exists
+         
           if (course.thumbnail) {
             const key = course.thumbnail.split('.amazonaws.com/')[1];
             course.thumbnail = await this._userService.getDownloadUrl(key);
@@ -235,7 +235,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Check if the course is published and not blocked
+        
           if (!course.isPublished || course.isBlocked) {
             return {
               success: false,
@@ -244,7 +244,7 @@ export class CourseServices implements ICourseService {
             };
           }
     
-          // Generate pre-signed URL for thumbnail if it exists
+         
           if (course.thumbnail) {
             const key = course.thumbnail.split(".amazonaws.com/")[1];
             const downloadUrl = await this._userService.getDownloadUrl(key);

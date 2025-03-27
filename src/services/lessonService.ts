@@ -21,7 +21,7 @@ export class LessonServices implements ILessonService {
 
     async addLesson(lessonData: Partial<ILesson>, instructorId: string) {
         try {
-          // Validate required fields
+         
           if (
             !lessonData.title ||
             !lessonData.description ||
@@ -35,7 +35,7 @@ export class LessonServices implements ILessonService {
             };
           }
     
-          // Verify the course exists
+          
           const courseId = lessonData.course.toString();
           const course = await this._courseRepository.findById(courseId);
           
@@ -47,7 +47,7 @@ export class LessonServices implements ILessonService {
             };
           }
     
-          // Check if the course has an instructor assigned
+         
           if (!course.instructor) {
             return {
               success: false,
@@ -56,7 +56,7 @@ export class LessonServices implements ILessonService {
             };
           }
     
-          // Check if the instructor is authorized to add lessons to this course
+          
           if (course.instructor.toString() !== instructorId) {
             return {
               success: false,
@@ -65,19 +65,18 @@ export class LessonServices implements ILessonService {
             };
           }
     
-          // Create the lesson
+         
           const lesson = await this._lessonRepository.create(lessonData);
     
-          // Initialize lessons array if it doesn't exist
+          
           if (!course.lessons) {
             course.lessons = [];
           }
     
-          // Update the course with the new lesson
+          
           course.lessons.push(lesson._id);
           
-          // Since we're using mongoose Documents, we can use the save method
-          // or pass the updated lessons array to the update method
+
           await this._courseRepository.update(course._id.toString(), { 
             lessons: course.lessons 
           });
@@ -100,7 +99,7 @@ export class LessonServices implements ILessonService {
 
       async getLessonsByCourseId(courseId: string, instructorId: string) {
         try {
-          // Verify the course exists and the instructor is authorized
+         
           const course = await this._courseRepository.findById(courseId);
           if (!course) {
             return {
@@ -118,10 +117,10 @@ export class LessonServices implements ILessonService {
             };
           }
     
-          // Fetch lessons for the course
+         
           const lessons = await this._lessonRepository.findLessonsByCourseId(courseId);
     
-          // Refresh video URLs for each lesson
+         
           const updatedLessons = await Promise.all(
             lessons.map(async (lesson) => {
               if (lesson.video) {
@@ -170,6 +169,72 @@ export class LessonServices implements ILessonService {
           return {
             success: false,
             message: error.message || 'Failed to fetch lessons',
+            data: null,
+          };
+        }
+      }
+
+
+      async updateLesson(lessonId: string, lessonData: Partial<ILesson>, instructorId: string) {
+        try {
+         
+          const lesson = await this._lessonRepository.findById(lessonId);
+          if (!lesson) {
+            return {
+              success: false,
+              message: "Lesson not found",
+              data: null,
+            };
+          }
+          console.log("Existing lesson.course:", lesson.course.toString());
+    
+        
+          const course = await this._courseRepository.findById(lesson.course.toString());
+          if (!course) {
+            return {
+              success: false,
+              message: "Course not found",
+              data: null,
+            };
+          }
+    
+          if (!course.instructor || course.instructor.toString() !== instructorId) {
+            return {
+              success: false,
+              message: "Unauthorized: You are not the instructor of this course",
+              data: null,
+            };
+          }
+    
+        
+          const updatedLessonData: Partial<ILesson> = {
+            title: lessonData.title || lesson.title,
+            description: lessonData.description || lesson.description,
+            video: lessonData.video || lesson.video,
+            duration: lessonData.duration || lesson.duration,
+            course: lessonData.course || lesson.course,
+          };
+    
+          const updatedLesson = await this._lessonRepository.update(lessonId, updatedLessonData);
+    
+          if (!updatedLesson) {
+            return {
+              success: false,
+              message: "Failed to update lesson",
+              data: null,
+            };
+          }
+    
+          return {
+            success: true,
+            message: "Lesson updated successfully",
+            data: updatedLesson,
+          };
+        } catch (error: any) {
+          console.error("Error updating lesson:", error);
+          return {
+            success: false,
+            message: error.message || "Failed to update lesson",
             data: null,
           };
         }
