@@ -108,29 +108,47 @@ export class CourseServices implements ICourseService {
         }
       }
 
-      async getPublishedCoursesByInstructor(instructorId: string) {
+      async getPublishedCoursesByInstructor(
+        instructorId: string,
+        page: number = 1,
+        limit: number = 6,
+        search: string = '',
+        sortBy: string = 'newest',
+        category: string = '',
+        priceRange: string = '',
+        language: string = ''
+      ) {
         try {
-          const courses = await this._courseRepository.findPublishedByInstructor(instructorId);
-
+          const { courses, total } = await this._courseRepository.findPublishedByInstructor(
+            instructorId,
+            page,
+            limit,
+            search,
+            sortBy,
+            category,
+            priceRange,
+            language
+          );
+          
           // Generate pre-signed URLs for thumbnails
-      const updatedCourses = await Promise.all(
-        courses.map(async (course) => {
-          if (course.thumbnail) {
-            // Extract the S3 key from the permanent URL (imageUrl)
-            const key = course.thumbnail.split(".amazonaws.com/")[1];
-            // Generate a fresh pre-signed download URL using UserService
-            const downloadUrl = await this._userService.getDownloadUrl(key);
-            // Return the course with the updated thumbnail URL
-            return { ...course.toObject(), thumbnail: downloadUrl };
-          }
-          return course.toObject();
-        })
-      );
-
+          const updatedCourses = await Promise.all(
+            courses.map(async (course) => {
+              if (course.thumbnail) {
+                const key = course.thumbnail.split(".amazonaws.com/")[1];
+                const downloadUrl = await this._userService.getDownloadUrl(key);
+                return { ...course.toObject(), thumbnail: downloadUrl };
+              }
+              return course.toObject();
+            })
+          );
+          
           return {
             success: true,
             message: "Published courses fetched successfully",
             data: updatedCourses,
+            totalCourses: total,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
           };
         } catch (error: any) {
           console.error("Error fetching published courses:", error);
@@ -138,9 +156,13 @@ export class CourseServices implements ICourseService {
             success: false,
             message: error.message || "Internal server error",
             data: null,
+            totalCourses: 0,
+            currentPage: page,
+            totalPages: 0,
           };
         }
       }
+
 
       async getCourseById(courseId: string, instructorId: string) {
         try {
@@ -189,29 +211,45 @@ export class CourseServices implements ICourseService {
         }
       }
 
-      async getAllPublishedCourses() {
+      async getAllPublishedCourses(
+        page: number = 1, 
+        limit: number = 6, 
+        search: string = '', 
+        sortBy: string = 'newest', 
+        category: string = '', 
+        priceRange: string = '', 
+        language: string = ''
+      ) {
         try {
-          const courses = await this._courseRepository.findAllPublishedCourses();
-    
+          const { courses, total } = await this._courseRepository.findAllPublishedCourses(
+            page, 
+            limit, 
+            search, 
+            sortBy, 
+            category, 
+            priceRange, 
+            language
+          );
+      
           // Generate pre-signed URLs for thumbnails
           const updatedCourses = await Promise.all(
             courses.map(async (course) => {
               if (course.thumbnail) {
-                // Extract the S3 key from the permanent URL (thumbnail)
                 const key = course.thumbnail.split(".amazonaws.com/")[1];
-                // Generate a fresh pre-signed download URL using UserService
                 const downloadUrl = await this._userService.getDownloadUrl(key);
-                // Return the course with the updated thumbnail URL
                 return { ...course, thumbnail: downloadUrl };
               }
               return course;
             })
           );
-    
+      
           return {
             success: true,
             message: 'Published courses fetched successfully',
             data: updatedCourses,
+            totalCourses: total,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
           };
         } catch (error: any) {
           console.error('Error in CourseService.getAllPublishedCourses:', error);
@@ -219,9 +257,13 @@ export class CourseServices implements ICourseService {
             success: false,
             message: error.message || 'Failed to fetch published courses',
             data: null,
+            totalCourses: 0,
+            currentPage: page,
+            totalPages: 0,
           };
         }
       }
+      
 
       async getStudentCourseById(courseId: string) {
         try {

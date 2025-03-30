@@ -92,20 +92,41 @@ class CourseController {
               message: "Unauthorized: Instructor ID not found",
             });
           }
-    
-          const result = await this._courseService.getPublishedCoursesByInstructor(req.user.id);
-    
+          
+          // Extract query parameters
+          const page = parseInt(req.query.page as string) || 1;
+          const limit = parseInt(req.query.limit as string) || 6;
+          const search = req.query.search as string || '';
+          const sortBy = req.query.sortBy as string || 'newest';
+          const category = req.query.category as string || '';
+          const priceRange = req.query.priceRange as string || '';
+          const language = req.query.language as string || '';
+          
+          const result = await this._courseService.getPublishedCoursesByInstructor(
+            req.user.id,
+            page,
+            limit,
+            search,
+            sortBy,
+            category,
+            priceRange,
+            language
+          );
+          
           if (!result.success) {
             return res.status(Status.BAD_REQUEST).json({
               success: false,
               message: result.message,
             });
           }
-    
+          
           return res.status(Status.OK).json({
             success: true,
             message: result.message,
             courses: result.data,
+            totalCourses: result.totalCourses,
+            currentPage: result.currentPage,
+            totalPages: result.totalPages,
           });
         } catch (error: any) {
           console.error("Error in getPublishedCourses controller:", error);
@@ -116,6 +137,7 @@ class CourseController {
         }
       }
 
+      
       async getCourseById(req: AuthRequest, res: Response) {
         try {
           const { courseId } = req.params;
@@ -160,20 +182,39 @@ class CourseController {
               message: "Unauthorized: User ID not found",
             });
           }
-    
-          const result = await this._courseService.getAllPublishedCourses();
-    
+      
+          const page = parseInt(req.query.page as string) || 1;
+          const limit = parseInt(req.query.limit as string) || 6;
+          const search = req.query.search as string || '';
+          const sortBy = req.query.sortBy as string || 'newest';
+          const category = req.query.category as string || '';
+          const priceRange = req.query.priceRange as string || '';
+          const language = req.query.language as string || '';
+      
+          const result = await this._courseService.getAllPublishedCourses(
+            page, 
+            limit, 
+            search, 
+            sortBy, 
+            category, 
+            priceRange, 
+            language
+          );
+      
           if (!result.success) {
             return res.status(Status.BAD_REQUEST).json({
               success: false,
               message: result.message,
             });
           }
-    
+      
           return res.status(Status.OK).json({
             success: true,
             message: result.message,
             courses: result.data,
+            totalCourses: result.totalCourses,
+            currentPage: result.currentPage,
+            totalPages: result.totalPages,
           });
         } catch (error: any) {
           console.error('Error in getAllPublishedCourses controller:', error);
@@ -183,6 +224,7 @@ class CourseController {
           });
         }
       }
+
 
       async getStudentCourseById(req: AuthRequest, res: Response) {
         try {

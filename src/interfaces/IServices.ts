@@ -62,9 +62,26 @@ export interface ICourseService {
   addCourse(courseData: Partial<ICourse>): Promise<IResponse>;
   publishCourse(courseId: string, instructorId: string): Promise<IResponse>;
   getPublishedCoursesByInstructor(instructorId: string):Promise<IResponse>;
-  getPublishedCoursesByInstructor(instructorId: string):Promise<IResponse>;
+  getPublishedCoursesByInstructor(
+    instructorId: string, 
+    page?: number, 
+    limit?: number, 
+    search?: string, 
+    sortBy?: string, 
+    category?: string, 
+    priceRange?: string, 
+    language?: string
+  ): Promise<IResponse>;  
   getCourseById(courseId: string, instructorId: string):Promise<IResponse>;
-  getAllPublishedCourses(): Promise<IResponse>;
+  getAllPublishedCourses(
+    page?: number,
+    limit?: number,
+    search?: string,
+    sortBy?: string,
+    category?: string,
+    priceRange?: string,
+    language?: string
+  ): Promise<IResponse>;
   getStudentCourseById(courseId: string): Promise<IResponse>;
   updateCourse(courseId: string, userId: string, updateData: ICourse): Promise<IResponse>;
 
