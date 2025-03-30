@@ -81,9 +81,9 @@ export class CourseServices implements ICourseService {
           
           if (course.isPublished) {
             return {
-              success: false,
+              success: true,
               message: "Course is already published",
-              data: null,
+              data: course,
             };
           }
     

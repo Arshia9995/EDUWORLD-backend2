@@ -124,9 +124,24 @@ export class LessonServices implements ILessonService {
           const updatedLessons = await Promise.all(
             lessons.map(async (lesson) => {
               if (lesson.video) {
-                const key = lesson.video.split(".amazonaws.com/")[1];
-                const downloadUrl = await this._userService.getDownloadUrl(key);
-                return { ...lesson, video: downloadUrl };
+                try {
+                  // Ensure we're getting the correct key from the URL
+                  let key;
+                  if (lesson.video.includes('.amazonaws.com/')) {
+                    key = lesson.video.split('.amazonaws.com/')[1];
+                  } else {
+                    // If it's already just a key without the URL prefix
+                    key = lesson.video;
+                  }
+                  
+                  console.log(`Getting download URL for lesson ${lesson._id}, key: ${key}`);
+                  const downloadUrl = await this._userService.getDownloadUrl(key);
+                  console.log(`Download URL for lesson ${lesson._id}: ${downloadUrl}`);
+                  return { ...lesson, video: downloadUrl };
+                } catch (error) {
+                  console.error(`Error getting download URL for lesson ${lesson._id}:`, error);
+                  return lesson;
+                }
               }
               return lesson;
             })
@@ -235,6 +250,74 @@ export class LessonServices implements ILessonService {
           return {
             success: false,
             message: error.message || "Failed to update lesson",
+            data: null,
+          };
+        }
+      }
+
+
+      async deleteLesson(lessonId: string, instructorId: string) {
+        try {
+          // Find the lesson
+          const lesson = await this._lessonRepository.findById(lessonId);
+          if (!lesson) {
+            return {
+              success: false,
+              message: "Lesson not found",
+              data: null,
+            };
+          }
+      
+          // Check if the instructor is authorized to delete this lesson
+          const course = await this._courseRepository.findById(lesson.course.toString());
+          if (!course) {
+            return {
+              success: false,
+              message: "Course not found",
+              data: null,
+            };
+          }
+      
+          if (!course.instructor || course.instructor.toString() !== instructorId) {
+            return {
+              success: false,
+              message: "Unauthorized: You are not the instructor of this course",
+              data: null,
+            };
+          }
+      
+          // Remove the lesson from the course's lessons array
+          const lessonIndex = course.lessons?.findIndex(
+            (id) => id.toString() === lessonId
+          );
+          
+          if (course.lessons && lessonIndex !== undefined && lessonIndex !== -1) {
+            course.lessons.splice(lessonIndex, 1);
+            await this._courseRepository.update(course._id.toString(), {
+              lessons: course.lessons,
+            });
+          }
+      
+          // Delete the lesson
+          const isDeleted = await this._lessonRepository.delete(lessonId);
+          if (!isDeleted) {
+            return {
+              success: false,
+              message: "Failed to delete lesson",
+              data: null,
+            };
+          }
+      
+          return {
+            success: true,
+            message: "Lesson deleted successfully",
+            data: null,
+          };
+        } catch (error: any) {
+          console.error("Error deleting lesson:", error);
+          return {
+            success: false,
+            message: error.message || "Failed to delete lesson",
             data: null,
           };
         }

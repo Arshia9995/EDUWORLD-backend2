@@ -24,7 +24,8 @@ export const USER_ROUTES = {
     GET_STUDENT_COURSE_BYID: "/getstudentcoursebyid/:courseId",
     GET_STUDENT_LESSON_BY_COURSEID: "/getstudentlessonbycourseid/:courseId",
     UPDATE_COURSE: "/updatecourse/:courseId",
-    UPDATE_LESSON: "/updatelesson/:lessonId"
+    UPDATE_LESSON: "/updatelesson/:lessonId",
+    DELETE_LESSON: "/deletelesson/:lessonId"
 
 }
 

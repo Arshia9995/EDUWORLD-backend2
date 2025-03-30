@@ -92,6 +92,8 @@ export interface ILessonService {
   getLessonsByCourseId(courseId: string, instructorId: string) :Promise<IResponse>;
   getStudentLessonsByCourseId(courseId: string, userRole: string):Promise<IResponse>;
   updateLesson(lessonId: string, lessonData: Partial<ILesson>, instructorId: string):Promise<IResponse>;
+  deleteLesson(lessonId: string, instructorId: string): Promise<IResponse>;
+
 
   
 }
