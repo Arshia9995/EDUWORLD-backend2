@@ -12,10 +12,11 @@ import { IUserService } from "../interfaces/IServices";
 import { profile } from "console";
 import AWS from 'aws-sdk';
 import dotenv from "dotenv";
+import { OAuth2Client } from "google-auth-library";
 
 dotenv.config();
 
-
+// const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 
 
@@ -242,6 +243,60 @@ export class UserService implements IUserService {
             };
         }
     }
+
+    // async googleLogin(token: string) {
+    //     try {
+    //       const ticket = await client.verifyIdToken({
+    //         idToken: token,
+    //         audience: process.env.GOOGLE_CLIENT_ID,
+    //       });
+    
+    //       const payload = ticket.getPayload();
+    //       if (!payload) {
+    //         return {
+    //           success: false,
+    //           message: "Invalid Google token",
+    //           data: null,
+    //         };
+    //       }
+    
+    //       const { email, name } = payload;
+    
+    //       let user = await this._userRepository.findByQuery({ email });
+    //       if (!user) {
+    //         user = await this._userRepository.create({
+    //           email,
+    //           name,
+    //           role: "student", // Default role
+    //           verified: true,
+    //           googleAuth: true, // Set googleAuth to true
+    //           isBlocked: false,
+    //         });
+    //       }
+    
+    //       return {
+    //         success: true,
+    //         message: "Google login successful",
+    //         data: {
+    //           _id: user._id,
+    //           name: user.name,
+    //           email: user.email,
+    //           role: user.role,
+    //           isBlocked: user.isBlocked,
+    //           verified: user.verified,
+    //           googleAuth: user.googleAuth,
+    //           profile: user.profile,
+    //         },
+    //       };
+    //     } catch (error) {
+    //       console.error("Google login error:", error);
+    //       return {
+    //         success: false,
+    //         message: "Internal Server Error",
+    //         data: null,
+    //       };
+    //     }
+    //   }
 
     async getUserDataFirst(id: string) {
         try {
@@ -505,23 +560,133 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false,folde
     }
 }
 
+async videogetS3Url(fileName: string, fileType: string, getUrl: boolean = false,folder?: string): Promise<{ url: string; imageUrl: string; downloadUrl: string }> {
+    try {
+        this.s3 = new AWS.S3({
+            accessKeyId: process.env.ACCESS_KEY,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY,
+            region: process.env.AWS_REGION,
+            signatureVersion: 'v4'
+        });
+        
+        // Validate required environment variables
+        if (!process.env.BUCKET_NAME) {
+            throw new Error('BUCKET_NAME is not defined in environment');
+        }
+
+        let targetFolder = folder || 'uploads';
+        if (!folder) {
+            if (fileType.startsWith('image/')) {
+              targetFolder = 'profiles';
+            } else if (fileType === 'application/pdf') {
+              targetFolder = 'resumes';
+            }
+          }
+        
+        let key;
+        
+        // If this is a request for an existing file
+        if (getUrl && fileName.includes('/')) {
+            // The fileName is already the full key
+            key = fileName;
+        } else if (getUrl) {
+            // Extract just the filename without path for existing files
+            key = `${targetFolder}/${fileName}`;
+        } else {
+            // This is a new upload, generate a new key
+            key = `${targetFolder}/${Date.now()}-${fileName}`;
+        }
+        
+        // Generate upload URL if needed (only for new files)
+        let uploadUrl = '';
+        if (!getUrl) {
+            const params = {
+                Bucket: process.env.BUCKET_NAME,
+                Key: key,
+                Expires: 60,
+                ContentType: fileType,
+            };
+            uploadUrl = await this.s3.getSignedUrlPromise("putObject", params);
+        }
+
+        // Generate download URL (always needed)
+        const downloadParams = {
+            Bucket: process.env.BUCKET_NAME,
+            Key: key,
+            Expires: 86400, // Extend to 24 hours
+        };
+        const downloadUrl = await this.s3.getSignedUrlPromise("getObject", downloadParams);
+
+        // Permanent URL (S3 object URL - will only work if bucket has public access)
+        const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+        
+        return { url: uploadUrl, imageUrl: fileUrl, downloadUrl };
+    } catch (error) {
+        console.error("Comprehensive S3 URL Generation Error:", error);
+        throw error;
+    }
+}
+
+
 async getDownloadUrl(key: string): Promise<string> {
     try {
+      if (!this.s3) {
+        this.s3 = new AWS.S3({
+          accessKeyId: process.env.ACCESS_KEY,
+          secretAccessKey: process.env.SECRET_ACCESS_KEY,
+          region: process.env.AWS_REGION,
+          signatureVersion: 'v4'
+        });
+      }
+  
       if (!process.env.BUCKET_NAME) {
         throw new Error("BUCKET_NAME is not defined in environment");
       }
-
+  
       const downloadParams = {
         Bucket: process.env.BUCKET_NAME,
         Key: key,
         Expires: 86400, // 24 hours
       };
+      
       return await this.s3.getSignedUrlPromise("getObject", downloadParams);
     } catch (error) {
       console.error("Error generating pre-signed download URL:", error);
       throw new Error("Failed to generate pre-signed download URL");
     }
   }
+
+  async videogetDownloadUrl(key: string): Promise<string> {
+    try {
+      if (!this.s3) {
+        this.s3 = new AWS.S3({
+          accessKeyId: process.env.ACCESS_KEY,
+          secretAccessKey: process.env.SECRET_ACCESS_KEY,
+          region: process.env.AWS_REGION,
+          signatureVersion: 'v4'
+        });
+      }
+  
+      if (!process.env.BUCKET_NAME) {
+        throw new Error("BUCKET_NAME is not defined in environment");
+      }
+  
+      const downloadParams = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: key,
+        Expires: 86400, // 24 hours
+      };
+      
+      return await this.s3.getSignedUrlPromise("getObject", downloadParams);
+    } catch (error) {
+      console.error("Error generating pre-signed download URL:", error);
+      throw new Error("Failed to generate pre-signed download URL");
+    }
+  }
+
+
+
+
 
 async updateProfile(email: string, userData :UserDoc) {
     try {

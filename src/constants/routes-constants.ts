@@ -2,6 +2,7 @@ export const USER_ROUTES = {
     SIGN_UP: "/signup",
     VERIFY_OTP: "/verifyotp",
     LOGIN: "/login",
+    // GOOGLE_LOGIN: "/google-login",
     LOGOUT: "/logout",
     GETUSERDATAFIRST: "/getUserDataFirst",
     RESEND_OTP: "/resendotp",
@@ -12,6 +13,9 @@ export const USER_ROUTES = {
     ISEXIST: "/isexist",
     REGISTER_INSTRUCTOR: "/registerinstructor",
     GETS3URL:"/get-s3-url",
+
+    VIDEO_GETS3URL:"/videoget-s3-url",
+
     GETINSTRUCTORBYID: "/getinstructorbyid/:id",
     FETCH_ALL_CATEGORY: "/fetchallcategories",
     ADD_COURSE: "/addcourse",
@@ -25,7 +29,9 @@ export const USER_ROUTES = {
     GET_STUDENT_LESSON_BY_COURSEID: "/getstudentlessonbycourseid/:courseId",
     UPDATE_COURSE: "/updatecourse/:courseId",
     UPDATE_LESSON: "/updatelesson/:lessonId",
-    DELETE_LESSON: "/deletelesson/:lessonId"
+    DELETE_LESSON: "/deletelesson/:lessonId",
+   
+
 
 }
 

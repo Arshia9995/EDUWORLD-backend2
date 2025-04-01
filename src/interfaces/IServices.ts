@@ -8,6 +8,7 @@ export interface IUserService {
     signUp(user: UserDoc): Promise<IResponse>;
     verifyUser(otp: string, email: string): Promise<IResponse>;
     loginUser(email: string, password: string): Promise<IResponse>; 
+    // googleLogin(token: string): Promise<IResponse>; 
     resendOtp(email: string): Promise<IResponse>;
     forgotPassword(email: string): Promise<IResponse>; 
     forgotOtpVerify(email: string, otp: string): Promise<IResponse>;

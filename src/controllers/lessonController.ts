@@ -59,6 +59,7 @@ class LessonController {
           }
     
           const result = await this._lessonService.getLessonsByCourseId(courseId, req.user.id);
+          console.log("resulttttttttttttttttt",result)
     
           if (!result.success) {
             const status = result.message === 'Course not found' ? Status.NOT_FOUND : Status.BAD_REQUEST;
@@ -82,6 +83,8 @@ class LessonController {
         }
       }
 
+
+      
       async getStudentLessonsByCourseId(req: AuthRequest, res: Response) {
         try {
           if (!req.user?.id) {

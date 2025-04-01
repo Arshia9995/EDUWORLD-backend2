@@ -38,4 +38,5 @@ export interface UserDoc extends Document  {
     password: string;
     isBlocked?: boolean;
     verified?: boolean;
+    googleAuth?: boolean;
 }

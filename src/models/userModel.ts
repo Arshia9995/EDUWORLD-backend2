@@ -50,6 +50,7 @@ const userSchema = new Schema<UserDoc>({
         type: Boolean,
         default: false,
     },
+    googleAuth: { type: Boolean, default: false },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     student_details: {

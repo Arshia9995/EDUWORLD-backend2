@@ -4,6 +4,7 @@ import UserRepository from "../repositories/userRepository";
 import { Status } from "../utils/enums";
 import { UserDoc } from "../interfaces/IUser";
 import { generateRefreshToken, generateToken, verifyToken } from "../utils/jwt";
+import { AuthRequest } from "../middleware/authMiddleware";
 
 
 
@@ -152,6 +153,56 @@ class UserController {
             });
         }
     }
+
+    // async googleLogin(req: Request, res: Response) {
+    //     try {
+    //       const { token } = req.body;
+    
+    //       if (!token) {
+    //         return res.status(400).json({
+    //           success: false,
+    //           message: "Google token is required",
+    //         });
+    //       }
+    
+    //       const result = await this._userService.googleLogin(token);
+    
+    //       if (!result.success || !result.data) {
+    //         return res.status(401).json(result);
+    //       }
+    
+    //       const { _id, email, role } = result.data;
+    
+    //       const authToken = generateToken({ id: _id, email, role });
+    //       const refreshToken = generateRefreshToken({ id: _id, email, role });
+    
+    //       res.cookie("token", authToken, {
+    //         httpOnly: true,
+    //         secure: true,
+    //         sameSite: "none",
+    //         maxAge: 24 * 60 * 60 * 1000,
+    //       });
+    
+    //       res.cookie("refreshToken", refreshToken, {
+    //         httpOnly: true,
+    //         secure: true,
+    //         sameSite: "none",
+    //         maxAge: 7 * 24 * 60 * 60 * 1000,
+    //       });
+    
+    //       return res.status(200).json({
+    //         success: true,
+    //         message: "Google login successful",
+    //         data: { ...result.data, token: authToken, refreshToken },
+    //       });
+    //     } catch (error) {
+    //       console.error("Google login error:", error);
+    //       return res.status(500).json({
+    //         success: false,
+    //         message: "Internal Server Error",
+    //       });
+    //     }
+    //   }
     
     
     
@@ -354,7 +405,32 @@ class UserController {
                 message: 'Failed to generate S3 URL',
             });
         }
+    
     }
+
+
+
+
+    async videogetS3Url(req: Request, res: Response) {
+        try {
+            const { fileName, fileType, getUrl, folder } = req.body;
+            console.log("Received request for S3 URL:", fileName, fileType, getUrl ? "(fetching existing)" : "(new upload)",folder ? `Folder: ${folder}` : '');
+            
+            const result = await this._userService.videogetS3Url(fileName, fileType, getUrl, folder);
+    
+            console.log("Generated S3 URL response:", result);
+    
+            return res.status(Status.OK).json(result);
+        } catch (error) {
+            console.log(error);
+            return res.status(Status.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: 'Failed to generate S3 URL',
+            });
+        }
+    }
+
+
     async updateProfile(req: Request, res: Response) {
         try {
             // const userEmail = req.body.email;
@@ -549,6 +625,7 @@ class UserController {
             });
         }
     }
+
 
 }
 
