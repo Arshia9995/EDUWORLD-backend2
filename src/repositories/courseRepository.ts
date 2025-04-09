@@ -16,6 +16,8 @@ class CourseRepository extends BaseRepository<ICourse>{
     //   }
     // }
 
+   
+
     async findPublishedByInstructor(
       instructorId: string,
       page: number = 1,

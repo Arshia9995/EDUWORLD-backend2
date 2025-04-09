@@ -24,12 +24,19 @@ export const USER_ROUTES = {
     GET_PUBLISHED_COURSES: "/getpublishedcourses",
     GET_COURSE_BYID:  "/getcoursebyid/:courseId",
     GET_LESSONS_BY_COURSEID:"/getlessonbycourseid/:courseId",
+    GET_UPDATE_LESSONS_BY_COURSEID:"/updategetlessonbycourseid/:courseId",
+
     GET_ALL_PUBLISHED_COURSES: "/getallpublishedcourses",
     GET_STUDENT_COURSE_BYID: "/getstudentcoursebyid/:courseId",
     GET_STUDENT_LESSON_BY_COURSEID: "/getstudentlessonbycourseid/:courseId",
     UPDATE_COURSE: "/updatecourse/:courseId",
     UPDATE_LESSON: "/updatelesson/:lessonId",
     DELETE_LESSON: "/deletelesson/:lessonId",
+
+    CREATE_CHECKOUT_SESSION: "/create-checkout-session",
+    VERIFY_PAYMENT: "/verify-payment",
+    CHECK_ENROLLMENT: "/check-enrollment/:courseId",
+    CREATE_ENROLLMENT: "/create-enrollment",
    
 
 

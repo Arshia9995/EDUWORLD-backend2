@@ -3,14 +3,17 @@ import CourseRepository from "../repositories/courseRepository";
 import { ICourseService } from "../interfaces/IServices";
 import { UserService } from "./userServices";
 import { Types } from 'mongoose';
+import { EnrollmentService } from "./enrollmentService";
 
 export class CourseServices implements ICourseService {
     constructor(
         private _courseRepository: CourseRepository,
-        private _userService: UserService
+        private _userService: UserService,
+        private _enrollmentService: EnrollmentService
     ){
         this._courseRepository =  _courseRepository;
         this._userService = _userService;
+        this._enrollmentService = _enrollmentService;
     }
 
 
@@ -24,7 +27,7 @@ export class CourseServices implements ICourseService {
             !courseData.category
           ) {
             return { success: false, message: 'Missing required fields', data: null };
-          }
+          }  
     
         
           const course = await this._courseRepository.create(courseData);
@@ -353,6 +356,15 @@ export class CourseServices implements ICourseService {
             message: error.message || 'Failed to update course',
             data: null,
           };
+        }
+      }
+
+      async checkEnrollment(userId: string, courseId: string): Promise<boolean> {
+        try {
+          return await this._enrollmentService.checkEnrollment(userId, courseId);
+        } catch (error: any) {
+          console.error('Error in CourseService.checkEnrollment:', error);
+          throw new Error(error.message || 'Failed to check enrollment');
         }
       }
 

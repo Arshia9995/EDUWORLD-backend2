@@ -147,11 +147,11 @@ export class LessonServices implements ILessonService {
                   console.log(`Extracted key for lesson ${lesson._id}: ${key}`);
                   
                   // Generate a fresh pre-signed URL with a long expiration
-                  // const downloadUrl = await this._userService.videogetDownloadUrl(key);
-                  // console.log("downloadurl",downloadUrl)
+                  const downloadUrl = await this._userService.videogetDownloadUrl(key);
+                  console.log("downloadurl",downloadUrl)
                   return { 
                     ...lesson.toObject ? lesson.toObject() : lesson, 
-                    // video: downloadUrl 
+                    video: downloadUrl 
                   };
                 } catch (error) {
                   console.error(`Error getting download URL for lesson ${lesson._id}:`, error);
@@ -178,6 +178,69 @@ export class LessonServices implements ILessonService {
         }
       }
 
+      async getUpdateLessonsByCourseId(courseId: string, instructorId: string) {
+        try {
+          const course = await this._courseRepository.findById(courseId);
+          if (!course) {
+            return {
+              success: false,
+              message: "Course not found",
+              data: null,
+            };
+          }
+      
+          if (!course.instructor || course.instructor.toString() !== instructorId) {
+            return {
+              success: false,
+              message: "Unauthorized: You are not the instructor of this course",
+              data: null,
+            };
+          }
+      
+          const lessons = await this._lessonRepository.findLessonsByCourseId(courseId);
+      
+          const updatedLessons = await Promise.all(
+            lessons.map(async (lesson) => {
+              if (lesson.video) {
+                try {
+                  // The video field contains the S3 key (e.g., "videos/filename.mp4")
+                  const key = lesson.video;
+                  console.log(`Generating pre-signed URL for lesson ${lesson._id} with key: ${key}`);
+      
+                  // Generate a fresh pre-signed URL
+                  const downloadUrl = await this._userService.videogetDownloadUrl(key);
+                  return {
+                    ...lesson.toObject ? lesson.toObject() : lesson,
+                    videoKey: lesson.video, // Return the S3 key
+                    video: downloadUrl, // Return the pre-signed URL for the frontend
+                  };
+                } catch (error) {
+                  console.error(`Error getting download URL for lesson ${lesson._id}:`, error);
+                  return {
+                    ...lesson.toObject ? lesson.toObject() : lesson,
+                    video: null, // If we can't generate a URL, set video to null
+                    videoKey: lesson.video, // Still return the S3 key
+                  };
+                }
+              }
+              return lesson;
+            })
+          );
+      
+          return {
+            success: true,
+            message: "Lessons fetched successfully",
+            data: updatedLessons,
+          };
+        } catch (error: any) {
+          console.error("Error fetching lessons by course ID:", error);
+          return {
+            success: false,
+            message: error.message || "Failed to fetch lessons",
+            data: null,
+          };
+        }
+      }
       
       async getStudentLessonsByCourseId(courseId: string, userRole: string) {
         try {

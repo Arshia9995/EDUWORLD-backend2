@@ -3,6 +3,7 @@ import { UserDoc } from "./IUser";
 import { CategoryDoc } from "./ICategory";
 import { ICourse } from "./ICourse";
 import { ILesson } from "./ILesson";
+import { IEnrollment } from "./IEnrollment";
 
 export interface IUserService {
     signUp(user: UserDoc): Promise<IResponse>;
@@ -91,10 +92,24 @@ export interface ICourseService {
 export interface ILessonService {
   addLesson(lessonData: Partial<ILesson>, instructorId: string):Promise<IResponse>;
   getLessonsByCourseId(courseId: string, instructorId: string) :Promise<IResponse>;
+  getUpdateLessonsByCourseId(courseId: string, instructorId: string) :Promise<IResponse>;
   getStudentLessonsByCourseId(courseId: string, userRole: string):Promise<IResponse>;
   updateLesson(lessonId: string, lessonData: Partial<ILesson>, instructorId: string):Promise<IResponse>;
   deleteLesson(lessonId: string, instructorId: string): Promise<IResponse>;
 
 
   
+}
+
+export interface IEnrollmentService {
+  enrollUser(userId: string, courseId: string): Promise<IEnrollment>;
+  checkEnrollment(userId: string, courseId: string): Promise<boolean>;
+
+
+}
+
+export interface IPaymentService {
+  createCheckoutSession(courseId: string, userId: string): Promise<string>;
+  verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string }>;
+
 }
