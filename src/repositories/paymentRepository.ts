@@ -43,6 +43,23 @@ class PaymentRepository extends BaseRepository<IPayment> {
       throw new Error('Could not update payment status');
     }
   }
+
+  async findByUserId(userId: string): Promise<IPayment[]> {
+    try {
+      const payments = await this._model
+        .find({ userId: new mongoose.Types.ObjectId(userId) })
+        .populate({
+          path: 'courseId',
+          select: 'title',
+        })
+        .sort({ createdAt: -1 })
+        .lean();
+      return payments;
+    } catch (error) {
+      console.error('Error in PaymentRepository.findByUserId:', error);
+      throw new Error('Could not fetch payment history');
+    }
+  }
 }
 
 export default PaymentRepository;

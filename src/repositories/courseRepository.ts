@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 import { ICourse } from "../interfaces/ICourse";
 import { courseModel } from "../models/courseModel";
 import { BaseRepository } from "./baseRepository";
+import { Types } from 'mongoose';
 
 class CourseRepository extends BaseRepository<ICourse>{
     constructor() {
@@ -229,6 +231,21 @@ class CourseRepository extends BaseRepository<ICourse>{
         }
       }
 
+      async findStudentEnrolledCourseById(courseId: string): Promise<ICourse | null> {
+        try {
+          const course = await this._model
+            .findOne({ _id: courseId, isPublished: true, isBlocked: false })
+            .populate('instructor', 'name')
+            .populate('category', 'categoryName isActive')
+            .lean();
+    
+          return course || null;
+        } catch (error) {
+          console.error('Error in CourseRepository.findStudentCourseById:', error);
+          throw new Error('Could not fetch course');
+        }
+      }
+
 
       async update(courseId: string, updateData: any): Promise<ICourse | null> {
         try {
@@ -248,6 +265,115 @@ class CourseRepository extends BaseRepository<ICourse>{
           throw new Error('Could not update course');
         }
       }
+
+      // async findByIds(courseIds: mongoose.Types.ObjectId[]): Promise<ICourse[]> {
+      //   try {
+      //     const courses = await this._model
+      //       .find({ _id: { $in: courseIds } })
+      //       .populate('instructor', 'name')
+      //       .populate('category', 'categoryName isActive')
+      //       .lean();
+      //     return courses;
+      //   } catch (error: any) {
+      //     console.error('Error in CourseRepository.findByIds:', { error: error.message, courseIds });
+      //     throw new Error('Could not fetch courses');
+      //   }
+      // }
+
+      // CourseRepository.js
+async findEnrolledCourses(
+  courseIds: Types.ObjectId[],
+  page: number = 1,
+  limit: number = 6,
+  search: string = '',
+  sortBy: string = 'newest',
+  category: string = '',
+  priceRange: string = '',
+  language: string = ''
+): Promise<{ courses: ICourse[]; total: number }> {
+  try {
+    const skip = (page - 1) * limit;
+    
+    // Build query filters
+    const query: any = { 
+      _id: { $in: courseIds },
+      isBlocked: false 
+    };
+    
+    // Search filter (title and description)
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } }
+      ];
+    }
+    
+    // Category filter
+    if (category) {
+      query.category = category;
+    }
+    
+    // Language filter
+    if (language) {
+      query.language = language;
+    }
+    
+    // Price range filter
+    if (priceRange) {
+      if (priceRange === 'free') {
+        query.price = 0;
+      } else {
+        const [min, max] = priceRange.split('-').map(val => parseInt(val));
+        if (max) {
+          query.price = { $gte: min, $lte: max };
+        } else if (priceRange.includes('+')) {
+          query.price = { $gte: min };
+        }
+      }
+    }
+    
+    // Build sort options
+    let sortOptions: any = { createdAt: -1 }; // default: newest first
+    
+    switch (sortBy) {
+      case 'oldest':
+        sortOptions = { createdAt: 1 };
+        break;
+      case 'priceAsc':
+        sortOptions = { price: 1 };
+        break;
+      case 'priceDesc':
+        sortOptions = { price: -1 };
+        break;
+      case 'titleAsc':
+        sortOptions = { title: 1 };
+        break;
+      case 'titleDesc':
+        sortOptions = { title: -1 };
+        break;
+      default:
+        sortOptions = { createdAt: -1 }; // newest first
+    }
+
+    // Get total count with filters applied
+    const total = await this._model.countDocuments(query);
+
+    // Get paginated courses with filters and sorting
+    const courses = await this._model
+      .find(query)
+      .populate('instructor', 'name')
+      .populate('category', 'categoryName isActive')
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(limit)
+      .lean();
+
+    return { courses, total };
+  } catch (error) {
+    console.error('Error in CourseRepository.findEnrolledCourses:', error);
+    throw new Error('Could not fetch enrolled courses');
+  }
+}
 
 }
 

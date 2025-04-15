@@ -73,6 +73,198 @@ class EnrollmentController {
       });
     }
   }
+
+// EnrollmentController.js
+async getEnrolledCourses(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: User ID not found',
+        });
+      }
+  
+      const userId = req.user.id;
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 6;
+      const search = req.query.search as string || '';
+      const sortBy = req.query.sortBy as string || 'newest';
+      const category = req.query.category as string || '';
+      const priceRange = req.query.priceRange as string || '';
+      const language = req.query.language as string || '';
+  
+      const result = await this._enrollmentService.getEnrolledCourses(
+        userId,
+        page,
+        limit,
+        search,
+        sortBy,
+        category,
+        priceRange,
+        language
+      );
+  
+      return res.status(Status.OK).json({
+        success: true,
+        courses: result.courses,
+        totalCourses: result.totalCourses,
+        currentPage: result.currentPage,
+        totalPages: result.totalPages,
+      });
+    } catch (error: any) {
+      console.error('Error in getEnrolledCourses controller:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch enrolled courses',
+      });
+    }
+  }
+
+  async getEnrolledCourse(req: AuthRequest, res: Response) {
+    try {
+      const { courseId } = req.params;
+      
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: "Unauthorized: Student ID not found",
+        });
+      }
+  
+      const result = await this._enrollmentService.getEnrolledCourse(courseId, req.user.id);
+  
+      if (!result.success) {
+        return res.status(Status.BAD_REQUEST).json({
+          success: false,
+          message: result.message,
+        });
+      }
+  
+      return res.status(Status.OK).json({
+        success: true,
+        message: result.message,
+        course: result.data,
+      });
+    } catch (error: any) {
+      console.error('Error fetching enrolled course:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch course details',
+      });
+    }
+  }
+
+  async getCourseLessons(req: AuthRequest, res: Response) {
+    try {
+      const { courseId } = req.params;
+
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: "Unauthorized: Student ID not found",
+        });
+      }
+
+      const result = await this._enrollmentService.getCourseLessons(courseId, req.user.id);
+
+      if (!result.success) {
+        const status = result.message === 'Course not found' ? Status.NOT_FOUND : Status.BAD_REQUEST;
+        return res.status(status).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      return res.status(Status.OK).json({
+        success: true,
+        message: result.message,
+        lessons: result.data,
+      });
+    } catch (error: any) {
+      console.error("Error fetching lessons:", error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || "Failed to fetch lessons",
+      });
+    }
+  }
+
+  async getEnrolledCourseById(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: User ID not found',
+        });
+      }
+
+      const { courseId } = req.params;
+      const userId = req.user.id;
+
+      const result = await this._enrollmentService.getEnrolledCourseById(courseId, userId);
+
+      if (!result.success) {
+        const status = result.message === 'Course not found' || result.message === 'Not enrolled in this course' 
+          ? Status.NOT_FOUND 
+          : Status.BAD_REQUEST;
+        return res.status(status).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      return res.status(Status.OK).json({
+        success: true,
+        message: result.message,
+        course: result.data,
+      });
+    } catch (error: any) {
+      console.error('Error in getEnrolledCourseById controller:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch enrolled course',
+      });
+    }
+  }
+
+  async getEnrolledLessonsByCourseId(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: User ID not found',
+        });
+      }
+
+      const { courseId } = req.params;
+      const userId = req.user.id;
+
+      const result = await this._enrollmentService.getEnrolledLessonsByCourseId(courseId, userId);
+
+      if (!result.success) {
+        const status = result.message === 'Lessons not found' || result.message === 'Not enrolled in this course' 
+          ? Status.NOT_FOUND 
+          : Status.BAD_REQUEST;
+        return res.status(status).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      return res.status(Status.OK).json({
+        success: true,
+        message: result.message,
+        lessons: result.data,
+      });
+    } catch (error: any) {
+      console.error('Error in getEnrolledLessonsByCourseId controller:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch enrolled lessons',
+      });
+    }
+  }
+  
 }
 
 export default EnrollmentController;

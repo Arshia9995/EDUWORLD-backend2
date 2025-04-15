@@ -82,6 +82,8 @@ class LessonController {
           });
         }
       }
+
+      
       async getUpdateLessonsByCourseId(req: AuthRequest, res: Response) {
         try {
           const { courseId } = req.params;

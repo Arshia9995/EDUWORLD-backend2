@@ -37,6 +37,14 @@ export const USER_ROUTES = {
     VERIFY_PAYMENT: "/verify-payment",
     CHECK_ENROLLMENT: "/check-enrollment/:courseId",
     CREATE_ENROLLMENT: "/create-enrollment",
+    ENROLLED_COURSES: "/enrolled-courses",
+
+
+    GET_ENROLLED_COURSES_DETAILS: "/enrolled-course-details/:courseId",
+    GET_ENROLLED_LESSON_DETAILS: "/enrolled-course-lessons/:courseId",
+
+    PAYMENT_HISTORY: "/payment-history"
+
    
 
 

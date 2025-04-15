@@ -43,7 +43,7 @@ const s3 = new S3({
 
 const userService = new UserService(userRepository, otpRepository);
 const categoryService = new CategoryServices(categoryRepository);
-const enrollmentService = new EnrollmentService(enrollmentRepository);
+const enrollmentService = new EnrollmentService(enrollmentRepository, courseRepository,userService,lessonRepository);
 const courseService = new CourseServices(courseRepository, userService, enrollmentService);
 const lessonService = new LessonServices(lessonRepository, courseRepository,userService);
 const paymentService =new PaymentService(paymentRepository, courseRepository);
@@ -109,13 +109,33 @@ userRouter.get(USER_ROUTES.GET_UPDATE_LESSONS_BY_COURSEID,authenticateUser(),  l
 userRouter.get(USER_ROUTES.GET_STUDENT_LESSON_BY_COURSEID,authenticateUser(),  lessonController.getStudentLessonsByCourseId.bind(lessonController) as any);
 userRouter.put(USER_ROUTES.UPDATE_LESSON,authenticateUser(), lessonController.updateLesson.bind(lessonController) as any);
 userRouter.delete(USER_ROUTES.DELETE_LESSON,authenticateUser(), lessonController.deleteLesson.bind(lessonController) as any);
+
+
 // Enrollment Routes
 userRouter.get(USER_ROUTES.CHECK_ENROLLMENT, authenticateUser(), enrollmentController.checkEnrollment.bind(enrollmentController) as any);
 userRouter.post(USER_ROUTES.CREATE_ENROLLMENT, authenticateUser(), enrollmentController.createEnrollment.bind(enrollmentController) as any);
+userRouter.get(USER_ROUTES.ENROLLED_COURSES, authenticateUser(), enrollmentController.getEnrolledCourses.bind(enrollmentController) as any);
+
+// userRouter.get(USER_ROUTES.GET_ENROLLED_COURSES_DETAILS, authenticateUser(), enrollmentController.getEnrolledCourse.bind(enrollmentController) as any);
+// userRouter.get(USER_ROUTES.GET_ENROLLED_LESSON_DETAILS, authenticateUser(), enrollmentController.getCourseLessons.bind(enrollmentController) as any);
+
+
+
+ userRouter.get(USER_ROUTES.GET_ENROLLED_COURSES_DETAILS, authenticateUser(), enrollmentController.getEnrolledCourseById.bind(enrollmentController) as any);
+ userRouter.get(USER_ROUTES.GET_ENROLLED_LESSON_DETAILS, authenticateUser(), enrollmentController.getEnrolledLessonsByCourseId.bind(enrollmentController) as any);
+
+
+
 
 // Payment Routes
 userRouter.post(USER_ROUTES.CREATE_CHECKOUT_SESSION, authenticateUser(), paymentController.createCheckoutSession.bind(paymentController) as any);
 userRouter.get(USER_ROUTES.VERIFY_PAYMENT, authenticateUser(), paymentController.verifyPayment.bind(paymentController) as any);
+
+userRouter.get(USER_ROUTES.PAYMENT_HISTORY, authenticateUser(), paymentController.getPaymentHistory.bind(paymentController) as any);
+
+
+
+
 
 
 

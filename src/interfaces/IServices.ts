@@ -104,6 +104,27 @@ export interface ILessonService {
 export interface IEnrollmentService {
   enrollUser(userId: string, courseId: string): Promise<IEnrollment>;
   checkEnrollment(userId: string, courseId: string): Promise<boolean>;
+  getEnrolledCourses(
+    userId: string,
+    page?: number,
+    limit?: number,
+    search?: string,
+    sortBy?: string,
+    category?: string,
+    priceRange?: string,
+    language?: string
+  ): Promise<{
+    courses: any[];
+    totalCourses: number;
+    currentPage: number;
+    totalPages: number;
+  }>;
+  getEnrolledCourse(courseId: string, studentId: string): Promise<IResponse>;
+
+  getCourseLessons(courseId: string, studentId: string): Promise<IResponse>;
+
+  getEnrolledCourse(courseId: string, studentId: string): Promise<IResponse>;
+  getCourseLessons(courseId: string, studentId: string, userRole?: string): Promise<IResponse>;
 
 
 }
@@ -111,5 +132,6 @@ export interface IEnrollmentService {
 export interface IPaymentService {
   createCheckoutSession(courseId: string, userId: string): Promise<string>;
   verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string }>;
+  getPaymentHistory(userId: string): Promise<{ success: boolean; message: string; data: any[] }>;
 
 }
