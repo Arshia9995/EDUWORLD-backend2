@@ -124,6 +124,9 @@ userRouter.get(USER_ROUTES.ENROLLED_COURSES, authenticateUser(), enrollmentContr
  userRouter.get(USER_ROUTES.GET_ENROLLED_COURSES_DETAILS, authenticateUser(), enrollmentController.getEnrolledCourseById.bind(enrollmentController) as any);
  userRouter.get(USER_ROUTES.GET_ENROLLED_LESSON_DETAILS, authenticateUser(), enrollmentController.getEnrolledLessonsByCourseId.bind(enrollmentController) as any);
 
+ userRouter.get(USER_ROUTES.ENROLLED_COURSE_DETAILS, authenticateUser(), enrollmentController.getEnrolledCourseDetails.bind(enrollmentController) as any);
+ userRouter.post(USER_ROUTES.UPDATE_LESSON_PROGRESS, authenticateUser(), enrollmentController.updateLessonProgress.bind(enrollmentController) as any);
+
 
 
 
@@ -132,6 +135,8 @@ userRouter.post(USER_ROUTES.CREATE_CHECKOUT_SESSION, authenticateUser(), payment
 userRouter.get(USER_ROUTES.VERIFY_PAYMENT, authenticateUser(), paymentController.verifyPayment.bind(paymentController) as any);
 
 userRouter.get(USER_ROUTES.PAYMENT_HISTORY, authenticateUser(), paymentController.getPaymentHistory.bind(paymentController) as any);
+
+
 
 
 

@@ -42,6 +42,8 @@ export const USER_ROUTES = {
 
     GET_ENROLLED_COURSES_DETAILS: "/enrolled-course-details/:courseId",
     GET_ENROLLED_LESSON_DETAILS: "/enrolled-course-lessons/:courseId",
+    ENROLLED_COURSE_DETAILS: "/enrolled-course-detailss/:courseId",
+    UPDATE_LESSON_PROGRESS: "/update-lesson-progress",
 
     PAYMENT_HISTORY: "/payment-history"
 

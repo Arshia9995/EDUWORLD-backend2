@@ -126,6 +126,9 @@ export interface IEnrollmentService {
   getEnrolledCourse(courseId: string, studentId: string): Promise<IResponse>;
   getCourseLessons(courseId: string, studentId: string, userRole?: string): Promise<IResponse>;
 
+  getEnrolledCourseDetails(userId: string, courseId: string): Promise<IResponse>;
+  updateLessonProgress(userId: string, courseId: string, lessonId: string, status: string): Promise<IResponse>;
+
 
 }
 

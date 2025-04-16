@@ -186,6 +186,7 @@ async getEnrolledCourses(
             instructor: course.instructor,
             enrolledAt: enrollment?.enrolledAt,
             completionStatus: enrollment?.completionStatus,
+            progress: enrollment?.progress || { completedLessons: [], overallCompletionPercentage: 0 },
           };
         })
       );
@@ -443,6 +444,109 @@ async getEnrolledCourses(
         success: false,
         message: error.message || 'Failed to fetch enrolled lessons',
         data: null,
+      };
+    }
+  }
+
+
+  async getEnrolledCourseDetails(userId: string, courseId: string) {
+    try {
+      new ObjectId(userId);
+      new ObjectId(courseId);
+
+      const enrollment = await this._enrollmentRepository.findByUserAndCourse(userId, courseId);
+      if (!enrollment) {
+        return {
+          success: false,
+          message: 'You are not enrolled in this course',
+          course: null,
+          enrollment: null,
+        };
+      }
+
+      const course = await this._courseRepository.findByIdWithPopulate(courseId);
+      if (!course) {
+        return {
+          success: false,
+          message: 'Course not found',
+          course: null,
+          enrollment: null,
+        };
+      }
+
+      if (course.thumbnail) {
+        const key = course.thumbnail.split('.amazonaws.com/')[1];
+        course.thumbnail = await this._userService.getDownloadUrl(key);
+      }
+
+      return {
+        success: true,
+        message: 'Enrolled course details fetched successfully',
+        course,
+        enrollment,
+      };
+    } catch (error: any) {
+      console.error('Error in EnrollmentService.getEnrolledCourseDetails:', error);
+      return {
+        success: false,
+        message: error.message || 'Failed to fetch course details',
+        course: null,
+        enrollment: null,
+      };
+    }
+  }
+
+  async updateLessonProgress(userId: string, courseId: string, lessonId: string, status: string) {
+    try {
+      new ObjectId(userId);
+      new ObjectId(courseId);
+      new ObjectId(lessonId);
+
+      const enrollment = await this._enrollmentRepository.findByUserAndCourse(userId, courseId);
+      if (!enrollment) {
+        return {
+          success: false,
+          message: 'Enrollment not found',
+          enrollment: null,
+        };
+      }
+
+      if (status !== 'completed') {
+        return {
+          success: false,
+          message: 'Invalid status. Only "completed" is supported',
+          enrollment: null,
+        };
+      }
+
+      if (!enrollment.progress.completedLessons.includes(new ObjectId(lessonId))) {
+        enrollment.progress.completedLessons.push(new ObjectId(lessonId));
+        const totalLessons = await this._lessonRepository.countLessonsByCourse(courseId);
+        enrollment.progress.overallCompletionPercentage = Math.round((enrollment.progress.completedLessons.length / totalLessons) * 100);
+
+        if (enrollment.progress.overallCompletionPercentage >= 100) {
+          enrollment.completionStatus = 'completed';
+        }
+
+        const updatedEnrollment = await this._enrollmentRepository.update(enrollment._id, enrollment);
+        return {
+          success: true,
+          message: 'Lesson progress updated successfully',
+          enrollment: updatedEnrollment,
+        };
+      }
+
+      return {
+        success: true,
+        message: 'Lesson already marked as completed',
+        enrollment,
+      };
+    } catch (error: any) {
+      console.error('Error in EnrollmentService.updateLessonProgress:', error);
+      return {
+        success: false,
+        message: error.message || 'Failed to update lesson progress',
+        enrollment: null,
       };
     }
   }

@@ -48,6 +48,16 @@ class LessonRepository extends BaseRepository<ILesson>{
           throw new Error('Could not fetch lessons');
         }
       }
+
+      async countLessonsByCourse(courseId: string): Promise<number> {
+        try {
+          const count = await this._model.countDocuments({ course: courseId });
+          return count;
+        } catch (error: any) {
+          console.error('Error in LessonRepository.countLessonsByCourse:', { error: error.message, courseId });
+          throw new Error('Could not count lessons');
+        }
+      }
 }
 
 export default LessonRepository;

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { IEnrollment } from '../interfaces/IEnrollment';
+import { IEnrollment , IProgress} from '../interfaces/IEnrollment';
 
 const enrollmentSchema = new Schema(
   {
@@ -24,6 +24,19 @@ const enrollmentSchema = new Schema(
       enum: ['enrolled', 'in-progress', 'completed'],
       default: 'enrolled',
     },
+    progress: {
+        completedLessons: {
+          type: [Schema.Types.ObjectId],
+          ref: "lessons",
+          default: [],
+        },
+        overallCompletionPercentage: {
+          type: Number,
+          default: 0,
+          min: 0,
+          max: 100,
+        },
+      },
   },
   { timestamps: true }
 );

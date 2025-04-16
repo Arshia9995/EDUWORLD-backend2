@@ -264,6 +264,89 @@ async getEnrolledCourses(req: AuthRequest, res: Response) {
       });
     }
   }
+
+  async getEnrolledCourseDetails(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: User ID not found',
+        });
+      }
+
+      const { courseId } = req.params;
+      if (!courseId) {
+        return res.status(Status.BAD_REQUEST).json({
+          success: false,
+          message: 'Course ID is required',
+        });
+      }
+
+      const userId = req.user.id;
+      const result = await this._enrollmentService.getEnrolledCourseDetails(userId, courseId);
+
+      if (!result.success) {
+        return res.status(Status.NOT_FOUND).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      return res.status(Status.OK).json({
+        success: true,
+        message: result.message,
+        course: result.course,
+        enrollment: result.enrollment,
+      });
+    } catch (error: any) {
+      console.error('Error in getEnrolledCourseDetails controller:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch course details',
+      });
+    }
+  }
+
+  async updateLessonProgress(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: User ID not found',
+        });
+      }
+
+      const { courseId, lessonId, status } = req.body;
+      if (!courseId || !lessonId || !status) {
+        return res.status(Status.BAD_REQUEST).json({
+          success: false,
+          message: 'Course ID, Lesson ID, and status are required',
+        });
+      }
+
+      const userId = req.user.id;
+      const result = await this._enrollmentService.updateLessonProgress(userId, courseId, lessonId, status);
+
+      if (!result.success) {
+        return res.status(Status.BAD_REQUEST).json({
+          success: false,
+          message: result.message,
+        });
+      }
+
+      return res.status(Status.OK).json({
+        success: true,
+        message: result.message,
+        enrollment: result.enrollment,
+      });
+    } catch (error: any) {
+      console.error('Error in updateLessonProgress controller:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to update lesson progress',
+      });
+    }
+  }
   
 }
 
