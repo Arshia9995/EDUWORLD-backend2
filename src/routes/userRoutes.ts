@@ -24,6 +24,12 @@ import OtpRepository from "../repositories/otpRepository";
 import { USER_ROUTES } from "../constants/routes-constants";
 import { S3 } from "aws-sdk";
 import { authenticateUser } from "../middleware/authMiddleware";
+import { WalletService } from "../services/walletService";
+import WalletRepository from "../repositories/walletRepository";
+import WalletController from "../controllers/walletController";
+import ReviewRepository from "../repositories/reviewRepository";
+import { ReviewService } from "../services/reviewService";
+import ReviewController from "../controllers/reviewController";
 
 
 
@@ -34,6 +40,8 @@ const courseRepository = new CourseRepository();
 const lessonRepository = new LessonRepository();
 const enrollmentRepository = new EnrollmentRepository();
 const paymentRepository = new PaymentRepository();
+const walletRepository = new WalletRepository();
+const reviewRepository = new ReviewRepository();
 
 const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -46,7 +54,9 @@ const categoryService = new CategoryServices(categoryRepository);
 const enrollmentService = new EnrollmentService(enrollmentRepository, courseRepository,userService,lessonRepository);
 const courseService = new CourseServices(courseRepository, userService, enrollmentService);
 const lessonService = new LessonServices(lessonRepository, courseRepository,userService);
-const paymentService =new PaymentService(paymentRepository, courseRepository);
+const walletService = new WalletService(walletRepository);
+const paymentService =new PaymentService(paymentRepository, courseRepository, walletService);
+const reviewService = new ReviewService(reviewRepository)
 
 
 const userController = new UserController(userService);
@@ -55,6 +65,8 @@ const courseController = new CourseController(courseService);
 const lessonController = new LessonController(lessonService);
 const paymentController = new PaymentController(paymentService, enrollmentService);
 const enrollmentController = new EnrollmentController(enrollmentService);
+const walletController = new WalletController(walletService);
+const reviewController = new ReviewController(reviewService);
 
 
 const userRouter = Router();
@@ -135,6 +147,19 @@ userRouter.post(USER_ROUTES.CREATE_CHECKOUT_SESSION, authenticateUser(), payment
 userRouter.get(USER_ROUTES.VERIFY_PAYMENT, authenticateUser(), paymentController.verifyPayment.bind(paymentController) as any);
 
 userRouter.get(USER_ROUTES.PAYMENT_HISTORY, authenticateUser(), paymentController.getPaymentHistory.bind(paymentController) as any);
+
+//......................................instructor wallet.............................................................
+
+
+userRouter.get(USER_ROUTES.INSTRUCTOR_WALLET, authenticateUser(), walletController.getWalletDetails.bind(walletController) as any);
+
+//.......................................review....................................................
+
+userRouter.post(USER_ROUTES.ADD_REVIEW, authenticateUser(), reviewController.addReview.bind(reviewController) as any);
+
+
+
+
 
 
 

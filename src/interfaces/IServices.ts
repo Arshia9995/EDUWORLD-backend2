@@ -4,6 +4,7 @@ import { CategoryDoc } from "./ICategory";
 import { ICourse } from "./ICourse";
 import { ILesson } from "./ILesson";
 import { IEnrollment } from "./IEnrollment";
+import { IWallet } from "./IWallet";
 
 export interface IUserService {
     signUp(user: UserDoc): Promise<IResponse>;
@@ -134,7 +135,23 @@ export interface IEnrollmentService {
 
 export interface IPaymentService {
   createCheckoutSession(courseId: string, userId: string): Promise<string>;
-  verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string }>;
+  verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string; instructorId?: string }>;
   getPaymentHistory(userId: string): Promise<{ success: boolean; message: string; data: any[] }>;
+}
 
+export interface IWalletService {
+  creditInstructorWallet(
+    instructorId: string,
+    amount: number,
+    description: string,
+    courseId?: string
+  ): Promise<void>;
+  getWalletByUserId(userId: string): Promise<IWallet | null>;
+}
+
+export interface IReviewService {
+  addReview(courseId: string, studentId: string, rating: number, reviewText: string): Promise<any>;
+  getReviewsByCourse(courseId: string): Promise<any>;
+  updateReview(reviewId: string, studentId: string, rating: number, reviewText: string): Promise<any>;
+  deleteReview(reviewId: string, studentId: string): Promise<any>;
 }

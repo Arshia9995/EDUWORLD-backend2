@@ -13,6 +13,11 @@ const paymentSchema = new Schema(
       ref: 'courses',
       required: true,
     },
+    instructorId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true, // Required since every course has an instructor
+      },
     status: {
       type: String,
       enum: ['pending', 'completed', 'failed', 'refunded'],
@@ -27,6 +32,10 @@ const paymentSchema = new Schema(
       type: Number,
       required: true,
     },
+    instructorShare: {
+        type: Number,
+        required: false, // Optional, calculated during verification
+      },
     stripeSessionId: {
       type: String,
       required: true,

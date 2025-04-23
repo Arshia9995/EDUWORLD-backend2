@@ -125,20 +125,46 @@ async createCheckoutSession(req: AuthRequest, res: Response) {
     }
   }
 
-  async verifyPayment(req: AuthRequest, res: Response) {
+//   async verifyPayment(req: AuthRequest, res: Response) {
+//     try {
+//       const { session_id } = req.query;
+//       if (!session_id || typeof session_id !== 'string') {
+//         return res.status(Status.BAD_REQUEST).json({ success: false, message: 'Session ID is required and must be a string' });
+//       }
+
+//       const { userId, courseId } = await this._paymentService.verifyPayment(session_id);
+//       await this._enrollmentService.enrollUser(userId, courseId);
+
+//       return res.status(Status.OK).json({ success: true, message: 'Enrollment successful' });
+//     } catch (error: any) {
+//       console.error('Error in verifyPayment controller:', error);
+//       return res.status(Status.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || 'Failed to verify payment' });
+//     }
+//   }
+
+async verifyPayment(req: AuthRequest, res: Response) {
     try {
       const { session_id } = req.query;
       if (!session_id || typeof session_id !== 'string') {
-        return res.status(Status.BAD_REQUEST).json({ success: false, message: 'Session ID is required and must be a string' });
+        return res.status(Status.BAD_REQUEST).json({
+          success: false,
+          message: 'Session ID is required and must be a string',
+        });
       }
 
       const { userId, courseId } = await this._paymentService.verifyPayment(session_id);
       await this._enrollmentService.enrollUser(userId, courseId);
 
-      return res.status(Status.OK).json({ success: true, message: 'Enrollment successful' });
+      return res.status(Status.OK).json({
+        success: true,
+        message: 'Enrollment successful',
+      });
     } catch (error: any) {
       console.error('Error in verifyPayment controller:', error);
-      return res.status(Status.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || 'Failed to verify payment' });
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to verify payment',
+      });
     }
   }
 

@@ -45,7 +45,11 @@ export const USER_ROUTES = {
     ENROLLED_COURSE_DETAILS: "/enrolled-course-detailss/:courseId",
     UPDATE_LESSON_PROGRESS: "/update-lesson-progress",
 
-    PAYMENT_HISTORY: "/payment-history"
+    PAYMENT_HISTORY: "/payment-history",
+
+    INSTRUCTOR_WALLET: "/instructorwallet",
+
+    ADD_REVIEW: "reviews"
 
    
 

@@ -48,6 +48,13 @@ export class LessonServices implements ILessonService {
           
           const courseId = lessonData.course.toString();
           const course = await this._courseRepository.findById(courseId);
+
+          // if(lessonData.title === course?.title || lessonData.description === course?.description){
+          //   return {
+          //     success: false,
+          //     message: "you can not add the same course"
+          //   }
+          // }
           
           if (!course) {
             return {
