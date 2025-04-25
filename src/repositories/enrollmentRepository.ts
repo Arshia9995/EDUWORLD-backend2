@@ -114,6 +114,57 @@ async create(enrollmentData: Partial<IEnrollment>): Promise<IEnrollment> {
       throw new Error('Could not verify enrollment');
     }
   }
+
+
+  // Get total unique students enrolled in a list of courses
+  async getTotalStudentsByCourses(courseIds: string[]): Promise<number> {
+    try {
+      const uniqueStudents = await this._model
+        .distinct('userId', {
+          courseId: { $in: courseIds.map((id) => new mongoose.Types.ObjectId(id)) },
+        })
+        .countDocuments();
+      return uniqueStudents;
+    } catch (error) {
+      console.error('Error in EnrollmentRepository.getTotalStudentsByCourses:', error);
+      throw new Error('Could not fetch total students');
+    }
+  }
+
+  // Get enrollment timeline (last 12 months)
+  async getEnrollmentTimeline(): Promise<{ _id: string; count: number }[]> {
+    try {
+      const twelveMonthsAgo = new Date();
+      twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+
+      return await this._model.aggregate([
+        {
+          $match: {
+            enrolledAt: { $gte: twelveMonthsAgo },
+          },
+        },
+        {
+          $group: {
+            _id: { $dateToString: { format: '%Y-%m', date: '$enrolledAt' } },
+            count: { $sum: 1 },
+          },
+        },
+        { $sort: { '_id': 1 } },
+      ]);
+    } catch (error) {
+      console.error('Error in EnrollmentRepository.getEnrollmentTimeline:', error);
+      throw new Error('Could not fetch enrollment timeline');
+    }
+  }
+
+  async getTotalStudents(): Promise<number> {
+    try {
+      return await this._model.distinct('userId').countDocuments();
+    } catch (error) {
+      console.error('Error in EnrollmentRepository.getTotalStudents:', error);
+      throw new Error('Could not fetch total students');
+    }
+  }
 }
 
 export default EnrollmentRepository;

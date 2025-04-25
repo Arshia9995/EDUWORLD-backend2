@@ -4,19 +4,36 @@ import bcrypt from "bcryptjs";
 import { IAdminService } from "../interfaces/IServices";
 import UserRepository from "../repositories/userRepository";
 import dotenv from "dotenv";
-
+import EnrollmentRepository from "../repositories/enrollmentRepository";
+import CourseRepository from "../repositories/courseRepository";
+import ActivityLogRepository from "../repositories/activityRepository";
 dotenv.config();
 
 
+
+interface AdminStats {
+  enrollmentTimeline: { _id: string; count: number }[];
+  courseDistribution: { categoryName: string; count: number }[];
+  totalInstructors: number;
+  totalCourses: number;
+  totalStudents: number;
+  topCourses: { courseName: string; instructorName: string; categoryName: string; enrollmentCount: number }[];
+}
 
 
 export class AdminServices implements IAdminService {
     constructor(
         private _userRepository: UserRepository,
-        private _adminRepository: AdminRepository
+        private _adminRepository: AdminRepository,
+        private _enrollmentRepository: EnrollmentRepository,
+        private _courseRepository: CourseRepository,
+        private _activityLogRepository: ActivityLogRepository
     ){
         this._userRepository = _userRepository;
         this._adminRepository = _adminRepository;
+        this._enrollmentRepository = _enrollmentRepository;
+        this._courseRepository = _courseRepository;
+        this._activityLogRepository = _activityLogRepository;
     }
 
     async adminLogin(email: string, password:string) {
@@ -232,5 +249,41 @@ export class AdminServices implements IAdminService {
         }
       }
 
+      async getAdminStats() {
+        try {
+          const enrollmentTimeline = await this._enrollmentRepository.getEnrollmentTimeline();
+          const courseDistribution = await this._courseRepository.getCourseDistributionByCategory();
+          const totalInstructors = await this._userRepository.getTotalInstructors();
+          const totalCourses = await this._courseRepository.getTotalCourses();
+          const totalStudents = await this._enrollmentRepository.getTotalStudents();
+          const topCourses = await this._courseRepository.getTopCoursesByEnrollment(5);
+    
+          return {
+            success: true,
+            data: {
+              enrollmentTimeline,
+              courseDistribution,
+              totalInstructors,
+              totalCourses,
+              totalStudents,
+              topCourses,
+            },
+          };
+        } catch (error: any) {
+          console.error('Error in AdminService.getAdminStats:', error);
+          return {
+            success: false,
+            data: {
+              enrollmentTimeline: [],
+              courseDistribution: [],
+              totalInstructors: 0,
+              totalCourses: 0,
+              totalStudents: 0,
+              topCourses: [],
+            },
+            message: error.message || 'Failed to fetch admin stats',
+          };
+        }
+      }
 
 }

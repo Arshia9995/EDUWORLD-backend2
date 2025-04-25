@@ -19,7 +19,7 @@ class ReviewRepository extends BaseRepository<IReview> {
   async findAllByCourse(courseId: string): Promise<IReview[]> {
     try {
       return await this._model.find({ courseId })
-        .populate('studentId', 'firstName lastName profileImage')
+        .populate('studentId', 'name email profile')
         .sort({ createdAt: -1 });
     } catch (error) {
       console.error("Error finding reviews by course:", error);

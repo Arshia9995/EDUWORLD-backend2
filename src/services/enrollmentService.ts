@@ -7,6 +7,7 @@ import CourseRepository from "../repositories/courseRepository";
 import { Types } from 'mongoose';
 import { UserService } from "./userServices";
 import LessonRepository from "../repositories/lessonRepository";
+import { IResponse } from "../interfaces/IResponse";
 
 
 
@@ -550,4 +551,47 @@ async getEnrolledCourses(
       };
     }
   }
+
+
+  async getInstructorStats(instructorId: string) {
+    try {
+      // Fetch total courses
+      const totalCourses = await this._courseRepository.getTotalCoursesByInstructor(instructorId);
+
+      // Fetch published courses
+      const publishedCourses = await this._courseRepository.getPublishedCoursesByInstructor(instructorId);
+
+      // Fetch course IDs to get enrollment data
+      const courseIds = await this._courseRepository.getCourseIdsByInstructor(instructorId);
+
+      // Fetch total unique students
+      const totalStudents = await this._enrollmentRepository.getTotalStudentsByCourses(courseIds);
+
+      // Fetch course creation timeline for the graph
+      const courseCreationData = await this._courseRepository.getCourseCreationTimeline(instructorId);
+
+      return {
+        success: true,
+        data: {
+          totalCourses,
+          publishedCourses,
+          totalStudents,
+          courseCreationData,
+        },
+      };
+    } catch (error: any) {
+      console.error('Error in InstructorService.getInstructorStats:', error);
+      return {
+        success: false,
+        data: {
+          totalCourses: 0,
+          publishedCourses: 0,
+          totalStudents: 0,
+          courseCreationData: [],
+        },
+        message: error.message || 'Failed to fetch instructor stats',
+      };
+    }
+  }
+  
 }

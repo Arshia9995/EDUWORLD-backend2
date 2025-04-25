@@ -2,7 +2,7 @@ export const USER_ROUTES = {
     SIGN_UP: "/signup",
     VERIFY_OTP: "/verifyotp",
     LOGIN: "/login",
-    // GOOGLE_LOGIN: "/google-login",
+    GOOGLE_LOGIN: "/google-login",
     LOGOUT: "/logout",
     GETUSERDATAFIRST: "/getUserDataFirst",
     RESEND_OTP: "/resendotp",
@@ -49,7 +49,11 @@ export const USER_ROUTES = {
 
     INSTRUCTOR_WALLET: "/instructorwallet",
 
-    ADD_REVIEW: "reviews"
+    ADD_REVIEW: "/courses/:courseId/reviews",
+    GET_REVIEW: "/courses/:courseId/getreviews",
+    GET_PROFILE: "/profile",
+    INSTRUCTOR_STATS:'/instructor-stats',
+
 
    
 
@@ -74,6 +78,8 @@ export const Admin_Routes = {
     EDIT_CATEGORY: "/editcategory/:id",
     BLOCK_CATEGORY: "/blockcategory/:id",
     UNBLOCK_CATEGORY: "/unblockcategory/:id",
+    
+    ADMIN_STATS: "/admin-stats"
    
  
 }

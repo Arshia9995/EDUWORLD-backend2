@@ -348,6 +348,27 @@ async getEnrolledCourses(req: AuthRequest, res: Response) {
     }
   }
   
+  async getInstructorStats(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: User ID not found',
+        });
+      }
+
+      const instructorId = req.user.id;
+      const stats = await this._enrollmentService.getInstructorStats(instructorId);
+
+      return res.status(Status.OK).json(stats);
+    } catch (error: any) {
+      console.error('Error in InstructorController.getInstructorStats:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch instructor stats',
+      });
+    }
+  }
 }
 
 export default EnrollmentController;

@@ -154,55 +154,55 @@ class UserController {
         }
     }
 
-    // async googleLogin(req: Request, res: Response) {
-    //     try {
-    //       const { token } = req.body;
+    async googleLogin(req: Request, res: Response) {
+        try {
+          const { token } = req.body;
     
-    //       if (!token) {
-    //         return res.status(400).json({
-    //           success: false,
-    //           message: "Google token is required",
-    //         });
-    //       }
+          if (!token) {
+            return res.status(400).json({
+              success: false,
+              message: "Google token is required",
+            });
+          }
     
-    //       const result = await this._userService.googleLogin(token);
+          const result = await this._userService.googleLogin(token);
     
-    //       if (!result.success || !result.data) {
-    //         return res.status(401).json(result);
-    //       }
+          if (!result.success || !result.data) {
+            return res.status(401).json(result);
+          }
     
-    //       const { _id, email, role } = result.data;
+          const { _id, email, role } = result.data;
     
-    //       const authToken = generateToken({ id: _id, email, role });
-    //       const refreshToken = generateRefreshToken({ id: _id, email, role });
+          const authToken = generateToken({ id: _id, email, role });
+          const refreshToken = generateRefreshToken({ id: _id, email, role });
     
-    //       res.cookie("token", authToken, {
-    //         httpOnly: true,
-    //         secure: true,
-    //         sameSite: "none",
-    //         maxAge: 24 * 60 * 60 * 1000,
-    //       });
+          res.cookie("token", authToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 24 * 60 * 60 * 1000,
+          });
     
-    //       res.cookie("refreshToken", refreshToken, {
-    //         httpOnly: true,
-    //         secure: true,
-    //         sameSite: "none",
-    //         maxAge: 7 * 24 * 60 * 60 * 1000,
-    //       });
+          res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+          });
     
-    //       return res.status(200).json({
-    //         success: true,
-    //         message: "Google login successful",
-    //         data: { ...result.data, token: authToken, refreshToken },
-    //       });
-    //     } catch (error) {
-    //       console.error("Google login error:", error);
-    //       return res.status(500).json({
-    //         success: false,
-    //         message: "Internal Server Error",
-    //       });
-    //     }
-    //   }
+          return res.status(200).json({
+            success: true,
+            message: "Google login successful",
+            data: { ...result.data, token: authToken, refreshToken },
+          });
+        } catch (error) {
+          console.error("Google login error:", error);
+          return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+          });
+        }
+      }
     
     
     
@@ -626,6 +626,19 @@ class UserController {
         }
     }
 
+
+    async getUserProfile(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user || !req.user.id) {
+            return res.status(401).json({ message: 'Unauthorized: User not authenticated' });
+          }
+    
+          const userProfile = await this._userService.getUserProfile(req.user.id);
+          return res.status(200).json({ user: userProfile });
+        } catch (error) {
+          return res.status(500).json({ message: (error as Error).message });
+        }
+      }
 
 }
 

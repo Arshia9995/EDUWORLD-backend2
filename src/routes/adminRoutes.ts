@@ -8,14 +8,20 @@ import { AdminServices } from "../services/adminService";
 import { CategoryServices } from "../services/categoryService";
 import { Admin_Routes } from "../constants/routes-constants";
 import { authenticateAdmin } from "../middleware/authMiddleware";
+import EnrollmentRepository from "../repositories/enrollmentRepository";
+import CourseRepository from "../repositories/courseRepository";
+import ActivityLogRepository from "../repositories/activityRepository";
 
 
 const adminRepository = new AdminRepository();
 const userRepository = new UserRepository();
 const categoryRepository = new CategoryRepository();
+const enrollmentRepository = new EnrollmentRepository();
+const courseRepository = new CourseRepository();
+const activityLogRepository = new ActivityLogRepository();
 
 
-const adminService = new AdminServices( userRepository, adminRepository);
+const adminService = new AdminServices( userRepository, adminRepository,enrollmentRepository, courseRepository, activityLogRepository);
 const categoryService = new CategoryServices(categoryRepository);
 
 const adminController = new AdminController(adminService);
@@ -41,6 +47,11 @@ adminRouter.get(Admin_Routes.GET_ALL_CATEGORIES,authenticateAdmin(),  categoryCo
 adminRouter.put(Admin_Routes.EDIT_CATEGORY,authenticateAdmin(),  categoryController.updateCategory.bind(categoryController) as any);
 adminRouter.put(Admin_Routes.BLOCK_CATEGORY, authenticateAdmin(), categoryController.blockCategory.bind(categoryController) as any);
 adminRouter.put(Admin_Routes.UNBLOCK_CATEGORY, authenticateAdmin(),  categoryController.unblockCategory.bind(categoryController) as any);
+
+//....................................................dashboard............................................................
+
+adminRouter.get(Admin_Routes.ADMIN_STATS,authenticateAdmin(),  adminController.getAdminStats.bind(adminController) as any);
+
 
 
 export default adminRouter;

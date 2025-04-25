@@ -375,6 +375,180 @@ async findEnrolledCourses(
   }
 }
 
+
+// Get total courses created by an instructor
+async getTotalCoursesByInstructor(instructorId: string): Promise<number> {
+  try {
+    return await this._model.countDocuments({ instructor: new mongoose.Types.ObjectId(instructorId) });
+  } catch (error) {
+    console.error('Error in CourseRepository.getTotalCoursesByInstructor:', error);
+    throw new Error('Could not fetch total courses');
+  }
+}
+
+// Get total published courses by an instructor
+async getPublishedCoursesByInstructor(instructorId: string): Promise<number> {
+  try {
+    return await this._model.countDocuments({
+      instructor: new mongoose.Types.ObjectId(instructorId),
+      isPublished: true,
+      isBlocked: false,
+    });
+  } catch (error) {
+    console.error('Error in CourseRepository.getPublishedCoursesByInstructor:', error);
+    throw new Error('Could not fetch published courses');
+  }
+}
+
+// Get course creation timeline (for the graph, last 12 months)
+async getCourseCreationTimeline(instructorId: string): Promise<{ _id: string; count: number }[]> {
+  try {
+    const twelveMonthsAgo = new Date();
+    twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+
+    return await this._model.aggregate([
+      {
+        $match: {
+          instructor: new mongoose.Types.ObjectId(instructorId),
+          createdAt: { $gte: twelveMonthsAgo },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { '_id': 1 } },
+    ]);
+  } catch (error) {
+    console.error('Error in CourseRepository.getCourseCreationTimeline:', error);
+    throw new Error('Could not fetch course creation timeline');
+  }
+}
+
+// Get all course IDs for an instructor (to fetch enrollments)
+async getCourseIdsByInstructor(instructorId: string): Promise<string[]> {
+  try {
+    const courses = await this._model
+      .find({ instructor: new mongoose.Types.ObjectId(instructorId) })
+      .select('_id')
+      .lean();
+    return courses.map((course) => course._id.toString());
+  } catch (error) {
+    console.error('Error in CourseRepository.getCourseIdsByInstructor:', error);
+    throw new Error('Could not fetch course IDs');
+  }
+}
+
+// Get course distribution by category
+async getCourseDistributionByCategory(): Promise<{ categoryName: string; count: number }[]> {
+  try {
+    return await this._model.aggregate([
+      {
+        $lookup: {
+          from: 'categories', // Assume category collection name
+          localField: 'category',
+          foreignField: '_id',
+          as: 'categoryDetails',
+        },
+      },
+      {
+        $unwind: '$categoryDetails',
+      },
+      {
+        $group: {
+          _id: '$categoryDetails.categoryName',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          categoryName: '$_id',
+          count: 1,
+        },
+      },
+    ]);
+  } catch (error) {
+    console.error('Error in CourseRepository.getCourseDistributionByCategory:', error);
+    throw new Error('Could not fetch course distribution');
+  }
+}
+
+async getTotalCourses(): Promise<number> {
+  try {
+    return await this._model.countDocuments();
+  } catch (error) {
+    console.error('Error in CourseRepository.getTotalCourses:', error);
+    throw new Error('Could not fetch total courses');
+  }
+}
+
+async getTopCoursesByEnrollment(limit: number = 5): Promise<
+    { courseName: string; instructorName: string; categoryName: string; enrollmentCount: number }[]
+  > {
+    try {
+      const topCourses = await this._model.aggregate([
+        // Lookup enrollments for each course
+        {
+          $lookup: {
+            from: 'enrollments',
+            localField: '_id',
+            foreignField: 'courseId',
+            as: 'enrollments',
+          },
+        },
+        // Lookup instructor details
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'instructor',
+            foreignField: '_id',
+            as: 'instructorDetails',
+          },
+        },
+        {
+          $unwind: '$instructorDetails',
+        },
+        // Lookup category details
+        {
+          $lookup: {
+            from: 'categories',
+            localField: 'category',
+            foreignField: '_id',
+            as: 'categoryDetails',
+          },
+        },
+        {
+          $unwind: '$categoryDetails',
+        },
+        // Project the required fields
+        {
+          $project: {
+            courseName: '$title',
+            instructorName: '$instructorDetails.name',
+            categoryName: '$categoryDetails.categoryName',
+            enrollmentCount: { $size: '$enrollments' },
+          },
+        },
+        // Sort by enrollment count (descending)
+        {
+          $sort: { enrollmentCount: -1 },
+        },
+        // Limit to top N courses
+        {
+          $limit: limit,
+        },
+      ]);
+      return topCourses;
+    } catch (error) {
+      console.error('Error in CourseRepository.getTopCoursesByEnrollment:', error);
+      throw new Error('Could not fetch top courses by enrollment');
+    }
+  }
+
+
 }
 
 export default CourseRepository;

@@ -8,6 +8,7 @@ import { AdminDoc } from "../interfaces/IAdmin";
 import { IAdminService } from "../interfaces/IServices";
 import { generateToken, generateRefreshToken } from "../utils/jwt";
 import { Status } from "../utils/enums";
+import { AuthRequest } from "../middleware/authMiddleware";
 
 
 
@@ -246,12 +247,29 @@ class AdminController {
             });
         }
     }
-    
-    
-    
 
-
-}
+    async getAdminStats(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user?.id) {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: 'Unauthorized: Admin access required',
+            });
+          }
+    
+          const stats = await this._adminService.getAdminStats();
+    
+          return res.status(Status.OK).json(stats);
+        } catch (error: any) {
+          console.error('Error in AdminController.getAdminStats:', error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: error.message || 'Failed to fetch admin stats',
+          });
+        }
+      }
+    }
+    
 
 
 export default AdminController;

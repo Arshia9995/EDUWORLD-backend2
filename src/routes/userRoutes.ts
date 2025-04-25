@@ -74,7 +74,7 @@ const userRouter = Router();
 userRouter.post(USER_ROUTES.SIGN_UP, userController.signUp.bind(userController) as any);
 userRouter.post(USER_ROUTES.VERIFY_OTP, userController.verifyUser.bind(userController) as any);
 userRouter.post(USER_ROUTES.LOGIN, userController.loginUser.bind(userController) as any);
-// userRouter.post(USER_ROUTES.GOOGLE_LOGIN, userController.googleLogin.bind(userController) as any);
+userRouter.post(USER_ROUTES.GOOGLE_LOGIN, userController.googleLogin.bind(userController) as any);
 userRouter.post(USER_ROUTES.RESEND_OTP, userController.resendOtp.bind(userController) as any);
 userRouter.post(USER_ROUTES.FORGOT_PASSWORD, userController.forgotPassword.bind(userController) as any);
 userRouter.post(USER_ROUTES.FORGOTOTP_VERIFIED,userController.forgotOtpVerify.bind(userController) as any);
@@ -156,6 +156,13 @@ userRouter.get(USER_ROUTES.INSTRUCTOR_WALLET, authenticateUser(), walletControll
 //.......................................review....................................................
 
 userRouter.post(USER_ROUTES.ADD_REVIEW, authenticateUser(), reviewController.addReview.bind(reviewController) as any);
+userRouter.get(USER_ROUTES.GET_REVIEW, authenticateUser(), reviewController.getReviewsByCourse.bind(reviewController) as any);
+userRouter.get(USER_ROUTES.GET_PROFILE, authenticateUser(), userController.getUserProfile.bind(userController) as any);
+
+//.......................................................DASHBOARD..............................................
+
+userRouter.get(USER_ROUTES.INSTRUCTOR_STATS, authenticateUser(), enrollmentController.getInstructorStats.bind(enrollmentController) as any);
+
 
 
 

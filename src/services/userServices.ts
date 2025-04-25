@@ -16,7 +16,7 @@ import { OAuth2Client } from "google-auth-library";
 
 dotenv.config();
 
-// const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 
 
@@ -298,6 +298,65 @@ export class UserService implements IUserService {
     //     }
     //   }
 
+    async googleLogin(token: string) {
+        try {
+          const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID,
+          });
+      
+          const payload = ticket.getPayload();
+          if (!payload) {
+            return {
+              success: false,
+              message: "Invalid Google token",
+              data: null,
+            };
+          }
+      
+          const { email, name } = payload;
+      
+          let user = await this._userRepository.findByQuery({ email });
+          if (!user) {
+            // Generate a random password (since they'll only use Google to login)
+            const randomPassword = Math.random().toString(36).slice(-12);
+            
+            user = await this._userRepository.create({
+              email,
+              name,
+              role: "student",
+              verified: true,
+              googleAuth: true,
+              isBlocked: false,
+              password: randomPassword, // Add the required password field
+            });
+          }
+      
+          return {
+            success: true,
+            message: "Google login successful",
+            data: {
+              _id: user._id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              isBlocked: user.isBlocked,
+              verified: user.verified,
+              googleAuth: user.googleAuth,
+              profile: user.profile,
+            },
+          };
+        } catch (error) {
+          console.error("Google login error:", error);
+          return {
+            success: false,
+            message: "Internal Server Error",
+            data: null,
+          };
+        }
+      }
+
+      
     async getUserDataFirst(id: string) {
         try {
             const userDetails = await this._userRepository.findById(id);
@@ -900,6 +959,19 @@ async getInstructorById(id: string) {
         };
     }
 }
+
+async getUserProfile(userId: string) {
+    const user = await this._userRepository.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return {
+      name: user.name,
+      email: user.email,
+      createdAt: user.created_at,
+      updatedAt: user.updated_at,
+    };
+  }
     
 
 }

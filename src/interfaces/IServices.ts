@@ -35,6 +35,7 @@ export interface IUserService {
      getS3Url(fileName: string, fileType: string): Promise<{ url: string; imageUrl: string; downloadUrl: string }>;
      getDownloadUrl(key: string):Promise<string>;
      getInstructorById(id: any): Promise<any>;
+     getUserProfile(userId: string):Promise<any>;
       
 }
 
@@ -48,6 +49,8 @@ export interface IAdminService {
     getAllInstructors(): Promise<IResponse>;
     approveInstructor(instructorId: string): Promise<IResponse>;
     rejectInstructor(instructorId: string): Promise<IResponse>;
+    getAdminStats(): Promise<IResponse>;
+    getAdminStats(): Promise<IResponse>
 }
 
 export interface ICategoryService {
@@ -130,6 +133,7 @@ export interface IEnrollmentService {
   getEnrolledCourseDetails(userId: string, courseId: string): Promise<IResponse>;
   updateLessonProgress(userId: string, courseId: string, lessonId: string, status: string): Promise<IResponse>;
 
+  getInstructorStats(instructorId: string): Promise<IResponse>;
 
 }
 
