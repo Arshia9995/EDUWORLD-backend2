@@ -10,6 +10,7 @@ export interface IPayment extends Document {
   amount: number;
   stripeSessionId: string;
   instructorShare?: number; // Optional field to store instructor's share
+  adminShare: number;
   createdAt?: Date;  
   updatedAt?: Date;  
 }

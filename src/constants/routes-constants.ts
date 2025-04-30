@@ -54,6 +54,10 @@ export const USER_ROUTES = {
     GET_PROFILE: "/profile",
     INSTRUCTOR_STATS:'/instructor-stats',
 
+    RETRY_PAYMENT:"/retry-payment",
+
+    
+
 
    
 
@@ -79,7 +83,12 @@ export const Admin_Routes = {
     BLOCK_CATEGORY: "/blockcategory/:id",
     UNBLOCK_CATEGORY: "/unblockcategory/:id",
     
-    ADMIN_STATS: "/admin-stats"
+    ADMIN_STATS: "/admin-stats",
+
+    ADMIN_WALLET: "/admin-wallet",
+
+    COURSE_STATS: "/course-stats",
+    GET_ALL_PAYMENT_HISTORY: "/get-all-payment-history"
    
  
 }

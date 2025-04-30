@@ -11,6 +11,21 @@ import { authenticateAdmin } from "../middleware/authMiddleware";
 import EnrollmentRepository from "../repositories/enrollmentRepository";
 import CourseRepository from "../repositories/courseRepository";
 import ActivityLogRepository from "../repositories/activityRepository";
+import { walletModel } from "../models/walletModel";
+import WalletController from "../controllers/walletController";
+import { WalletService } from "../services/walletService";
+import WalletRepository from "../repositories/walletRepository";
+import AdminWalletRepository from "../repositories/adminWalletRepository";
+import { CourseStatsRepository } from "../repositories/courseStatsRepository";
+import { CourseStatsService } from "../services/courseStatsService";
+import { CourseStatsController } from "../controllers/courseStatsController";
+import PaymentRepository from "../repositories/paymentRepository";
+import { PaymentService } from "../services/paymentService";
+import PaymentController from "../controllers/paymentController";
+import { EnrollmentService } from "../services/enrollmentService";
+import LessonRepository from "../repositories/lessonRepository";
+import { UserService } from "../services/userServices";
+import OtpRepository from "../repositories/otpRepository";
 
 
 const adminRepository = new AdminRepository();
@@ -19,13 +34,27 @@ const categoryRepository = new CategoryRepository();
 const enrollmentRepository = new EnrollmentRepository();
 const courseRepository = new CourseRepository();
 const activityLogRepository = new ActivityLogRepository();
+const walletRepository = new WalletRepository();
+const adminWalletRepository = new AdminWalletRepository();
+const courseStatsRepository = new CourseStatsRepository();
+const paymentRepository = new PaymentRepository();
+const lessonRepository = new LessonRepository();
+const otpRepository = new OtpRepository();
 
 
 const adminService = new AdminServices( userRepository, adminRepository,enrollmentRepository, courseRepository, activityLogRepository);
 const categoryService = new CategoryServices(categoryRepository);
+const walletService = new WalletService(walletRepository, adminWalletRepository)
+const courseStatsService = new CourseStatsService(courseStatsRepository);
+const paymentService = new PaymentService(paymentRepository,courseRepository,walletService,adminRepository)
+const userService = new UserService(userRepository,otpRepository)
+const enrollmentService = new EnrollmentService(enrollmentRepository,courseRepository,userService,lessonRepository)
 
 const adminController = new AdminController(adminService);
 const categoryController = new CategoryController(categoryService);
+const walletController = new WalletController(walletService);
+const courseStatsController = new CourseStatsController(courseStatsService);
+const paymentController = new PaymentController(paymentService, enrollmentService)
 
 const adminRouter = Router();
 
@@ -52,6 +81,15 @@ adminRouter.put(Admin_Routes.UNBLOCK_CATEGORY, authenticateAdmin(),  categoryCon
 
 adminRouter.get(Admin_Routes.ADMIN_STATS,authenticateAdmin(),  adminController.getAdminStats.bind(adminController) as any);
 
+//.....................................................wallet.................................................................
+
+adminRouter.get(Admin_Routes.ADMIN_WALLET,authenticateAdmin(),  walletController.getAdminWalletDetails.bind(walletController) as any);
+
+
+adminRouter.get(Admin_Routes.COURSE_STATS,authenticateAdmin(),  courseStatsController.getCourseStats.bind(courseStatsController) as any);
+
+
+adminRouter.get(Admin_Routes.GET_ALL_PAYMENT_HISTORY,authenticateAdmin(),  paymentController.getAllPaymentHistory.bind(paymentController) as any);
 
 
 export default adminRouter;

@@ -140,7 +140,8 @@ export interface IEnrollmentService {
 export interface IPaymentService {
   createCheckoutSession(courseId: string, userId: string): Promise<string>;
   verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string; instructorId?: string }>;
-  getPaymentHistory(userId: string): Promise<{ success: boolean; message: string; data: any[] }>;
+  getPaymentHistory(userId: string,page: number, limit: number): Promise<{ success: boolean; message: string; data: any[] }>;
+  getAllPaymentHistory(page: number, limit: number): Promise<IResponse>;
 }
 
 export interface IWalletService {

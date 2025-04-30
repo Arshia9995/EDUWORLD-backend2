@@ -6,6 +6,23 @@ import { privateDecrypt } from "crypto";
 import stripe from "../utils/stripe";
 import { ObjectId } from 'mongodb';
 import { WalletService } from "./walletService";
+import AdminRepository from "../repositories/adminRepository";
+
+interface PaymentHistoryResult {
+  payments: {
+    _id: string;
+    studentName: string;
+    courseTitle: string;
+    amount: number;
+    paymentDate: Date;
+    status: string;
+    instructorName: string;
+    instructorShare: number;
+    adminShare: number;
+    type: string;
+  }[];
+  total: number;
+}
 
 
 
@@ -13,80 +30,19 @@ export class PaymentService implements IPaymentService {
     constructor (
         private _paymentRepository: PaymentRepository,
         private _courseRepository: CourseRepository,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _adminRepository: AdminRepository,
         
     ){
         this._paymentRepository = _paymentRepository;
         this._courseRepository =_courseRepository;
         this._walletService = _walletService;
+        this._adminRepository = _adminRepository;
     }
 
 
 
-    // async createCheckoutSession(courseId: string, userId: string): Promise<string> {
-    //     try {
-    //       const course = await this._courseRepository.findStudentCourseById(courseId);
-    //       if (!course) throw new Error('Course not found');
-    //       if (!course.isPublished || course.isBlocked) throw new Error('Course is not available');
-    //       if (typeof course.price !== 'number' || isNaN(course.price)) throw new Error('Invalid course price');
     
-    //       const session = await stripe.checkout.sessions.create({
-    //         payment_method_types: ['card'],
-    //         line_items: [
-    //           {
-    //             price_data: {
-    //               currency: 'inr',
-    //               product_data: { name: course.title, description: `Enrollment in ${course.title}` },
-    //               unit_amount: Math.round(course.price * 100),
-    //             },
-    //             quantity: 1,
-    //           },
-    //         ],
-    //         mode: 'payment',
-    //         success_url: `${process.env.FRONTEND_URL}/enrollment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${courseId}`,
-    //         cancel_url: `${process.env.FRONTEND_URL}/enrollment-cancel?course_id=${courseId}`,
-    //         metadata: { courseId, userId },
-    //         billing_address_collection: 'auto', // Minimize extra prompts
-    //       });
-    
-    //       await this._paymentRepository.create({
-    //         userId: new ObjectId(userId),
-    //         courseId: new ObjectId(courseId),
-    //         amount: course.price,
-    //         status: 'pending',
-    //         stripeSessionId: session.id,
-    //       });
-    
-    //       return session.id;
-    //     } catch (error: any) {
-    //       console.error('Error in PaymentService.createCheckoutSession:', { error: error.message, courseId, userId });
-    //       throw new Error(error.message || 'Failed to create checkout session');
-    //     }
-    //   }
-    
-    //   async verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string }> {
-    //     try {
-    //       const session = await stripe.checkout.sessions.retrieve(sessionId);
-    //       if (session.payment_status !== 'paid') {
-    //         await this._paymentRepository.updateStatus(sessionId, 'failed');
-    //         throw new Error('Payment not completed');
-    //       }
-    
-    //       const payment = await this._paymentRepository.findBySessionId(sessionId);
-    //       if (!payment) throw new Error('Payment record not found');
-    
-    //       const userId = session.metadata?.userId;
-    //       const courseId = session.metadata?.courseId;
-    //       if (!userId || !courseId) throw new Error('Missing userId or courseId in session metadata');
-    
-    //       await this._paymentRepository.updateStatus(sessionId, 'completed');
-    //       return { userId, courseId };
-    //     } catch (error: any) {
-    //       console.error('Error in PaymentService.verifyPayment:', { error: error.message, sessionId });
-    //       await this._paymentRepository.updateStatus(sessionId, 'failed');
-    //       throw new Error(error.message || 'Failed to verify payment');
-    //     }
-    //   }
 
       async getPaymentHistory(userId: string) {
         try {
@@ -115,6 +71,7 @@ export class PaymentService implements IPaymentService {
           if (!course.instructor?._id) throw new Error('Instructor not found for the course');
     
           const instructorShare = course.price * 0.6; // 60% for instructor
+          const adminShare = course.price * 0.4;
     
           const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -143,6 +100,7 @@ export class PaymentService implements IPaymentService {
             status: 'pending',
             stripeSessionId: session.id,
             instructorShare,
+            adminShare,
           });
     
           return session.id;
@@ -151,6 +109,60 @@ export class PaymentService implements IPaymentService {
           throw new Error(error.message || 'Failed to create checkout session');
         }
       }
+
+      async retryPayment(paymentId: string, userId: string): Promise<string> {
+        try {
+          const payment = await this._paymentRepository.findById(paymentId);
+          if (!payment) throw new Error('Payment not found');
+          if (payment.userId.toString() !== userId) throw new Error('Unauthorized: User does not own this payment');
+          if (payment.status !== 'pending') throw new Error('Payment is not in a retryable state');
+    
+          const course = await this._courseRepository.findStudentCourseById(payment.courseId.toString());
+          if (!course) throw new Error('Course not found');
+          if (!course.isPublished || course.isBlocked) throw new Error('Course is not available');
+          if (typeof course.price !== 'number' || isNaN(course.price)) throw new Error('Invalid course price');
+          if (!course.instructor?._id) throw new Error('Instructor not found for the course');
+    
+          const instructorShare = course.price * 0.6;
+          const adminShare = course.price * 0.4;
+    
+          const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+              {
+                price_data: {
+                  currency: 'inr',
+                  product_data: { name: course.title, description: `Retry payment for ${course.title}` },
+                  unit_amount: Math.round(course.price * 100),
+                },
+                quantity: 1,
+              },
+            ],
+            mode: 'payment',
+            success_url: `${process.env.FRONTEND_URL}/retry-payment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${payment.courseId}`,
+            cancel_url: `${process.env.FRONTEND_URL}/payment-history`,
+            metadata: { courseId: payment.courseId.toString(), userId, instructorId: course.instructor._id.toString(), originalPaymentId: paymentId },
+            billing_address_collection: 'auto',
+          });
+    
+          // Update the existing payment with the new session ID
+          await this._paymentRepository.updatee({
+            _id: new ObjectId(paymentId),
+            stripeSessionId: session.id,
+            status: 'pending',
+            instructorShare,
+            adminShare,
+          });
+    
+          return session.id;
+        } catch (error: any) {
+          console.error('Error in PaymentService.retryPayment:', { error: error.message, paymentId, userId });
+          throw new Error(error.message || 'Failed to create retry checkout session');
+        }
+      }
+
+
+ 
     
       async verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string; instructorId?: string }> {
         try {
@@ -185,6 +197,24 @@ export class PaymentService implements IPaymentService {
               courseId
             );
           }
+
+          // Credit admin's wallet
+    if (payment.adminShare) {
+      const admin = await this._adminRepository.findOne({}); // Adjust to find the admin (e.g., by email or ID)
+      if (!admin) throw new Error('Admin not found');
+
+      const course = await this._courseRepository.findById(courseId);
+      const courseTitle = course ? course.title : `Course ID: ${courseId}`;
+
+      await this._walletService.creditAdminWallet(
+        admin.id.toString(),
+        payment.adminShare,
+        `Admin share for course: ${courseTitle}`,
+        courseId
+      );
+    }
+
+
     
           return { userId, courseId, instructorId };
         } catch (error: any) {
@@ -193,4 +223,28 @@ export class PaymentService implements IPaymentService {
           throw new Error(error.message || 'Failed to verify payment');
         }
       }
+
+      async getAllPaymentHistory(page: number, limit: number): Promise<{
+        success: boolean;
+        message: string;
+        data: PaymentHistoryResult;
+      }> {
+        try {
+          const result = await this._paymentRepository.getAllPaymentHistory(page, limit);
+          return {
+            success: true,
+            message: 'Payment history fetched successfully',
+            data: result,
+          };
+        } catch (error: any) {
+          console.error('Error in PaymentService.getAllPaymentHistory:', error);
+          return {
+            success: false,
+            message: error.message || 'Failed to fetch payment history',
+            data: { payments: [], total: 0 },
+          };
+        }
+      }
+
+
 }

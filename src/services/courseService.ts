@@ -29,8 +29,19 @@ export class CourseServices implements ICourseService {
             return { success: false, message: 'Missing required fields', data: null };
           }  
     
+         
         
           const course = await this._courseRepository.create(courseData);
+
+          // if(courseData.category === course.category || courseData.price === course.price ) {
+          //   return {
+          //     success: false,
+          //     message : "can not add the course with same category and price",
+          //     data: null
+          //   }
+          // }
+
+
           return {
             success: true,
             message: 'Course created successfully',

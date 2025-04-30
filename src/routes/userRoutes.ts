@@ -30,6 +30,8 @@ import WalletController from "../controllers/walletController";
 import ReviewRepository from "../repositories/reviewRepository";
 import { ReviewService } from "../services/reviewService";
 import ReviewController from "../controllers/reviewController";
+import AdminRepository from "../repositories/adminRepository";
+import AdminWalletRepository from "../repositories/adminWalletRepository";
 
 
 
@@ -42,6 +44,8 @@ const enrollmentRepository = new EnrollmentRepository();
 const paymentRepository = new PaymentRepository();
 const walletRepository = new WalletRepository();
 const reviewRepository = new ReviewRepository();
+const adminRepository = new AdminRepository();
+const adminWalletRepository = new AdminWalletRepository();
 
 const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -54,8 +58,8 @@ const categoryService = new CategoryServices(categoryRepository);
 const enrollmentService = new EnrollmentService(enrollmentRepository, courseRepository,userService,lessonRepository);
 const courseService = new CourseServices(courseRepository, userService, enrollmentService);
 const lessonService = new LessonServices(lessonRepository, courseRepository,userService);
-const walletService = new WalletService(walletRepository);
-const paymentService =new PaymentService(paymentRepository, courseRepository, walletService);
+const walletService = new WalletService(walletRepository, adminWalletRepository );
+const paymentService =new PaymentService(paymentRepository, courseRepository, walletService, adminRepository);
 const reviewService = new ReviewService(reviewRepository)
 
 
@@ -144,6 +148,9 @@ userRouter.get(USER_ROUTES.ENROLLED_COURSES, authenticateUser(), enrollmentContr
 
 // Payment Routes
 userRouter.post(USER_ROUTES.CREATE_CHECKOUT_SESSION, authenticateUser(), paymentController.createCheckoutSession.bind(paymentController) as any);
+
+userRouter.post(USER_ROUTES.RETRY_PAYMENT, authenticateUser(), paymentController.retryPayment.bind(paymentController) as any);
+
 userRouter.get(USER_ROUTES.VERIFY_PAYMENT, authenticateUser(), paymentController.verifyPayment.bind(paymentController) as any);
 
 userRouter.get(USER_ROUTES.PAYMENT_HISTORY, authenticateUser(), paymentController.getPaymentHistory.bind(paymentController) as any);

@@ -2,13 +2,16 @@ import { IWallet } from "../interfaces/IWallet";
 import WalletRepository from "../repositories/walletRepository";
 import { IWalletService } from "../interfaces/IServices";
 import { ObjectId } from 'mongodb';
+import AdminWalletRepository from "../repositories/adminWalletRepository";
 
 
 export class WalletService implements IWalletService {
     constructor (
         private _walletRepository: WalletRepository,
+        private _adminWalletRepository: AdminWalletRepository
     ){
         this._walletRepository = _walletRepository;
+        this._adminWalletRepository =_adminWalletRepository
     }
 
     async creditInstructorWallet(
@@ -79,6 +82,69 @@ export class WalletService implements IWalletService {
         }
       }
 
+      async creditAdminWallet(adminId: string, amount: number, description: string, courseId?: string): Promise<void> {
+        try {
+          let wallet = await this._adminWalletRepository.findOne({ adminId });
+          if (!wallet) {
+            // Create a new wallet if it doesn't exist
+           wallet = await this._adminWalletRepository.create({
+              adminId: new ObjectId(adminId),
+              balance: amount,
+              transactions: [
+                {
+                  amount,
+                  type: 'credit',
+                  description,
+                  courseId: courseId ? new ObjectId(courseId) : undefined,
+                  createdAt: new Date(),
+                },
+              ],
+            });
+          } else {
+            // Update existing wallet
+            wallet.balance += amount;
+            wallet.transactions.push({
+              amount,
+              type: 'credit',
+              description,
+              courseId: courseId ? new ObjectId(courseId) : undefined,
+              createdAt: new Date(),
+            });
+            await wallet.save();
+          }
+        } catch (error: any) {
+          console.error('Error in WalletService.creditAdminWallet:', { error: error.message, adminId, amount });
+          throw new Error('Failed to credit admin wallet');
+        }
+      }
+
+      async getAdminWalletDetails(adminId: string) {
+        try {
+          let wallet = await this._adminWalletRepository.findOne({ adminId });
+          
+          if (!wallet) {
+            // Return empty wallet if not found
+            return {
+              balance: 0,
+              transactions: [],
+            };
+          }
+    
+          // Sort transactions by date (newest first)
+          const sortedTransactions = wallet.transactions.sort(
+            (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+    
+          return {
+            balance: wallet.balance,
+            transactions: sortedTransactions,
+          };
+        } catch (error: any) {
+          console.error('Error in getAdminWalletDetails service:', error);
+          throw new Error('Failed to fetch admin wallet details');
+        }
+      }
+    
 
     
 }

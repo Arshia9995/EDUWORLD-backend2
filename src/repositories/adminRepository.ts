@@ -6,6 +6,10 @@ class AdminRepository extends BaseRepository<AdminDoc>{
     constructor() {
         super(Admin)
     }
+
+    async findOne(query: any): Promise<AdminDoc | null> {
+        return await Admin.findOne(query).exec();
+      }
 }
 
 export default AdminRepository;

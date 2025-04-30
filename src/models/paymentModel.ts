@@ -36,6 +36,9 @@ const paymentSchema = new Schema(
         type: Number,
         required: false, // Optional, calculated during verification
       },
+      adminShare: { 
+        type: Number,
+        required: true },
     stripeSessionId: {
       type: String,
       required: true,

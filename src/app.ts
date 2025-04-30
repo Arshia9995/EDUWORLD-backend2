@@ -5,6 +5,7 @@ import morgan from "morgan";
 import userRouter from "./routes/userRoutes";
 import adminRouter from "./routes/adminRoutes";
 import cookieParser from "cookie-parser";
+import { responseLogger } from "./middleware/logger";
 
 export const app: Express = express();
 
@@ -22,6 +23,8 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization","Accept"],
     })
 );
+
+app.use(responseLogger);
 
 // app.use('/users',userRouter);
 

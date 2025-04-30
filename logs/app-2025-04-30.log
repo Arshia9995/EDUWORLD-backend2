@@ -1,0 +1,64 @@
+2025-04-30 12:14:54 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 12:14:54 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 12:14:54 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 12:14:54 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-04-30 12:14:57 [INFO] [REQUEST] GET /admin/getallstudents
+2025-04-30 12:14:57 [INFO] [RESPONSE] Status: 401 Message: Unauthorized: No admin token provided
+2025-04-30 12:15:13 [INFO] [REQUEST] POST /admin/adminlogout
+2025-04-30 12:15:13 [INFO] [RESPONSE] Status: 200 Message: Admin Logout successful
+2025-04-30 12:15:21 [INFO] [REQUEST] POST /admin/login
+2025-04-30 12:15:22 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-04-30 12:15:22 [INFO] [REQUEST] GET /admin/admin-stats
+2025-04-30 12:15:22 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 12:15:22 [INFO] [REQUEST] GET /admin/course-stats
+2025-04-30 12:15:22 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-04-30 14:05:17 [INFO] [REQUEST] GET /admin/admin-stats
+2025-04-30 14:05:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 14:05:17 [INFO] [REQUEST] GET /admin/course-stats
+2025-04-30 14:05:17 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-04-30 14:47:47 [INFO] [REQUEST] GET /admin/admin-stats
+2025-04-30 14:47:47 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 14:47:47 [INFO] [REQUEST] GET /admin/course-stats
+2025-04-30 14:47:47 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-04-30 17:48:54 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:48:54 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:48:56 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:48:56 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-04-30 17:49:03 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:49:03 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:49:03 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:49:03 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:49:13 [INFO] [REQUEST] POST /users/logout
+2025-04-30 17:49:13 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-04-30 17:56:42 [INFO] [REQUEST] POST /users/google-login
+2025-04-30 17:56:43 [INFO] [RESPONSE] Status: 200 Message: Google login successful
+2025-04-30 17:56:46 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:56:46 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:56:46 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:56:47 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:56:47 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:56:48 [INFO] [REQUEST] GET /users/payment-history
+2025-04-30 17:56:48 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:56:48 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-04-30 17:56:49 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-04-30 17:56:49 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:56:52 [INFO] [REQUEST] GET /users/payment-history
+2025-04-30 17:56:52 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-04-30 17:57:37 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:57:37 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:57:37 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:57:37 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-04-30 17:57:40 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:57:40 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:57:40 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:57:41 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:57:43 [INFO] [REQUEST] GET /users/payment-history
+2025-04-30 17:57:43 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-04-30 17:57:46 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:57:46 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:57:46 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:57:46 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-04-30 17:57:48 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-04-30 17:57:48 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-04-30 17:57:48 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-04-30 17:57:48 [INFO] [RESPONSE] Status: 200 Message: No message

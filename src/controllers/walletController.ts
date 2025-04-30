@@ -43,6 +43,32 @@ class WalletController {
       });
     }
   }
+
+  async getAdminWalletDetails(req: AuthRequest, res: Response) {
+    try {
+      if (!req.user?.id) {
+        return res.status(Status.UN_AUTHORISED).json({
+          success: false,
+          message: 'Unauthorized: Admin ID not found',
+        });
+      }
+
+      const adminId = req.user.id;
+      const walletDetails = await this._walletService.getAdminWalletDetails(adminId);
+
+      return res.status(Status.OK).json({
+        success: true,
+        message: 'Admin wallet details fetched successfully',
+        data: walletDetails,
+      });
+    } catch (error: any) {
+      console.error('Error in getWalletDetails controller:', error);
+      return res.status(Status.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: error.message || 'Failed to fetch wallet details',
+      });
+    }
+  }
 }
 
 export default WalletController;

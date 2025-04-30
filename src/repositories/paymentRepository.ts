@@ -3,6 +3,33 @@ import { IPayment } from "../interfaces/IPayment";
 import { paymentModel } from "../models/paymentModel";
 import { BaseRepository } from "./baseRepository";
 
+
+interface UpdatePaymentInput {
+  _id: mongoose.Types.ObjectId;
+  stripeSessionId: string;
+  status: string;
+  instructorShare: number;
+  adminShare: number;
+}
+
+interface PaymentHistoryItem {
+  _id: string;
+  studentName: string;
+  courseTitle: string;
+  amount: number;
+  paymentDate: Date;
+  status: string;
+  instructorName: string;
+  instructorShare: number;
+  adminShare: number;
+  type: string;
+}
+
+interface PaymentHistoryResult {
+  payments: PaymentHistoryItem[];
+  total: number;
+}
+
 class PaymentRepository extends BaseRepository<IPayment> {
   constructor() {
     super(paymentModel);
@@ -60,6 +87,101 @@ class PaymentRepository extends BaseRepository<IPayment> {
       throw new Error('Could not fetch payment history');
     }
   }
+  async updatee(input: UpdatePaymentInput): Promise<void> {
+    try {
+      await this._model.updateOne(
+        { _id: input._id },
+        {
+          $set: {
+            stripeSessionId: input.stripeSessionId,
+            status: input.status,
+            instructorShare: input.instructorShare,
+            adminShare: input.adminShare,
+          },
+        }
+      );
+    } catch (error) {
+      console.error('Error in PaymentRepository.update:', error);
+      throw new Error('Could not update payment');
+    }
+  }
+
+  async getAllPaymentHistory(page: number, limit: number): Promise<PaymentHistoryResult> {
+    try {
+      const skip = (page - 1) * limit;
+
+      const payments = await this._model.aggregate([
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'userId',
+            foreignField: '_id',
+            as: 'student',
+          },
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'instructorId',
+            foreignField: '_id',
+            as: 'instructor',
+          },
+        },
+        {
+          $lookup: {
+            from: 'courses',
+            localField: 'courseId',
+            foreignField: '_id',
+            as: 'course',
+          },
+        },
+        {
+          $unwind: '$student',
+        },
+        {
+          $unwind: '$instructor',
+        },
+        {
+          $unwind: '$course',
+        },
+        {
+          $project: {
+            _id: '$_id',
+            studentName: '$student.name',
+            courseTitle: '$course.title',
+            amount: '$amount',
+            paymentDate: '$createdAt',
+            status: '$status',
+            instructorName: '$instructor.name',
+            instructorShare: '$instructorShare',
+            adminShare: '$adminShare',
+            type: '$type',
+          },
+        },
+        {
+          $sort: { paymentDate: -1 }, // Sort by latest payment first
+        },
+        {
+          $facet: {
+            payments: [{ $skip: skip }, { $limit: limit }],
+            total: [{ $count: 'count' }],
+          },
+        },
+      ]);
+
+      const total = payments[0].total.length > 0 ? payments[0].total[0].count : 0;
+
+      return {
+        payments: payments[0].payments,
+        total,
+      };
+    } catch (error) {
+      console.error('Error in PaymentRepository.getAllPaymentHistory:', error);
+      throw new Error('Could not fetch payment history');
+    }
+  }
+
+  
 }
 
 export default PaymentRepository;
