@@ -19,11 +19,11 @@ class LessonRepository extends BaseRepository<ILesson>{
       async findByCourseId(courseId: string, userRole: string): Promise<ILesson[]> {
         try {
           
-          const selectFields = userRole === 'student' ? '-video' : ''; // Exclude video for students
+          const selectFields = userRole === 'student' ? '-video' : ''; 
     
           const lessons = await this._model
             .find({ course: courseId })
-            .select(selectFields) // Exclude the video field for students
+            .select(selectFields) 
             .lean();
     
           return lessons;
@@ -35,11 +35,11 @@ class LessonRepository extends BaseRepository<ILesson>{
       async findByEnrolledCourseId(courseId: string, userRole: string): Promise<ILesson[]> {
         try {
           
-          const selectFields = userRole === 'student' ? '-video' : ''; // Exclude video for students
+          const selectFields = userRole === 'student' ? '-video' : ''; 
     
           const lessons = await this._model
             .find({ course: courseId })
-            .select(selectFields) // Exclude the video field for students
+            .select(selectFields) 
             .lean();
     
           return lessons;

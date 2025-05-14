@@ -33,13 +33,13 @@ class CourseRepository extends BaseRepository<ICourse>{
       try {
         const skip = (page - 1) * limit;
         
-        // Build query object
+        
         const query: any = {
           instructor: instructorId,
           isPublished: true
         };
         
-        // Add search condition if provided
+        
         if (search) {
           query.$or = [
             { title: { $regex: search, $options: 'i' } },
@@ -47,17 +47,17 @@ class CourseRepository extends BaseRepository<ICourse>{
           ];
         }
         
-        // Add category filter if provided
+        
         if (category) {
           query.category = category;
         }
         
-        // Add language filter if provided
+        
         if (language) {
           query.language = language;
         }
         
-        // Add price range filter if provided
+        
         if (priceRange) {
           if (priceRange === 'free') {
             query.price = 0;
@@ -72,8 +72,8 @@ class CourseRepository extends BaseRepository<ICourse>{
           }
         }
         
-        // Determine the sort order
-        let sortOptions: any = { createdAt: -1 }; // Default: newest first
+        
+        let sortOptions: any = { createdAt: -1 }; 
         
         switch (sortBy) {
           case 'oldest':
@@ -91,13 +91,13 @@ class CourseRepository extends BaseRepository<ICourse>{
           case 'titleDesc':
             sortOptions = { title: -1 };
             break;
-          // Default is already set (newest)
+          
         }
         
-        // Get total count with filters
+        
         const total = await this._model.countDocuments(query);
         
-        // Get paginated courses with filters and sort
+        
         const courses = await this._model
           .find(query)
           .populate("category", "categoryName")
@@ -138,10 +138,10 @@ class CourseRepository extends BaseRepository<ICourse>{
         try {
           const skip = (page - 1) * limit;
           
-          // Build query filters
+          
           const query: any = { isPublished: true, isBlocked: false };
           
-          // Search filter (title and description)
+          
           if (search) {
             query.$or = [
               { title: { $regex: search, $options: 'i' } },
@@ -149,17 +149,17 @@ class CourseRepository extends BaseRepository<ICourse>{
             ];
           }
           
-          // Category filter
+          
           if (category) {
             query.category = category;
           }
           
-          // Language filter
+          
           if (language) {
             query.language = language;
           }
           
-          // Price range filter
+          
           if (priceRange) {
             if (priceRange === 'free') {
               query.price = 0;
@@ -173,8 +173,8 @@ class CourseRepository extends BaseRepository<ICourse>{
             }
           }
           
-          // Build sort options
-          let sortOptions: any = { createdAt: -1 }; // default: newest first
+          
+          let sortOptions: any = { createdAt: -1 }; 
           
           switch (sortBy) {
             case 'oldest':
@@ -193,13 +193,13 @@ class CourseRepository extends BaseRepository<ICourse>{
               sortOptions = { title: -1 };
               break;
             default:
-              sortOptions = { createdAt: -1 }; // newest first
+              sortOptions = { createdAt: -1 }; 
           }
       
-          // Get total count with filters applied
+          
           const total = await this._model.countDocuments(query);
       
-          // Get paginated courses with filters and sorting
+          
           const courses = await this._model
             .find(query)
             .populate('instructor', 'name')
@@ -294,13 +294,13 @@ async findEnrolledCourses(
   try {
     const skip = (page - 1) * limit;
     
-    // Build query filters
+    
     const query: any = { 
       _id: { $in: courseIds },
       isBlocked: false 
     };
     
-    // Search filter (title and description)
+    
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: 'i' } },
@@ -308,17 +308,17 @@ async findEnrolledCourses(
       ];
     }
     
-    // Category filter
+    
     if (category) {
       query.category = category;
     }
     
-    // Language filter
+   
     if (language) {
       query.language = language;
     }
     
-    // Price range filter
+    
     if (priceRange) {
       if (priceRange === 'free') {
         query.price = 0;
@@ -332,8 +332,8 @@ async findEnrolledCourses(
       }
     }
     
-    // Build sort options
-    let sortOptions: any = { createdAt: -1 }; // default: newest first
+    
+    let sortOptions: any = { createdAt: -1 }; 
     
     switch (sortBy) {
       case 'oldest':
@@ -352,13 +352,13 @@ async findEnrolledCourses(
         sortOptions = { title: -1 };
         break;
       default:
-        sortOptions = { createdAt: -1 }; // newest first
+        sortOptions = { createdAt: -1 }; 
     }
 
-    // Get total count with filters applied
+    
     const total = await this._model.countDocuments(query);
 
-    // Get paginated courses with filters and sorting
+    
     const courses = await this._model
       .find(query)
       .populate('instructor', 'name')
@@ -376,7 +376,7 @@ async findEnrolledCourses(
 }
 
 
-// Get total courses created by an instructor
+
 async getTotalCoursesByInstructor(instructorId: string): Promise<number> {
   try {
     return await this._model.countDocuments({ instructor: new mongoose.Types.ObjectId(instructorId) });
@@ -386,7 +386,7 @@ async getTotalCoursesByInstructor(instructorId: string): Promise<number> {
   }
 }
 
-// Get total published courses by an instructor
+
 async getPublishedCoursesByInstructor(instructorId: string): Promise<number> {
   try {
     return await this._model.countDocuments({
@@ -400,7 +400,7 @@ async getPublishedCoursesByInstructor(instructorId: string): Promise<number> {
   }
 }
 
-// Get course creation timeline (for the graph, last 12 months)
+
 async getCourseCreationTimeline(instructorId: string): Promise<{ _id: string; count: number }[]> {
   try {
     const twelveMonthsAgo = new Date();
@@ -427,7 +427,7 @@ async getCourseCreationTimeline(instructorId: string): Promise<{ _id: string; co
   }
 }
 
-// Get all course IDs for an instructor (to fetch enrollments)
+
 async getCourseIdsByInstructor(instructorId: string): Promise<string[]> {
   try {
     const courses = await this._model
@@ -441,13 +441,13 @@ async getCourseIdsByInstructor(instructorId: string): Promise<string[]> {
   }
 }
 
-// Get course distribution by category
+
 async getCourseDistributionByCategory(): Promise<{ categoryName: string; count: number }[]> {
   try {
     return await this._model.aggregate([
       {
         $lookup: {
-          from: 'categories', // Assume category collection name
+          from: 'categories', 
           localField: 'category',
           foreignField: '_id',
           as: 'categoryDetails',
@@ -490,7 +490,7 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
   > {
     try {
       const topCourses = await this._model.aggregate([
-        // Lookup enrollments for each course
+       
         {
           $lookup: {
             from: 'enrollments',
@@ -499,7 +499,7 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
             as: 'enrollments',
           },
         },
-        // Lookup instructor details
+        
         {
           $lookup: {
             from: 'users',
@@ -511,7 +511,7 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
         {
           $unwind: '$instructorDetails',
         },
-        // Lookup category details
+        
         {
           $lookup: {
             from: 'categories',
@@ -523,7 +523,7 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
         {
           $unwind: '$categoryDetails',
         },
-        // Project the required fields
+        
         {
           $project: {
             courseName: '$title',
@@ -532,11 +532,11 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
             enrollmentCount: { $size: '$enrollments' },
           },
         },
-        // Sort by enrollment count (descending)
+       
         {
           $sort: { enrollmentCount: -1 },
         },
-        // Limit to top N courses
+        
         {
           $limit: limit,
         },
@@ -548,6 +548,32 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
     }
   }
 
+//   async findByInstructor(instructorId: string): Promise<ICourse[]> {
+//     try {
+//         return await this._model
+//             .find({ instructor: instructorId })
+//             .select('_id title description instructor isPublished')
+//             .populate("instructor", "_id name role")
+//             .lean();
+//     } catch (error) {
+//         console.error("Error in CourseRepository.findByInstructor:", error);
+//         throw new Error("Could not fetch courses");
+//     }
+// }
+
+
+async findByInstructor(instructorId: string): Promise<ICourse[]> {
+  try {
+    const courses = await this._model
+      .find({ instructor: instructorId, isPublished: true })
+      .select('_id title');
+    
+    return courses;
+  } catch (error) {
+    console.error("Error fetching instructor courses:", error);
+    throw new Error("Could not fetch instructor courses");
+  }
+}
 
 }
 

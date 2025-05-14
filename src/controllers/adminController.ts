@@ -9,13 +9,20 @@ import { IAdminService } from "../interfaces/IServices";
 import { generateToken, generateRefreshToken } from "../utils/jwt";
 import { Status } from "../utils/enums";
 import { AuthRequest } from "../middleware/authMiddleware";
+import { AnnouncementService } from "../services/announcementService";
+import mongoose from "mongoose";
 
 
 
 
 class AdminController {
-    constructor(private _adminService: AdminServices) {
+    constructor(
+      private _adminService: AdminServices,
+      private _announcementService: AnnouncementService
+
+    ) {
         this._adminService = _adminService;
+        this._announcementService = _announcementService;
     }
 
     async adminLogin (req: Request, res: Response) {
@@ -268,6 +275,177 @@ class AdminController {
           });
         }
       }
+
+
+      async createAnnouncement(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user?.id || req.user.role !== "admin") {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: "Unauthorized: Admin access required",
+            });
+          }
+    
+          const { title, content } = req.body;
+          if (!title || !content) {
+            return res.status(Status.BAD_REQUEST).json({
+              success: false,
+              message: "Title and content are required",
+            });
+          }
+    
+          const result = await this._announcementService.createAnnouncement(title, content, new mongoose.Types.ObjectId(req.user.id));
+          if (!result.success) {
+            return res.status(Status.BAD_REQUEST).json({ message: result.message });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            data: result.data,
+          });
+        } catch (error: any) {
+          console.error("Error in createAnnouncement controller:", error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal server error",
+          });
+        }
+      }
+    
+      async getAnnouncements(req: Request, res: Response) {
+        try {
+          const result = await this._announcementService.getAllAnnouncements();
+          if (!result.success) {
+            return res.status(Status.NOT_FOUND).json({ message: result.message });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            data: result.data,
+          });
+        } catch (error: any) {
+          console.error("Error in getAnnouncements controller:", error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal server error",
+          });
+        }
+      }
+    
+      async deactivateAnnouncement(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user?.id || req.user.role !== "admin") {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: "Unauthorized: Admin access required",
+            });
+          }
+    
+          const { announcementId } = req.body;
+          if (!announcementId) {
+            return res.status(Status.BAD_REQUEST).json({
+              success: false,
+              message: "Announcement ID is required",
+            });
+          }
+    
+          const result = await this._announcementService.deactivateAnnouncement(announcementId);
+          if (!result.success) {
+            return res.status(Status.BAD_REQUEST).json({ message: result.message });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            data: result.data,
+          });
+        } catch (error: any) {
+          console.error("Error in deactivateAnnouncement controller:", error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal server error",
+          });
+        }
+      }
+
+      
+
+      async reactivateAnnouncement(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user?.id || req.user.role !== "admin") {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: "Unauthorized: Admin access required",
+            });
+          }
+    
+          const { announcementId } = req.body;
+          if (!announcementId) {
+            return res.status(Status.BAD_REQUEST).json({
+              success: false,
+              message: "Announcement ID is required",
+            });
+          }
+    
+          const result = await this._announcementService.reactivateAnnouncement(announcementId);
+          if (!result.success) {
+            return res.status(Status.BAD_REQUEST).json({ message: result.message });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            data: result.data,
+          });
+        } catch (error: any) {
+          console.error("Error in reactivateAnnouncement controller:", error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal server error",
+          });
+        }
+      }
+
+      async updateAnnouncement(req: AuthRequest, res: Response) {
+        try {
+          if (!req.user?.id || req.user.role !== "admin") {
+            return res.status(Status.UN_AUTHORISED).json({
+              success: false,
+              message: "Unauthorized: Admin access required",
+            });
+          }
+    
+          const { announcementId, title, content } = req.body;
+          if (!announcementId || !title || !content) {
+            return res.status(Status.BAD_REQUEST).json({
+              success: false,
+              message: "Announcement ID, title, and content are required",
+            });
+          }
+    
+          const result = await this._announcementService.updateAnnouncement(announcementId, title, content);
+          if (!result.success) {
+            return res.status(Status.BAD_REQUEST).json({ message: result.message });
+          }
+    
+          return res.status(Status.OK).json({
+            success: true,
+            message: result.message,
+            data: result.data,
+          });
+        } catch (error: any) {
+          console.error("Error in updateAnnouncement controller:", error);
+          return res.status(Status.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal server error",
+          });
+        }
+      }
+
+      
+
     }
     
 

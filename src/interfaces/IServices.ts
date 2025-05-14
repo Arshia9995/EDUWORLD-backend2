@@ -5,6 +5,11 @@ import { ICourse } from "./ICourse";
 import { ILesson } from "./ILesson";
 import { IEnrollment } from "./IEnrollment";
 import { IWallet } from "./IWallet";
+import { IChat } from "./IChat";
+import { IMessage } from "./IMessage";
+import { AnnouncementDoc } from "./IAdminAnnouncements";
+
+import mongoose from "mongoose";
 
 export interface IUserService {
     signUp(user: UserDoc): Promise<IResponse>;
@@ -90,6 +95,7 @@ export interface ICourseService {
   ): Promise<IResponse>;
   getStudentCourseById(courseId: string): Promise<IResponse>;
   updateCourse(courseId: string, userId: string, updateData: ICourse): Promise<IResponse>;
+  
 
 }
 
@@ -159,4 +165,23 @@ export interface IReviewService {
   getReviewsByCourse(courseId: string): Promise<any>;
   updateReview(reviewId: string, studentId: string, rating: number, reviewText: string): Promise<any>;
   deleteReview(reviewId: string, studentId: string): Promise<any>;
+}
+
+export interface IChatService {
+  getChatByCourseId(courseId: string, userId: string): Promise<any | null>;
+  getChatById(chatId: string): Promise<IChat | null>;
+}
+
+export interface IMessageService {
+  getMessagesByChatId(chatId: string): Promise<IMessage[]>;
+  createMessage(chatId: string, senderId: string, content: string): Promise<IMessage>;
+}
+
+export interface IAnnouncementService {
+    createAnnouncement(
+      title: string,
+      content: string,
+      createdBy: mongoose.Types.ObjectId
+    ):Promise<any>;
+
 }

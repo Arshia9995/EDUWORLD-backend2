@@ -4,16 +4,19 @@ import { ICourseService } from "../interfaces/IServices";
 import { UserService } from "./userServices";
 import { Types } from 'mongoose';
 import { EnrollmentService } from "./enrollmentService";
+import ChatRepository from "../repositories/chatRepository";
 
 export class CourseServices implements ICourseService {
     constructor(
         private _courseRepository: CourseRepository,
         private _userService: UserService,
-        private _enrollmentService: EnrollmentService
+        private _enrollmentService: EnrollmentService,
+        private _chatRepository: ChatRepository
     ){
         this._courseRepository =  _courseRepository;
         this._userService = _userService;
         this._enrollmentService = _enrollmentService;
+        this._chatRepository = _chatRepository;
     }
 
 
@@ -30,16 +33,18 @@ export class CourseServices implements ICourseService {
           }  
     
          
-        
+           
           const course = await this._courseRepository.create(courseData);
 
-          // if(courseData.category === course.category || courseData.price === course.price ) {
+
+          // if(courseData.title === course.title){
           //   return {
           //     success: false,
-          //     message : "can not add the course with same category and price",
-          //     data: null
+          //     message: "you can not add the course with same title",
+          //     data : null
           //   }
           // }
+       
 
 
           return {
@@ -106,10 +111,16 @@ export class CourseServices implements ICourseService {
           const updatedCourse = await this._courseRepository.update(courseId, {
             isPublished: true,
           });
+
+                // Create chat room for the course
+      const existingChat = await this._chatRepository.findByCourseId(courseId);
+      if (!existingChat) {
+        await this._chatRepository.createChatRoom(courseId, instructorId);
+      }
     
           return {
             success: true,
-            message: "Course published successfully",
+            message: "Course published successfully and chat room created",
             data: updatedCourse,
           };
         } catch (error: any) {
@@ -144,7 +155,7 @@ export class CourseServices implements ICourseService {
             language
           );
           
-          // Generate pre-signed URLs for thumbnails
+          
           const updatedCourses = await Promise.all(
             courses.map(async (course) => {
               if (course.thumbnail) {
@@ -245,7 +256,7 @@ export class CourseServices implements ICourseService {
             language
           );
       
-          // Generate pre-signed URLs for thumbnails
+          
           const updatedCourses = await Promise.all(
             courses.map(async (course) => {
               if (course.thumbnail) {
@@ -324,8 +335,25 @@ export class CourseServices implements ICourseService {
 
       async updateCourse(courseId: string, userId: string, updateData: ICourse) {
         try {
-          // Fetch the existing course
+          
           const course = await this._courseRepository.findById(courseId);
+
+          // const existingCourse = await this._courseRepository.findByQuery({title: "gbgfn"})
+
+          // if(existingCourse?._id === new ObectId(courseId)){
+          //   return {
+          //     success: false,
+          //     message: "you can not add the course with same title",
+          //     data: null
+          //   }
+
+          // }
+
+          
+
+         
+
+
       
           if (!course) {
             return {
@@ -334,8 +362,10 @@ export class CourseServices implements ICourseService {
               data: null,
             };
           }
+
+
       
-          // Ensure the instructor can only update their own course
+          
           if (course.instructor._id.toString() !== userId) {
             return {
               success: false,
@@ -344,8 +374,15 @@ export class CourseServices implements ICourseService {
             };
           }
       
-          // Update the course with the provided data
+
+         
+            
+          
+          
           const updatedCourse = await this._courseRepository.update(courseId, updateData);
+
+
+
       
           if (!updatedCourse) {
             return {
@@ -378,6 +415,8 @@ export class CourseServices implements ICourseService {
           throw new Error(error.message || 'Failed to check enrollment');
         }
       }
+
+    
 
       
 

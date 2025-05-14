@@ -21,12 +21,12 @@ export class WalletService implements IWalletService {
         courseId?: string
       ): Promise<void> {
         try {
-          // Validate inputs
+          
           if (!instructorId || amount <= 0) {
             throw new Error('Invalid instructor ID or amount');
           }
     
-          // Find or create the instructor's wallet
+          
           let wallet = await this._walletRepository.findOne({ userId: new ObjectId(instructorId) });
     
           if (!wallet) {
@@ -37,7 +37,7 @@ export class WalletService implements IWalletService {
             });
           }
     
-          // Create a new transaction
+          
           const transaction = {
             amount,
             type: 'credit' as 'credit',
@@ -46,11 +46,11 @@ export class WalletService implements IWalletService {
             createdAt: new Date(),
           };
     
-          // Update wallet balance and add transaction
+          
           wallet.balance += amount;
           wallet.transactions.push(transaction);
     
-          // Persist changes
+          
           await this._walletRepository.updateOne(
             { userId: new ObjectId(instructorId) },
             { balance: wallet.balance, transactions: wallet.transactions }
@@ -86,7 +86,7 @@ export class WalletService implements IWalletService {
         try {
           let wallet = await this._adminWalletRepository.findOne({ adminId });
           if (!wallet) {
-            // Create a new wallet if it doesn't exist
+            
            wallet = await this._adminWalletRepository.create({
               adminId: new ObjectId(adminId),
               balance: amount,
@@ -101,7 +101,7 @@ export class WalletService implements IWalletService {
               ],
             });
           } else {
-            // Update existing wallet
+            
             wallet.balance += amount;
             wallet.transactions.push({
               amount,
@@ -123,14 +123,14 @@ export class WalletService implements IWalletService {
           let wallet = await this._adminWalletRepository.findOne({ adminId });
           
           if (!wallet) {
-            // Return empty wallet if not found
+            
             return {
               balance: 0,
               transactions: [],
             };
           }
     
-          // Sort transactions by date (newest first)
+          
           const sortedTransactions = wallet.transactions.sort(
             (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );

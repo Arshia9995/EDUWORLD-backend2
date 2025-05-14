@@ -66,14 +66,14 @@ class UserController {
                     httpOnly: true,
                     secure: true,
                     sameSite: "none",
-                    maxAge: 24 * 60 * 60 * 1000, // 1 day
+                    maxAge: 24 * 60 * 60 * 1000, 
                 });
 
                 res.cookie("refreshToken", result.data.refreshToken, {
                     httpOnly: true,
                     secure: true,
                     sameSite: "none",
-                    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                    maxAge: 7 * 24 * 60 * 60 * 1000, 
                 });
 
 
@@ -129,14 +129,14 @@ class UserController {
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
-                maxAge: 24 * 60 * 60 * 1000, // 1 day
+                maxAge: 24 * 60 * 60 * 1000, 
             });
     
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
-                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                maxAge: 7 * 24 * 60 * 60 * 1000, 
             });
     
             return res.status(Status.OK).json({
@@ -495,7 +495,7 @@ class UserController {
     
             const userDetails = await this._userService.isExist(decoded.payload.id);
     
-            // Check if the response is successful and data exists
+            
             if (!userDetails.success || !userDetails.data) {
                 return res.status(404).json({ 
                     success: false, 
@@ -503,7 +503,7 @@ class UserController {
                 });
             }
     
-            // Safely access data properties since we’ve confirmed it exists
+            
             const userData = userDetails.data;
     
             if (userData.isBlocked) {
@@ -517,7 +517,7 @@ class UserController {
                 });
             }
     
-            // Return the user data
+            
             return res.status(Status.OK).json({
                 success: true,
                 data: {

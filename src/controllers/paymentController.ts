@@ -3,6 +3,8 @@ import { PaymentService } from "../services/paymentService";
 import { Status } from "../utils/enums";
 import { AuthRequest } from "../middleware/authMiddleware";
 import { EnrollmentService } from "../services/enrollmentService";
+import Stripe from "stripe";
+import stripe from "../utils/stripe";
 
 class PaymentController {
   constructor(
@@ -82,6 +84,32 @@ async verifyPayment(req: AuthRequest, res: Response) {
     }
   }
 
+  async webhookPayment(req: Request, res: Response): Promise<void> {
+    try {
+      const sig = req.headers['stripe-signature'];
+  
+      if (!sig || typeof sig !== 'string') {
+        return; 
+      }
+  
+      let event;
+      try {
+        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+      } catch (err: any) {
+        console.error('⚠️ Webhook signature verification failed:', err.message);
+        return;  
+      }
+  
+      await this._paymentService.handleWebhookEvent(event);
+  
+    } catch (error: any) {
+      console.error('❌ Error in webhookPayment controller:', error.message);
+    }
+  }
+  
+  
+  
+  
 
 
   async checkEnrollment(req: AuthRequest, res: Response) {

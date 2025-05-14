@@ -8,6 +8,7 @@ import { Types } from 'mongoose';
 import { UserService } from "./userServices";
 import LessonRepository from "../repositories/lessonRepository";
 import { IResponse } from "../interfaces/IResponse";
+import ChatRepository from "../repositories/chatRepository";
 
 
 
@@ -15,8 +16,10 @@ export class EnrollmentService implements IEnrollmentService {
   constructor(
     private readonly _enrollmentRepository: EnrollmentRepository,
     private readonly _courseRepository: CourseRepository,
+
      private _userService: UserService,
      private _lessonRepository: LessonRepository,
+     private readonly _chatRepository: ChatRepository
 
 
   ) {}
@@ -26,8 +29,8 @@ export class EnrollmentService implements IEnrollmentService {
   async enrollUser(userId: string, courseId: string): Promise<IEnrollment> {
     try {
       console.log('Validating ObjectIds:', { userId, courseId });
-      new ObjectId(userId); // Throws if invalid
-      new ObjectId(courseId); // Throws if invalid
+      new ObjectId(userId); 
+      new ObjectId(courseId); 
       console.log('ObjectIds validated successfully');
   
       console.log('Checking existing enrollment for userId:', userId, 'courseId:', courseId);
@@ -50,6 +53,16 @@ export class EnrollmentService implements IEnrollmentService {
         completionStatus: 'enrolled',
       });
       console.log('Enrollment created successfully:', enrollment);
+
+            // Add student to the course's chat room
+            console.log('Adding student to chat room for courseId:', courseId, 'userId:', userId);
+            const chatRoom = await this._chatRepository.addParticipant(courseId, userId);
+            if (!chatRoom) {
+              console.error('Chat room not found for courseId:', courseId);
+              throw new Error('Failed to add student to chat room: Chat room not found');
+            }
+            console.log('Student added to chat room successfully:', chatRoom);
+
       return enrollment;
     } catch (error: any) {
       console.error('Detailed error in EnrollmentService.enrollUser:', {
@@ -64,8 +77,8 @@ export class EnrollmentService implements IEnrollmentService {
 
   async checkEnrollment(userId: string, courseId: string): Promise<boolean> {
     try {
-      new ObjectId(userId); // Throws if invalid
-      new ObjectId(courseId); // Throws if invalid
+      new ObjectId(userId); 
+      new ObjectId(courseId); 
 
       const enrollment = await this._enrollmentRepository.findByUserAndCourse(userId, courseId);
       return !!enrollment;
@@ -134,7 +147,7 @@ async getEnrolledCourses(
     try {
       const objectIdUser = new Types.ObjectId(userId);
       
-      // First get all enrollment IDs for the user
+      
       const enrollments = await this._enrollmentRepository.findByUser(objectIdUser);
       
       if (!enrollments || enrollments.length === 0) {
@@ -146,10 +159,10 @@ async getEnrolledCourses(
         };
       }
   
-      // Get the course IDs from enrollments
+      
       const courseIds = enrollments.map((enrollment) => enrollment.courseId);
       
-      // Fetch filtered and paginated courses
+      
       const { courses, total } = await this._courseRepository.findEnrolledCourses(
         courseIds,
         page,
@@ -161,15 +174,15 @@ async getEnrolledCourses(
         language
       );
   
-      // Map enrollments data to courses
+      
       const coursesWithEnrollmentData = await Promise.all(
         courses.map(async (course) => {
-          // Find matching enrollment
+          
           const enrollment = enrollments.find(
             (e) => e.courseId.toString() === course._id.toString()
           );
   
-          // Generate thumbnail URL if needed
+          
           let thumbnailUrl = course.thumbnail;
           if (thumbnailUrl && thumbnailUrl.includes(".amazonaws.com/")) {
             const key = thumbnailUrl.split(".amazonaws.com/")[1];
@@ -209,7 +222,7 @@ async getEnrolledCourses(
 
   async getEnrolledCourse(courseId: string, studentId: string) {
     try {
-      // Check if the student is enrolled in this course
+      
       const enrollment = await this._enrollmentRepository.findEnrollment(studentId, courseId);
       
       if (!enrollment) {
@@ -220,7 +233,7 @@ async getEnrolledCourses(
         };
       }
 
-      // Get the course details
+      
       const course = await this._courseRepository.findByIdWithPopulate(courseId);
       
       if (!course) {
@@ -231,7 +244,7 @@ async getEnrolledCourses(
         };
       }
 
-      // Get thumbnail URL if exists
+      
       if (course.thumbnail) {
         const key = course.thumbnail.split('.amazonaws.com/')[1];
         course.thumbnail = await this._userService.getDownloadUrl(key);
@@ -271,7 +284,7 @@ async getEnrolledCourses(
 
   async getCourseLessons(courseId: string, studentId: string) {
     try {
-      // Check if the student is enrolled in this course
+      
       const enrollment = await this._enrollmentRepository.findEnrollment(studentId, courseId);
       
       if (!enrollment) {
@@ -282,7 +295,7 @@ async getEnrolledCourses(
         };
       }
 
-      // Get the course to ensure it exists
+     
       const course = await this._courseRepository.findById(courseId);
       
       if (!course) {
@@ -293,10 +306,10 @@ async getEnrolledCourses(
         };
       }
 
-      // Get all lessons for this course
+      
       const lessons = await this._lessonRepository.findLessonsByCourseId(courseId);
 
-      // Get fresh video URLs for each lesson
+      
       const updatedLessons = await Promise.all(
         lessons.map(async (lesson) => {
           if (lesson.video) {
@@ -305,12 +318,12 @@ async getEnrolledCourses(
               if (lesson.video.includes('.amazonaws.com/')) {
                 key = lesson.video.split('.amazonaws.com/')[1];
               } else if (lesson.video.startsWith('http')) {
-                // Handle other URL formats if necessary
+                
                 const url = new URL(lesson.video);
-                key = url.pathname.substring(1); // Remove leading "/"
+                key = url.pathname.substring(1); 
               }
               
-              // Generate a fresh pre-signed URL with a long expiration
+              
               const downloadUrl = await this._userService.videogetDownloadUrl(key);
               return { 
                 ...lesson.toObject ? lesson.toObject() : lesson, 
@@ -318,7 +331,7 @@ async getEnrolledCourses(
               };
             } catch (error) {
               console.error(`Error getting download URL for lesson ${lesson._id}:`, error);
-              // Return the lesson with the original video URL if we can't get a pre-signed URL
+              
               return lesson;
             }
           }
@@ -555,19 +568,19 @@ async getEnrolledCourses(
 
   async getInstructorStats(instructorId: string) {
     try {
-      // Fetch total courses
+      
       const totalCourses = await this._courseRepository.getTotalCoursesByInstructor(instructorId);
 
-      // Fetch published courses
+      
       const publishedCourses = await this._courseRepository.getPublishedCoursesByInstructor(instructorId);
 
-      // Fetch course IDs to get enrollment data
+      
       const courseIds = await this._courseRepository.getCourseIdsByInstructor(instructorId);
 
-      // Fetch total unique students
+      
       const totalStudents = await this._enrollmentRepository.getTotalStudentsByCourses(courseIds);
 
-      // Fetch course creation timeline for the graph
+      
       const courseCreationData = await this._courseRepository.getCourseCreationTimeline(instructorId);
 
       return {

@@ -24,7 +24,7 @@ export class LessonServices implements ILessonService {
                     accessKeyId: process.env.ACCESS_KEY,
                     secretAccessKey: process.env.SECRET_ACCESS_KEY,
                     region: process.env.AWS_REGION,
-                    signatureVersion: 'v4' // Add this for newer AWS SDK versions
+                    signatureVersion: 'v4' 
                 });
 
     }
@@ -49,12 +49,7 @@ export class LessonServices implements ILessonService {
           const courseId = lessonData.course.toString();
           const course = await this._courseRepository.findById(courseId);
 
-          // if(lessonData.title === course?.title || lessonData.description === course?.description){
-          //   return {
-          //     success: false,
-          //     message: "you can not add the same course"
-          //   }
-          // }
+       
           
           if (!course) {
             return {
@@ -139,21 +134,20 @@ export class LessonServices implements ILessonService {
             lessons.map(async (lesson) => {
               if (lesson.video) {
                 try {
-                  // Extract the key properly from the video URL or use the key directly
+                  
                   let key = lesson.video;
                   if (lesson.video.includes('.amazonaws.com/')) {
                     key = lesson.video.split('.amazonaws.com/')[1];
                   } else if (lesson.video.startsWith('http')) {
-                    // Handle other URL formats if necessary
+                   
                     const url = new URL(lesson.video);
-                    key = url.pathname.substring(1); // Remove leading "/"
+                    key = url.pathname.substring(1); 
                   }
                   
-                  // Make sure we're passing the correct formatted key to getDownloadUrl
-                  // Include folder structure if present in the key
+
                   console.log(`Extracted key for lesson ${lesson._id}: ${key}`);
                   
-                  // Generate a fresh pre-signed URL with a long expiration
+                 
                   const downloadUrl = await this._userService.videogetDownloadUrl(key);
                   console.log("downloadurl",downloadUrl)
                   return { 
@@ -162,7 +156,7 @@ export class LessonServices implements ILessonService {
                   };
                 } catch (error) {
                   console.error(`Error getting download URL for lesson ${lesson._id}:`, error);
-                  // Return the lesson with the original video URL if we can't get a pre-signed URL
+                 
                   return lesson;
                 }
               }
@@ -355,7 +349,7 @@ export class LessonServices implements ILessonService {
             };
           }
       
-          // Check if the instructor is authorized to delete this lesson
+          
           const course = await this._courseRepository.findById(lesson.course.toString());
           if (!course) {
             return {
@@ -373,7 +367,7 @@ export class LessonServices implements ILessonService {
             };
           }
       
-          // Remove the lesson from the course's lessons array
+          
           const lessonIndex = course.lessons?.findIndex(
             (id) => id.toString() === lessonId
           );
@@ -385,7 +379,7 @@ export class LessonServices implements ILessonService {
             });
           }
       
-          // Delete the lesson
+          
           const isDeleted = await this._lessonRepository.delete(lessonId);
           if (!isDeleted) {
             return {

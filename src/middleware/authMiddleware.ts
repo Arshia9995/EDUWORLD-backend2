@@ -17,7 +17,7 @@ export interface AuthRequest extends Request {
 export const authenticateUser = (requiredRole?: string) => {
     return (req: AuthRequest, res: Response, next: NextFunction): void => {
         try {
-            let token = req.cookies.token; // Matches your verifyUser cookie name
+            let token = req.cookies.token; 
 
             if (!token) {
                 console.log("No token found");
@@ -52,7 +52,7 @@ export const authenticateUser = (requiredRole?: string) => {
 export const authenticateAdmin = () => {
     return (req: AuthRequest, res: Response, next: NextFunction): void => {
         try {
-            let token = req.cookies.admintoken; // Matches your adminLogin cookie name
+            let token = req.cookies.admintoken; 
 
             if (!token) {
                 console.log("No admin token found");

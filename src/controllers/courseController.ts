@@ -18,7 +18,7 @@ class CourseController {
             description,
             instructor:req.user?.id,
             category,
-            price: parseFloat(price), // Convert string to number
+            price: parseFloat(price), 
             language,
             thumbnail
           };
@@ -93,7 +93,7 @@ class CourseController {
             });
           }
           
-          // Extract query parameters
+          
           const page = parseInt(req.query.page as string) || 1;
           const limit = parseInt(req.query.limit as string) || 6;
           const search = req.query.search as string || '';
@@ -298,6 +298,9 @@ class CourseController {
           });
         }
       }
+
+
+     
 
       
 

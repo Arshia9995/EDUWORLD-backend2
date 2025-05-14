@@ -26,6 +26,9 @@ import { EnrollmentService } from "../services/enrollmentService";
 import LessonRepository from "../repositories/lessonRepository";
 import { UserService } from "../services/userServices";
 import OtpRepository from "../repositories/otpRepository";
+import ChatRepository from "../repositories/chatRepository";
+import AnnouncementRepository from "../repositories/announcementRepository";
+import { AnnouncementService } from "../services/announcementService";
 
 
 const adminRepository = new AdminRepository();
@@ -40,6 +43,8 @@ const courseStatsRepository = new CourseStatsRepository();
 const paymentRepository = new PaymentRepository();
 const lessonRepository = new LessonRepository();
 const otpRepository = new OtpRepository();
+const chatRepository = new ChatRepository();
+const announcementRepository = new AnnouncementRepository();
 
 
 const adminService = new AdminServices( userRepository, adminRepository,enrollmentRepository, courseRepository, activityLogRepository);
@@ -48,9 +53,10 @@ const walletService = new WalletService(walletRepository, adminWalletRepository)
 const courseStatsService = new CourseStatsService(courseStatsRepository);
 const paymentService = new PaymentService(paymentRepository,courseRepository,walletService,adminRepository)
 const userService = new UserService(userRepository,otpRepository)
-const enrollmentService = new EnrollmentService(enrollmentRepository,courseRepository,userService,lessonRepository)
+const enrollmentService = new EnrollmentService(enrollmentRepository,courseRepository,userService,lessonRepository,chatRepository);
+const announcementService = new AnnouncementService(announcementRepository);
 
-const adminController = new AdminController(adminService);
+const adminController = new AdminController(adminService,announcementService);
 const categoryController = new CategoryController(categoryService);
 const walletController = new WalletController(walletService);
 const courseStatsController = new CourseStatsController(courseStatsService);
@@ -90,6 +96,16 @@ adminRouter.get(Admin_Routes.COURSE_STATS,authenticateAdmin(),  courseStatsContr
 
 
 adminRouter.get(Admin_Routes.GET_ALL_PAYMENT_HISTORY,authenticateAdmin(),  paymentController.getAllPaymentHistory.bind(paymentController) as any);
+
+adminRouter.post(Admin_Routes.CREATE_ANNOUNCEMENTS,authenticateAdmin(),  adminController.createAnnouncement.bind(adminController) as any);
+
+adminRouter.get(Admin_Routes.GET_ANNOUNCEMENTS,authenticateAdmin(),  adminController.getAnnouncements.bind(adminController) as any);
+
+adminRouter.put(Admin_Routes.DEACTIVATE_ANNOUNCEMENTS,authenticateAdmin(),  adminController.deactivateAnnouncement.bind(adminController) as any);
+adminRouter.put(Admin_Routes.ACTIVATE_ANNOUNCEMENTS,authenticateAdmin(),  adminController.reactivateAnnouncement.bind(adminController) as any);
+
+adminRouter.put(Admin_Routes.UPDATE_ANNOUNCEMENTS,authenticateAdmin(),  adminController.updateAnnouncement.bind(adminController) as any);
+
 
 
 export default adminRouter;

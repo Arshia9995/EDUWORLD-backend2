@@ -35,6 +35,9 @@ export const USER_ROUTES = {
 
     CREATE_CHECKOUT_SESSION: "/create-checkout-session",
     VERIFY_PAYMENT: "/verify-payment",
+
+    WEBHOOK_PAYMENT: "/webhook-payment",
+    
     CHECK_ENROLLMENT: "/check-enrollment/:courseId",
     CREATE_ENROLLMENT: "/create-enrollment",
     ENROLLED_COURSES: "/enrolled-courses",
@@ -55,7 +58,34 @@ export const USER_ROUTES = {
     INSTRUCTOR_STATS:'/instructor-stats',
 
     RETRY_PAYMENT:"/retry-payment",
+    // GET_MY_COURSES: "/mycourses",
 
+    GET_CHAT_BY_COURSE_ID: "/getchat/:courseId",
+    GET_MESSAGES_BY_CHAT_ID: "/:chatId/getmessages",
+    CREATE_MESSAGES: "/:chatId/createmessages",
+
+    
+    // MARK_MESSAGES_AS_READ: "/:chatId/markasread",
+
+   
+    // INSTRUCTOR_GET_MY_COURSES: "/instructors/mycourses",
+    // INSTRUCTOR_GET_CHAT_BY_COURSE_ID: "/instructors/getchat/:courseId",
+    // INSTRUCTOR_GET_MESSAGES_BY_CHAT_ID: "/instructors/:chatId/getmessages",
+    // INSTRUCTOR_CREATE_MESSAGES: "/instructors/:chatId/createmessages",
+    // MARK_MESSAGES_AS_READ: "/:chatId/markasread",
+
+
+    // GET_INSTRUCTOR_CHATS: "/chat/instructor/chats",
+    // GET_INSTRUCTOR_CHAT_BY_COURSEID: "/getchat/:courseId",
+    // INSTRUCTOR_GET_MESSAGES: "/:chatId/getmessages",
+    // INSTRUCTOR_SEND_MESSAGES:'/:chatId/createmessages'
+
+    INSTRUCTOR_CHATS:"/instructor/chats",
+    INSTRUCTOR_MESSAGES: "/messages/:chatId",
+    INSTRUCTOR_SEND_MESSAGE: "/send-message",
+
+    GET_ACTIVE_ANNOUNCEMENTS: "/getactiveannouncements",
+    MARK_MESSAGE_AS_READ: "/messages/:chatId/read"
     
 
 
@@ -88,7 +118,14 @@ export const Admin_Routes = {
     ADMIN_WALLET: "/admin-wallet",
 
     COURSE_STATS: "/course-stats",
-    GET_ALL_PAYMENT_HISTORY: "/get-all-payment-history"
+    GET_ALL_PAYMENT_HISTORY: "/get-all-payment-history",
+
+    CREATE_ANNOUNCEMENTS: "/create-announcements",
+    GET_ANNOUNCEMENTS: "/getannouncements",
+    DEACTIVATE_ANNOUNCEMENTS: "/announcements/deactivate",
+    ACTIVATE_ANNOUNCEMENTS: "/announcements/reactivate",
+    UPDATE_ANNOUNCEMENTS: "/announcements/update"
+
    
  
 }

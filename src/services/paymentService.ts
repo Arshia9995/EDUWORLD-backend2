@@ -7,6 +7,7 @@ import stripe from "../utils/stripe";
 import { ObjectId } from 'mongodb';
 import { WalletService } from "./walletService";
 import AdminRepository from "../repositories/adminRepository";
+import Stripe from "stripe";
 
 interface PaymentHistoryResult {
   payments: {
@@ -145,7 +146,7 @@ export class PaymentService implements IPaymentService {
             billing_address_collection: 'auto',
           });
     
-          // Update the existing payment with the new session ID
+          
           await this._paymentRepository.updatee({
             _id: new ObjectId(paymentId),
             stripeSessionId: session.id,
@@ -162,6 +163,52 @@ export class PaymentService implements IPaymentService {
       }
 
 
+      async handleWebhookEvent(event: Stripe.Event): Promise<void> {
+        try {
+          switch (event.type) {
+            case 'checkout.session.completed': {
+              const session = event.data.object as Stripe.Checkout.Session;
+      
+              if (session.payment_status === 'paid') {
+                const metadata = session.metadata;
+                if (!metadata?.userId || !metadata?.courseId || !session.id) {
+                  throw new Error('Missing required metadata in Stripe session');
+                }
+      
+                const existingPayment = await this._paymentRepository.findBySessionId(session.id);
+                if (!existingPayment) {
+                  console.warn('Payment not found for session:', session.id);
+                  return;
+                }
+      
+                if (existingPayment.status !== 'completed') {
+                  await this._paymentRepository.updateStatus(session.id, 'completed');
+                }
+              }
+              break;
+            }
+      
+            case 'checkout.session.expired':
+            case 'checkout.session.async_payment_failed': {
+              const session = event.data.object as Stripe.Checkout.Session;
+      
+              if (session.id) {
+                await this._paymentRepository.updateStatus(session.id, 'failed');
+              }
+              break;
+            }
+      
+            default:
+              console.log(`Unhandled event type: ${event.type}`);
+          }
+        } catch (error: any) {
+          console.error('❌ Error in PaymentService.handleWebhookEvent:', {
+            message: error.message,
+            type: event.type,
+          });
+          throw error;
+        }
+      }
  
     
       async verifyPayment(sessionId: string): Promise<{ userId: string; courseId: string; instructorId?: string }> {
@@ -180,10 +227,10 @@ export class PaymentService implements IPaymentService {
           const instructorId = session.metadata?.instructorId;
           if (!userId || !courseId || !instructorId) throw new Error('Missing userId, courseId, or instructorId in session metadata');
     
-          // Update payment status
+          
           await this._paymentRepository.updateStatus(sessionId, 'completed');
     
-          // Credit instructor's wallet
+          
           if (payment.instructorShare && payment.instructorId) {
 
 
@@ -198,9 +245,9 @@ export class PaymentService implements IPaymentService {
             );
           }
 
-          // Credit admin's wallet
+          
     if (payment.adminShare) {
-      const admin = await this._adminRepository.findOne({}); // Adjust to find the admin (e.g., by email or ID)
+      const admin = await this._adminRepository.findOne({}); 
       if (!admin) throw new Error('Admin not found');
 
       const course = await this._courseRepository.findById(courseId);

@@ -35,7 +35,7 @@ export class UserService implements IUserService {
             accessKeyId: process.env.ACCESS_KEY,
             secretAccessKey: process.env.SECRET_ACCESS_KEY,
             region: process.env.AWS_REGION,
-            signatureVersion: 'v4' // Add this for newer AWS SDK versions
+            signatureVersion: 'v4' 
         });
 
           console.log("S3 Initialized:", this.s3);
@@ -318,7 +318,7 @@ export class UserService implements IUserService {
       
           let user = await this._userRepository.findByQuery({ email });
           if (!user) {
-            // Generate a random password (since they'll only use Google to login)
+            
             const randomPassword = Math.random().toString(36).slice(-12);
             
             user = await this._userRepository.create({
@@ -328,7 +328,7 @@ export class UserService implements IUserService {
               verified: true,
               googleAuth: true,
               isBlocked: false,
-              password: randomPassword, // Add the required password field
+              password: randomPassword, 
             });
           }
       
@@ -426,7 +426,7 @@ export class UserService implements IUserService {
               if (existingOtp) {
                 await this._otpRepository.update(existingOtp._id as string, otpData);
             } else {
-                await this._otpRepository.create({ email, ...otpData }); // ✅ Insert new OTP if none exists
+                await this._otpRepository.create({ email, ...otpData }); 
             }
 
               console.log(newOtp, "the forgot password otp");
@@ -561,7 +561,7 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false,folde
             signatureVersion: 'v4'
         });
         
-        // Validate required environment variables
+        
         if (!process.env.BUCKET_NAME) {
             throw new Error('BUCKET_NAME is not defined in environment');
         }
@@ -577,19 +577,19 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false,folde
         
         let key;
         
-        // If this is a request for an existing file
+        
         if (getUrl && fileName.includes('/')) {
-            // The fileName is already the full key
+            
             key = fileName;
         } else if (getUrl) {
-            // Extract just the filename without path for existing files
+            
             key = `${targetFolder}/${fileName}`;
         } else {
-            // This is a new upload, generate a new key
+            
             key = `${targetFolder}/${Date.now()}-${fileName}`;
         }
         
-        // Generate upload URL if needed (only for new files)
+        
         let uploadUrl = '';
         if (!getUrl) {
             const params = {
@@ -601,15 +601,15 @@ async getS3Url(fileName: string, fileType: string, getUrl: boolean = false,folde
             uploadUrl = await this.s3.getSignedUrlPromise("putObject", params);
         }
 
-        // Generate download URL (always needed)
+        
         const downloadParams = {
             Bucket: process.env.BUCKET_NAME,
             Key: key,
-            Expires: 86400, // Extend to 24 hours
+            Expires: 86400, 
         };
         const downloadUrl = await this.s3.getSignedUrlPromise("getObject", downloadParams);
 
-        // Permanent URL (S3 object URL - will only work if bucket has public access)
+        
         const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
         
         return { url: uploadUrl, imageUrl: fileUrl, downloadUrl };
@@ -628,7 +628,7 @@ async videogetS3Url(fileName: string, fileType: string, getUrl: boolean = false,
             signatureVersion: 'v4'
         });
         
-        // Validate required environment variables
+        
         if (!process.env.BUCKET_NAME) {
             throw new Error('BUCKET_NAME is not defined in environment');
         }
@@ -644,19 +644,15 @@ async videogetS3Url(fileName: string, fileType: string, getUrl: boolean = false,
         
         let key;
         
-        // If this is a request for an existing file
+        
         if (getUrl && fileName.includes('/')) {
-            // The fileName is already the full key
             key = fileName;
         } else if (getUrl) {
-            // Extract just the filename without path for existing files
             key = `${targetFolder}/${fileName}`;
         } else {
-            // This is a new upload, generate a new key
             key = `${targetFolder}/${Date.now()}-${fileName}`;
         }
         
-        // Generate upload URL if needed (only for new files)
         let uploadUrl = '';
         if (!getUrl) {
             const params = {
@@ -668,15 +664,14 @@ async videogetS3Url(fileName: string, fileType: string, getUrl: boolean = false,
             uploadUrl = await this.s3.getSignedUrlPromise("putObject", params);
         }
 
-        // Generate download URL (always needed)
         const downloadParams = {
             Bucket: process.env.BUCKET_NAME,
             Key: key,
-            Expires: 86400, // Extend to 24 hours
+            Expires: 86400, 
         };
         const downloadUrl = await this.s3.getSignedUrlPromise("getObject", downloadParams);
 
-        // Permanent URL (S3 object URL - will only work if bucket has public access)
+       
         const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
         
         return { url: uploadUrl, imageUrl: fileUrl, downloadUrl };
@@ -705,7 +700,7 @@ async getDownloadUrl(key: string): Promise<string> {
       const downloadParams = {
         Bucket: process.env.BUCKET_NAME,
         Key: key,
-        Expires: 86400, // 24 hours
+        Expires: 86400, 
       };
       
       return await this.s3.getSignedUrlPromise("getObject", downloadParams);
@@ -733,7 +728,7 @@ async getDownloadUrl(key: string): Promise<string> {
       const downloadParams = {
         Bucket: process.env.BUCKET_NAME,
         Key: key,
-        Expires: 86400, // 24 hours
+        Expires: 86400, 
       };
       
       return await this.s3.getSignedUrlPromise("getObject", downloadParams);

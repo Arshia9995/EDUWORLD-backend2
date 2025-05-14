@@ -116,7 +116,7 @@ async create(enrollmentData: Partial<IEnrollment>): Promise<IEnrollment> {
   }
 
 
-  // Get total unique students enrolled in a list of courses
+  
   async getTotalStudentsByCourses(courseIds: string[]): Promise<number> {
     try {
       const uniqueStudents = await this._model
@@ -131,7 +131,7 @@ async create(enrollmentData: Partial<IEnrollment>): Promise<IEnrollment> {
     }
   }
 
-  // Get enrollment timeline (last 12 months)
+  
   async getEnrollmentTimeline(): Promise<{ _id: string; count: number }[]> {
     try {
       const twelveMonthsAgo = new Date();

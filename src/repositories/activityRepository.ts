@@ -9,12 +9,12 @@ class ActivityLogRepository extends BaseRepository<IActivity> {
     super(activityLogModel);
   }
 
-  // Get recent activities (latest 5)
+  
   async getRecentActivities(limit: number = 5): Promise<IActivity[]> {
     try {
       return await this._model
         .find()
-        .sort({ timestamp: -1 }) // Sort by most recent
+        .sort({ timestamp: -1 }) 
         .limit(limit)
         .lean();
     } catch (error) {

@@ -11,7 +11,7 @@ class ReviewController {
   async addReview(req: AuthRequest, res: Response) {
     try {
       const { courseId, rating, reviewText } = req.body;
-      const studentId = req.user?.id; // Assuming user ID is available in the request
+      const studentId = req.user?.id; 
 
       if (!studentId) {
         return res.status(Status.UN_AUTHORISED).json({
@@ -62,7 +62,7 @@ class ReviewController {
     try {
       const { reviewId } = req.params;
       const { rating, reviewText } = req.body;
-      const studentId = req.user?.id; // Assuming user ID is available in the request
+      const studentId = req.user?.id; 
 
       if (!studentId) {
         return res.status(Status.UN_AUTHORISED).json({
@@ -91,7 +91,7 @@ class ReviewController {
   async deleteReview(req: AuthRequest, res: Response) {
     try {
       const { reviewId } = req.params;
-      const studentId = req.user?.id; // Assuming user ID is available in the request
+      const studentId = req.user?.id; 
 
       if (!studentId) {
         return res.status(Status.UN_AUTHORISED).json({

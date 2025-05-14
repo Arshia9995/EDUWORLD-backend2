@@ -32,6 +32,14 @@ import { ReviewService } from "../services/reviewService";
 import ReviewController from "../controllers/reviewController";
 import AdminRepository from "../repositories/adminRepository";
 import AdminWalletRepository from "../repositories/adminWalletRepository";
+import ChatRepository from "../repositories/chatRepository";
+import { ChatService } from "../services/chatService";
+import ChatController from "../controllers/chatController";
+import MessageRepository from "../repositories/messageRepository";
+import { MessageService } from "../services/messageService";
+import AnnouncementRepository from "../repositories/announcementRepository";
+import { AnnouncementService } from "../services/announcementService";
+import AnnouncementController from "../controllers/announcementController";
 
 
 
@@ -46,6 +54,9 @@ const walletRepository = new WalletRepository();
 const reviewRepository = new ReviewRepository();
 const adminRepository = new AdminRepository();
 const adminWalletRepository = new AdminWalletRepository();
+const chatRepository = new ChatRepository();
+const messageRepository = new MessageRepository();
+const announcementRepository = new AnnouncementRepository();
 
 const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -55,22 +66,27 @@ const s3 = new S3({
 
 const userService = new UserService(userRepository, otpRepository);
 const categoryService = new CategoryServices(categoryRepository);
-const enrollmentService = new EnrollmentService(enrollmentRepository, courseRepository,userService,lessonRepository);
-const courseService = new CourseServices(courseRepository, userService, enrollmentService);
+const enrollmentService = new EnrollmentService(enrollmentRepository, courseRepository,userService,lessonRepository,chatRepository);
+const courseService = new CourseServices(courseRepository, userService, enrollmentService,chatRepository);
 const lessonService = new LessonServices(lessonRepository, courseRepository,userService);
 const walletService = new WalletService(walletRepository, adminWalletRepository );
 const paymentService =new PaymentService(paymentRepository, courseRepository, walletService, adminRepository);
 const reviewService = new ReviewService(reviewRepository)
+const chatService = new ChatService(chatRepository,courseRepository,messageRepository);
+const messageService = new MessageService(messageRepository);
+const announcementService = new AnnouncementService(announcementRepository);
 
 
 const userController = new UserController(userService);
 const categoryController = new CategoryController(categoryService);
 const courseController = new CourseController(courseService);
 const lessonController = new LessonController(lessonService);
-const paymentController = new PaymentController(paymentService, enrollmentService);
+export const paymentController = new PaymentController(paymentService, enrollmentService);
 const enrollmentController = new EnrollmentController(enrollmentService);
 const walletController = new WalletController(walletService);
 const reviewController = new ReviewController(reviewService);
+const chatController = new ChatController(chatService, messageService)
+const announcementController = new AnnouncementController(announcementService);
 
 
 const userRouter = Router();
@@ -170,14 +186,42 @@ userRouter.get(USER_ROUTES.GET_PROFILE, authenticateUser(), userController.getUs
 
 userRouter.get(USER_ROUTES.INSTRUCTOR_STATS, authenticateUser(), enrollmentController.getInstructorStats.bind(enrollmentController) as any);
 
+//.......................................................chat..............................................................
+
+
+userRouter.get(USER_ROUTES.GET_CHAT_BY_COURSE_ID, authenticateUser(), chatController.getChatByCourseId.bind(chatController) as any);
+userRouter.get(USER_ROUTES.GET_MESSAGES_BY_CHAT_ID, authenticateUser(), chatController.getMessagesByChatId.bind(chatController) as any);
+
+
+userRouter.post(USER_ROUTES.CREATE_MESSAGES, authenticateUser(), chatController.createMessage.bind(chatController) as any);
+
+userRouter.put(USER_ROUTES.MARK_MESSAGE_AS_READ, authenticateUser(), chatController.markMessagesAsRead.bind(chatController) as any);
+
+
+
+//.........................................................INSTRUCTOR SIDE CHAT.....................................................................................
 
 
 
 
 
+// userRouter.get(USER_ROUTES.GET_INSTRUCTOR_CHATS, authenticateUser(), chatController.getInstructorChats.bind(chatController) as any);
+
+// userRouter.get(USER_ROUTES.GET_INSTRUCTOR_CHAT_BY_COURSEID, authenticateUser(), chatController.getinstructorChatByCourseId.bind(chatController) as any);
+
+// userRouter.get(USER_ROUTES.INSTRUCTOR_GET_MESSAGES, authenticateUser(), chatController.getinstructorMessagesByChatId.bind(chatController) as any);
+
+// userRouter.post(USER_ROUTES.INSTRUCTOR_SEND_MESSAGES, authenticateUser(), chatController.instructorCreateMessage.bind(chatController) as any);
 
 
 
+ userRouter.get(USER_ROUTES.INSTRUCTOR_CHATS, authenticateUser(), chatController.getInstructorChats.bind(chatController) as any);
+
+ userRouter.get(USER_ROUTES.INSTRUCTOR_MESSAGES, authenticateUser(), chatController.getMessages.bind(chatController) as any);
+
+ userRouter.get(USER_ROUTES.INSTRUCTOR_SEND_MESSAGE, authenticateUser(), chatController.sendMessage.bind(chatController) as any);
+
+ userRouter.get(USER_ROUTES.GET_ACTIVE_ANNOUNCEMENTS, authenticateUser(), announcementController.getActiveAnnouncements.bind(announcementController) as any);
 
 
 

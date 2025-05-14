@@ -159,7 +159,7 @@ class PaymentRepository extends BaseRepository<IPayment> {
           },
         },
         {
-          $sort: { paymentDate: -1 }, // Sort by latest payment first
+          $sort: { paymentDate: -1 }, 
         },
         {
           $facet: {

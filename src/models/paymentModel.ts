@@ -16,7 +16,7 @@ const paymentSchema = new Schema(
     instructorId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true, // Required since every course has an instructor
+        required: true, 
       },
     status: {
       type: String,
@@ -34,7 +34,7 @@ const paymentSchema = new Schema(
     },
     instructorShare: {
         type: Number,
-        required: false, // Optional, calculated during verification
+        required: false, 
       },
       adminShare: { 
         type: Number,

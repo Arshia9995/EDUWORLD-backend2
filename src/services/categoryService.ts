@@ -19,7 +19,7 @@ export class CategoryServices implements ICategoryService {
             return { success: false, message: "Category name cannot be empty", data: null };
           }
     
-          // Check for duplicates (case-insensitive)
+         
           const existingCategories = await this._categoryRepository.findAll({});
           if (existingCategories.some((cat) => cat.categoryName.toLowerCase() === categoryName.toLowerCase())) {
             return { success: false, message: "Category already exists", data: null };

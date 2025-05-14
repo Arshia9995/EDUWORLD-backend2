@@ -12,7 +12,7 @@ export class ReviewService implements IReviewService {
 
   async addReview(courseId: string, studentId: string, rating: number, reviewText: string) {
     try {
-      // Validate input
+      
       if (!courseId || !studentId || !rating || !reviewText.trim()) {
         return { success: false, message: "Missing required fields", data: null };
       }
@@ -21,13 +21,13 @@ export class ReviewService implements IReviewService {
         return { success: false, message: "Rating must be between 1 and 5", data: null };
       }
 
-      // Check if user already reviewed this course
+      
       const existingReview = await this._reviewRepository.findByUserAndCourse(studentId, courseId);
       if (existingReview) {
         return { success: false, message: "You have already reviewed this course", data: null };
       }
 
-      // Create the review
+      
       const review = await this._reviewRepository.create({
         courseId: new mongoose.Types.ObjectId(courseId),
         studentId: new mongoose.Types.ObjectId(studentId),
@@ -70,7 +70,7 @@ export class ReviewService implements IReviewService {
 
   async updateReview(reviewId: string, studentId: string, rating: number, reviewText: string) {
     try {
-      // Validate input
+     
       if (!reviewId || !studentId || !rating || !reviewText.trim()) {
         return { success: false, message: "Missing required fields", data: null };
       }
@@ -79,18 +79,18 @@ export class ReviewService implements IReviewService {
         return { success: false, message: "Rating must be between 1 and 5", data: null };
       }
 
-      // Find the review
+      
       const review = await this._reviewRepository.findById(reviewId);
       if (!review) {
         return { success: false, message: "Review not found", data: null };
       }
 
-      // Check if the review belongs to the student
+      
       if (review.studentId.toString() !== studentId) {
         return { success: false, message: "You can only update your own reviews", data: null };
       }
 
-      // Update the review
+      
       const updatedReview = await this._reviewRepository.update(reviewId, { rating, reviewText });
 
       return {
@@ -110,18 +110,18 @@ export class ReviewService implements IReviewService {
         return { success: false, message: "Missing required fields", data: null };
       }
 
-      // Find the review
+      
       const review = await this._reviewRepository.findById(reviewId);
       if (!review) {
         return { success: false, message: "Review not found", data: null };
       }
 
-      // Check if the review belongs to the student
+      
       if (review.studentId.toString() !== studentId) {
         return { success: false, message: "You can only delete your own reviews", data: null };
       }
 
-      // Delete the review
+      
       const result = await this._reviewRepository.delete(reviewId);
       if (!result) {
         return { success: false, message: "Failed to delete review", data: null };
