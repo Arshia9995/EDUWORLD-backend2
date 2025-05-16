@@ -10,15 +10,6 @@ class CourseRepository extends BaseRepository<ICourse>{
         
     }
 
-    // async findcourseName(instructorId: string) {
-    //   try {
-    //     return await this._model.find({instructorId},{title:'tfyhyy'}).countDocuments()
-    //   } catch (error) {
-        
-    //   }
-    // }
-
-   
 
     async findPublishedByInstructor(
       instructorId: string,
@@ -266,21 +257,9 @@ class CourseRepository extends BaseRepository<ICourse>{
         }
       }
 
-      // async findByIds(courseIds: mongoose.Types.ObjectId[]): Promise<ICourse[]> {
-      //   try {
-      //     const courses = await this._model
-      //       .find({ _id: { $in: courseIds } })
-      //       .populate('instructor', 'name')
-      //       .populate('category', 'categoryName isActive')
-      //       .lean();
-      //     return courses;
-      //   } catch (error: any) {
-      //     console.error('Error in CourseRepository.findByIds:', { error: error.message, courseIds });
-      //     throw new Error('Could not fetch courses');
-      //   }
-      // }
+    
 
-      // CourseRepository.js
+      
 async findEnrolledCourses(
   courseIds: Types.ObjectId[],
   page: number = 1,
@@ -548,18 +527,7 @@ async getTopCoursesByEnrollment(limit: number = 5): Promise<
     }
   }
 
-//   async findByInstructor(instructorId: string): Promise<ICourse[]> {
-//     try {
-//         return await this._model
-//             .find({ instructor: instructorId })
-//             .select('_id title description instructor isPublished')
-//             .populate("instructor", "_id name role")
-//             .lean();
-//     } catch (error) {
-//         console.error("Error in CourseRepository.findByInstructor:", error);
-//         throw new Error("Could not fetch courses");
-//     }
-// }
+
 
 
 async findByInstructor(instructorId: string): Promise<ICourse[]> {

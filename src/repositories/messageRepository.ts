@@ -26,27 +26,27 @@ class MessageRepository extends BaseRepository<IMessage> {
         .find({ chatId })
         .populate({
           path: 'senderId',
-          select: 'name role', // Match the population fields used in ChatModal
+          select: 'name role', 
         })
-        .select('content media sentAt senderId readBy') // Match the fields selected in getMessages
+        .select('content media sentAt senderId readBy') 
         .sort({ sentAt: 1 })
         .lean()
         .exec();
   
-      // Generate presigned URLs for media, matching the getMessages approach
+      
       for (const message of messages) {
         if (message.media && message.media.url) {
           try {
-            const key = message.media.url.split('.com/')[1]; // Extract the S3 key from the permanent URL
+            const key = message.media.url.split('.com/')[1]; 
             const downloadParams = {
               Bucket: process.env.BUCKET_NAME!,
               Key: key,
-              Expires: 86400, // Presigned URL valid for 24 hours, matching getMessages
+              Expires: 86400, 
             };
             message.media.url = await this.s3.getSignedUrlPromise('getObject', downloadParams);
           } catch (error) {
             console.error(`Failed to generate presigned URL for media URL ${message.media.url}:`, error);
-            // Continue with the original URL if presigned URL generation fails
+            
           }
         }
       }
@@ -98,11 +98,11 @@ async getMessages(chatId: string): Promise<IMessage[]> {
 
         for (const message of messages) {
             if (message.media && message.media.url) {
-              const key = message.media.url.split('.com/')[1]; // Extract the S3 key from the permanent URL
+              const key = message.media.url.split('.com/')[1]; 
               const downloadParams = {
                 Bucket: process.env.BUCKET_NAME!,
                 Key: key,
-                Expires: 86400, // Presigned URL valid for 24 hours
+                Expires: 86400, 
               };
               message.media.url = await this.s3.getSignedUrlPromise('getObject', downloadParams);
             }

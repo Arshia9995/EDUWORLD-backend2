@@ -74,7 +74,7 @@ class EnrollmentController {
     }
   }
 
-// EnrollmentController.js
+
 async getEnrolledCourses(req: AuthRequest, res: Response) {
     try {
       if (!req.user?.id) {

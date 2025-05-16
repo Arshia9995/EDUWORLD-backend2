@@ -2237,3 +2237,529 @@
 2025-05-14 14:56:28 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
 2025-05-14 14:56:28 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
 2025-05-14 14:56:28 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 18:28:44 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-05-14 18:28:44 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-05-14 18:28:44 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 18:28:44 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 18:28:44 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 18:28:44 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 18:28:44 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 18:28:44 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:28:44 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 18:28:45 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:28:46 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 18:28:46 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 18:28:46 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 18:28:46 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 18:28:48 [INFO] [REQUEST] PUT /users/messages/6820a3fe3c9a7d7aa92c2c48/read
+2025-05-14 18:28:48 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 18:28:48 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 18:28:48 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 18:28:53 [INFO] [REQUEST] POST /users/logout
+2025-05-14 18:28:53 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-05-14 18:34:03 [INFO] [REQUEST] POST /users/google-login
+2025-05-14 18:34:03 [INFO] [RESPONSE] Status: 200 Message: Google login successful
+2025-05-14 18:34:07 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:34:07 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:34:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:07 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:34:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:07 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:34:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:08 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/enrolled-course-lessons/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Enrolled lessons fetched successfully
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/enrolled-course-lessons/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Enrolled lessons fetched successfully
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/profile
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/courses/6820a8e3a94d9539049ba945/getreviews
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/getchat/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Reviews retrieved successfully
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/courses/6820a8e3a94d9539049ba945/getreviews
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/profile
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Reviews retrieved successfully
+2025-05-14 18:34:09 [INFO] [REQUEST] GET /users/getchat/6820a8e3a94d9539049ba945
+2025-05-14 18:34:09 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:34:16 [INFO] [REQUEST] GET /users/getchat/6820a8e3a94d9539049ba945
+2025-05-14 18:34:16 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:34:16 [INFO] [REQUEST] GET /users/6820a8f7a94d9539049ba953/getmessages
+2025-05-14 18:34:16 [INFO] [REQUEST] PUT /users/messages/6820a8f7a94d9539049ba953/read
+2025-05-14 18:34:16 [INFO] [RESPONSE] Status: 200 Message: Messages retrieved successfully
+2025-05-14 18:34:16 [INFO] [RESPONSE] Status: 200 Message: Marked 3 messages as read for user
+2025-05-14 18:34:20 [INFO] [REQUEST] POST /users/6820a8f7a94d9539049ba953/createmessages
+2025-05-14 18:34:20 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:34:20 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953/unreadcount
+2025-05-14 18:34:22 [INFO] [REQUEST] POST /users/update-lesson-progress
+2025-05-14 18:34:22 [INFO] [RESPONSE] Status: 200 Message: Lesson progress updated successfully
+2025-05-14 18:34:23 [INFO] [REQUEST] POST /users/6820a8f7a94d9539049ba953/createmessages
+2025-05-14 18:34:23 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:34:23 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953/unreadcount
+2025-05-14 18:34:29 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:34:29 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:29 [INFO] [REQUEST] POST /users/6820a8f7a94d9539049ba953/createmessages
+2025-05-14 18:34:29 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:34:29 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953/unreadcount
+2025-05-14 18:34:39 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:34:39 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:40 [INFO] [REQUEST] POST /users/6820a8f7a94d9539049ba953/createmessages
+2025-05-14 18:34:40 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:34:40 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953/unreadcount
+2025-05-14 18:34:55 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:34:55 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:34:56 [INFO] [REQUEST] POST /users/6820a8f7a94d9539049ba953/createmessages
+2025-05-14 18:34:56 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:34:56 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953/unreadcount
+2025-05-14 18:35:00 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:35:00 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:35:00 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:35:00 [INFO] [REQUEST] GET /users/enrolled-course-lessons/6820a8e3a94d9539049ba945
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Enrolled lessons fetched successfully
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/enrolled-course-lessons/6820a8e3a94d9539049ba945
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Enrolled lessons fetched successfully
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/enrolled-course-detailss/6820a8e3a94d9539049ba945
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/profile
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/courses/6820a8e3a94d9539049ba945/getreviews
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/getchat/6820a8e3a94d9539049ba945
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Reviews retrieved successfully
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/courses/6820a8e3a94d9539049ba945/getreviews
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/profile
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:35:01 [INFO] [REQUEST] GET /users/getchat/6820a8e3a94d9539049ba945
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Reviews retrieved successfully
+2025-05-14 18:35:01 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:35:03 [INFO] [REQUEST] GET /users/getchat/6820a8e3a94d9539049ba945
+2025-05-14 18:35:03 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:35:03 [INFO] [REQUEST] GET /users/6820a8f7a94d9539049ba953/getmessages
+2025-05-14 18:35:03 [INFO] [REQUEST] PUT /users/messages/6820a8f7a94d9539049ba953/read
+2025-05-14 18:35:03 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 18:35:03 [INFO] [RESPONSE] Status: 200 Message: Messages retrieved successfully
+2025-05-14 18:35:25 [INFO] [REQUEST] GET /users/payment-history
+2025-05-14 18:35:25 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:35:25 [INFO] [REQUEST] GET /users/payment-history
+2025-05-14 18:35:26 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:35:32 [INFO] [REQUEST] GET /users/getactiveannouncements
+2025-05-14 18:35:32 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:35:32 [INFO] [REQUEST] GET /users/getactiveannouncements
+2025-05-14 18:35:32 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 18:35:35 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:35:35 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/getstudentcoursebyid/68245cdc6411cc3e1995a500
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/check-enrollment/68245cdc6411cc3e1995a500
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/check-enrollment/68245cdc6411cc3e1995a500
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 200 Message: Course fetched successfully
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/getstudentcoursebyid/68245cdc6411cc3e1995a500
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/getstudentlessonbycourseid/68245cdc6411cc3e1995a500
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 200 Message: Lessons fetched successfully
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/courses/68245cdc6411cc3e1995a500/getreviews
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 200 Message: Course fetched successfully
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/getstudentlessonbycourseid/68245cdc6411cc3e1995a500
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 404 Message: No reviews found for this course
+2025-05-14 18:35:38 [INFO] [REQUEST] GET /users/courses/68245cdc6411cc3e1995a500/getreviews
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 200 Message: Lessons fetched successfully
+2025-05-14 18:35:38 [INFO] [RESPONSE] Status: 404 Message: No reviews found for this course
+2025-05-14 18:35:39 [INFO] [REQUEST] GET /users/payment-history
+2025-05-14 18:35:39 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:35:39 [INFO] [REQUEST] POST /users/create-checkout-session
+2025-05-14 18:35:40 [INFO] [RESPONSE] Status: 200 Message: Checkout session created successfully
+2025-05-14 18:36:00 [INFO] [REQUEST] GET /users/verify-payment?session_id=cs_test_a1wilnfl6ENzQ29GVe98hZDkHhntYiynX8jretMYKYazRqeQ0Z6xbikYRa
+2025-05-14 18:36:01 [INFO] [RESPONSE] Status: 200 Message: Enrollment successful
+2025-05-14 18:36:01 [INFO] [REQUEST] GET /users/verify-payment?session_id=cs_test_a1wilnfl6ENzQ29GVe98hZDkHhntYiynX8jretMYKYazRqeQ0Z6xbikYRa
+2025-05-14 18:36:01 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:36:01 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:36:01 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:01 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:36:01 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:01 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:01 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:36:02 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:02 [INFO] [RESPONSE] Status: 200 Message: Enrollment successful
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/enrolled-course-detailss/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/enrolled-course-detailss/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/enrolled-course-lessons/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: Enrolled lessons fetched successfully
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/enrolled-course-detailss/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/enrolled-course-lessons/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: Enrolled lessons fetched successfully
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/enrolled-course-detailss/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/profile
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/courses/68245cdc6411cc3e1995a500/getreviews
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/getchat/68245cdc6411cc3e1995a500
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 404 Message: No reviews found for this course
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/courses/68245cdc6411cc3e1995a500/getreviews
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: Enrolled course details fetched successfully
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 404 Message: No reviews found for this course
+2025-05-14 18:36:05 [INFO] [REQUEST] GET /users/profile
+2025-05-14 18:36:05 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:06 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:36:06 [INFO] [REQUEST] GET /users/getchat/68245cdc6411cc3e1995a500
+2025-05-14 18:36:06 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:36:07 [INFO] [REQUEST] GET /users/getchat/68245cdc6411cc3e1995a500
+2025-05-14 18:36:07 [INFO] [RESPONSE] Status: 200 Message: Chat fetched successfully
+2025-05-14 18:36:07 [INFO] [REQUEST] GET /users/68245cee6411cc3e1995a50e/getmessages
+2025-05-14 18:36:07 [INFO] [REQUEST] PUT /users/messages/68245cee6411cc3e1995a50e/read
+2025-05-14 18:36:07 [INFO] [RESPONSE] Status: 200 Message: Messages retrieved successfully
+2025-05-14 18:36:07 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 18:36:11 [INFO] [REQUEST] POST /users/68245cee6411cc3e1995a50e/createmessages
+2025-05-14 18:36:11 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:36:11 [INFO] [REQUEST] GET /users/messages/68245cee6411cc3e1995a50e/unreadcount
+2025-05-14 18:36:22 [INFO] [REQUEST] POST /users/update-lesson-progress
+2025-05-14 18:36:22 [INFO] [RESPONSE] Status: 200 Message: Lesson progress updated successfully
+2025-05-14 18:36:30 [INFO] [REQUEST] GET /users/payment-history
+2025-05-14 18:36:30 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:36:30 [INFO] [REQUEST] GET /users/payment-history
+2025-05-14 18:36:30 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:36:31 [INFO] [REQUEST] GET /users/getactiveannouncements
+2025-05-14 18:36:31 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:36:31 [INFO] [REQUEST] GET /users/getactiveannouncements
+2025-05-14 18:36:32 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:36:33 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:36:33 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:36:33 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:33 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:36:33 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:33 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:33 [INFO] [REQUEST] GET /users/enrolled-courses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:36:34 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:34 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:36:34 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:36:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:36:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:35 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 18:36:35 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:36:35 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 18:36:39 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:36:39 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:39 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:36:39 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:36:46 [INFO] [REQUEST] POST /users/logout
+2025-05-14 18:36:46 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-05-14 18:37:03 [INFO] [REQUEST] POST /users/login
+2025-05-14 18:37:03 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-05-14 18:37:05 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-05-14 18:37:05 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-05-14 18:37:05 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 18:37:05 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 18:37:05 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 18:37:05 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 18:37:05 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 18:37:05 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:37:05 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 18:37:05 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:37:09 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:37:09 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:37:09 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:37:09 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 18:37:10 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:37:10 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 18:37:10 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 18:37:10 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 18:37:13 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 18:37:13 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 18:37:13 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 18:37:13 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 18:37:28 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 18:37:28 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 18:37:28 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 18:37:29 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 18:37:32 [INFO] [REQUEST] PUT /users/messages/6820a8f7a94d9539049ba953/read
+2025-05-14 18:37:32 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953
+2025-05-14 18:37:32 [INFO] [RESPONSE] Status: 200 Message: Marked 5 messages as read for user
+2025-05-14 18:37:32 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 18:37:51 [INFO] [REQUEST] PUT /users/messages/68245cee6411cc3e1995a50e/read
+2025-05-14 18:37:51 [INFO] [REQUEST] GET /users/messages/68245cee6411cc3e1995a50e
+2025-05-14 18:37:51 [INFO] [RESPONSE] Status: 200 Message: Marked 1 messages as read for user
+2025-05-14 18:37:51 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 18:37:58 [INFO] [REQUEST] POST /users/68245cee6411cc3e1995a50e/createmessages
+2025-05-14 18:37:58 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:38:06 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:38:06 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:38:07 [INFO] [REQUEST] POST /users/68245cee6411cc3e1995a50e/createmessages
+2025-05-14 18:38:07 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:38:12 [INFO] [REQUEST] POST /users/68245cee6411cc3e1995a50e/createmessages
+2025-05-14 18:38:12 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 18:38:17 [INFO] [REQUEST] POST /users/logout
+2025-05-14 18:38:17 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-05-14 18:38:21 [INFO] [REQUEST] GET /admin/admin-stats
+2025-05-14 18:38:21 [INFO] [RESPONSE] Status: 401 Message: Unauthorized: No admin token provided
+2025-05-14 18:38:21 [INFO] [REQUEST] GET /admin/admin-stats
+2025-05-14 18:38:21 [INFO] [RESPONSE] Status: 401 Message: Unauthorized: No admin token provided
+2025-05-14 18:38:24 [INFO] [REQUEST] POST /admin/adminlogout
+2025-05-14 18:38:24 [INFO] [RESPONSE] Status: 200 Message: Admin Logout successful
+2025-05-14 18:38:30 [INFO] [REQUEST] POST /admin/login
+2025-05-14 18:38:31 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-05-14 18:38:31 [INFO] [REQUEST] GET /admin/admin-stats
+2025-05-14 18:38:31 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:38:31 [INFO] [REQUEST] GET /admin/admin-stats
+2025-05-14 18:38:31 [INFO] [REQUEST] GET /admin/course-stats
+2025-05-14 18:38:31 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-05-14 18:38:31 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:38:31 [INFO] [REQUEST] GET /admin/course-stats
+2025-05-14 18:38:31 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-05-14 18:38:54 [INFO] [REQUEST] GET /admin/getallcategories
+2025-05-14 18:38:54 [INFO] [RESPONSE] Status: 200 Message: Categories retrieved successfully
+2025-05-14 18:38:54 [INFO] [REQUEST] GET /admin/getallcategories
+2025-05-14 18:38:54 [INFO] [RESPONSE] Status: 200 Message: Categories retrieved successfully
+2025-05-14 18:38:59 [INFO] [REQUEST] POST /admin/addcategory
+2025-05-14 18:38:59 [INFO] [RESPONSE] Status: 201 Message: Category added successfully
+2025-05-14 18:38:59 [INFO] [REQUEST] GET /admin/getallcategories
+2025-05-14 18:38:59 [INFO] [RESPONSE] Status: 200 Message: Categories retrieved successfully
+2025-05-14 18:38:59 [INFO] [REQUEST] GET /admin/getallcategories
+2025-05-14 18:39:00 [INFO] [RESPONSE] Status: 200 Message: Categories retrieved successfully
+2025-05-14 18:39:07 [INFO] [REQUEST] PUT /admin/editcategory/682495eb81e93f4aac883d27
+2025-05-14 18:39:08 [INFO] [RESPONSE] Status: 200 Message: Category updated successfully
+2025-05-14 18:39:08 [INFO] [REQUEST] GET /admin/getallcategories
+2025-05-14 18:39:08 [INFO] [RESPONSE] Status: 200 Message: Categories retrieved successfully
+2025-05-14 18:39:08 [INFO] [REQUEST] GET /admin/getallcategories
+2025-05-14 18:39:08 [INFO] [RESPONSE] Status: 200 Message: Categories retrieved successfully
+2025-05-14 18:39:11 [INFO] [REQUEST] PUT /admin/blockcategory/682495eb81e93f4aac883d27
+2025-05-14 18:39:11 [INFO] [RESPONSE] Status: 200 Message: Category blocked successfully
+2025-05-14 18:39:13 [INFO] [REQUEST] PUT /admin/unblockcategory/682495eb81e93f4aac883d27
+2025-05-14 18:39:13 [INFO] [RESPONSE] Status: 200 Message: Category unblocked successfully
+2025-05-14 18:39:15 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:15 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:15 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:15 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:16 [INFO] [REQUEST] POST /admin/blockstudent
+2025-05-14 18:39:16 [INFO] [RESPONSE] Status: 200 Message: User blocked successfully
+2025-05-14 18:39:16 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:16 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:17 [INFO] [REQUEST] POST /admin/unblockstudent
+2025-05-14 18:39:17 [INFO] [RESPONSE] Status: 200 Message: User unblocked successfully
+2025-05-14 18:39:17 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:17 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:19 [INFO] [REQUEST] GET /admin/getallinstructors
+2025-05-14 18:39:19 [INFO] [RESPONSE] Status: 200 Message: Instructors retrieved successfully
+2025-05-14 18:39:19 [INFO] [REQUEST] GET /admin/getallinstructors
+2025-05-14 18:39:19 [INFO] [RESPONSE] Status: 200 Message: Instructors retrieved successfully
+2025-05-14 18:39:21 [INFO] [REQUEST] POST /users/get-s3-url
+2025-05-14 18:39:21 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:39:48 [INFO] [REQUEST] GET /admin/admin-stats
+2025-05-14 18:39:48 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:39:48 [INFO] [REQUEST] GET /admin/admin-stats
+2025-05-14 18:39:48 [INFO] [REQUEST] GET /admin/course-stats
+2025-05-14 18:39:48 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-05-14 18:39:48 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:39:48 [INFO] [REQUEST] GET /admin/course-stats
+2025-05-14 18:39:48 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-05-14 18:39:51 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:51 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:51 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:51 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:52 [INFO] [REQUEST] POST /admin/blockstudent
+2025-05-14 18:39:52 [INFO] [RESPONSE] Status: 200 Message: User blocked successfully
+2025-05-14 18:39:52 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:52 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:53 [INFO] [REQUEST] POST /admin/unblockstudent
+2025-05-14 18:39:53 [INFO] [RESPONSE] Status: 200 Message: User unblocked successfully
+2025-05-14 18:39:53 [INFO] [REQUEST] GET /admin/getallstudents
+2025-05-14 18:39:53 [INFO] [RESPONSE] Status: 200 Message: Students retrieved successfully
+2025-05-14 18:39:54 [INFO] [REQUEST] GET /admin/getallinstructors
+2025-05-14 18:39:54 [INFO] [RESPONSE] Status: 200 Message: Instructors retrieved successfully
+2025-05-14 18:39:54 [INFO] [REQUEST] GET /admin/getallinstructors
+2025-05-14 18:39:54 [INFO] [RESPONSE] Status: 200 Message: Instructors retrieved successfully
+2025-05-14 18:39:55 [INFO] [REQUEST] POST /admin/rejectinstructor
+2025-05-14 18:39:55 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:39:56 [INFO] [REQUEST] POST /admin/approveinstructor
+2025-05-14 18:39:56 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 18:39:59 [INFO] [REQUEST] GET /admin/getallinstructors
+2025-05-14 18:39:59 [INFO] [RESPONSE] Status: 200 Message: Instructors retrieved successfully
+2025-05-14 18:39:59 [INFO] [REQUEST] GET /admin/getallinstructors
+2025-05-14 18:39:59 [INFO] [RESPONSE] Status: 200 Message: Instructors retrieved successfully
+2025-05-14 18:40:01 [INFO] [REQUEST] PUT /admin/blockinstructor
+2025-05-14 18:40:01 [INFO] [RESPONSE] Status: 200 Message: Instructor blocked successfully
+2025-05-14 18:40:03 [INFO] [REQUEST] PUT /admin/unblockinstructor
+2025-05-14 18:40:03 [INFO] [RESPONSE] Status: 200 Message: Instructor unblocked successfully
+2025-05-14 18:40:06 [INFO] [REQUEST] GET /admin/getannouncements
+2025-05-14 18:40:06 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:40:06 [INFO] [REQUEST] GET /admin/getannouncements
+2025-05-14 18:40:06 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:40:12 [INFO] [REQUEST] POST /admin/create-announcements
+2025-05-14 18:40:12 [INFO] [RESPONSE] Status: 200 Message: Announcement created successfully
+2025-05-14 18:40:12 [INFO] [REQUEST] GET /admin/getannouncements
+2025-05-14 18:40:12 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:40:22 [INFO] [REQUEST] PUT /admin/announcements/update
+2025-05-14 18:40:23 [INFO] [RESPONSE] Status: 200 Message: Announcement updated successfully
+2025-05-14 18:40:23 [INFO] [REQUEST] GET /admin/getannouncements
+2025-05-14 18:40:23 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:40:24 [INFO] [REQUEST] PUT /admin/announcements/deactivate
+2025-05-14 18:40:24 [INFO] [RESPONSE] Status: 200 Message: Announcement deactivated successfully
+2025-05-14 18:40:24 [INFO] [REQUEST] GET /admin/getannouncements
+2025-05-14 18:40:24 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:40:25 [INFO] [REQUEST] PUT /admin/announcements/reactivate
+2025-05-14 18:40:25 [INFO] [RESPONSE] Status: 200 Message: Announcement reactivated successfully
+2025-05-14 18:40:25 [INFO] [REQUEST] GET /admin/getannouncements
+2025-05-14 18:40:25 [INFO] [RESPONSE] Status: 200 Message: Announcements retrieved successfully
+2025-05-14 18:40:29 [INFO] [REQUEST] GET /admin/get-all-payment-history?page=1&limit=5
+2025-05-14 18:40:29 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:40:29 [INFO] [REQUEST] GET /admin/get-all-payment-history?page=1&limit=5
+2025-05-14 18:40:29 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:40:32 [INFO] [REQUEST] GET /admin/get-all-payment-history?page=2&limit=5
+2025-05-14 18:40:32 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
+2025-05-14 18:40:35 [INFO] [REQUEST] GET /admin/admin-wallet
+2025-05-14 18:40:35 [INFO] [RESPONSE] Status: 200 Message: Admin wallet details fetched successfully
+2025-05-14 18:40:35 [INFO] [REQUEST] GET /admin/admin-wallet
+2025-05-14 18:40:35 [INFO] [RESPONSE] Status: 200 Message: Admin wallet details fetched successfully
+2025-05-14 18:40:38 [INFO] [REQUEST] POST /admin/adminlogout
+2025-05-14 18:40:38 [INFO] [RESPONSE] Status: 200 Message: Admin Logout successful
+2025-05-14 19:04:00 [INFO] [REQUEST] POST /users/login
+2025-05-14 19:04:00 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-05-14 19:04:03 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-05-14 19:04:03 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-05-14 19:04:03 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 19:04:03 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 19:04:03 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 19:04:03 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 19:04:03 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 19:04:03 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 19:04:03 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 19:04:03 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 19:04:04 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:04:04 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:04:04 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:04:05 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:04:06 [INFO] [REQUEST] PUT /users/messages/6820a3fe3c9a7d7aa92c2c48/read
+2025-05-14 19:04:06 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 19:04:07 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:04:07 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:04:08 [INFO] [REQUEST] PUT /users/messages/6820a8f7a94d9539049ba953/read
+2025-05-14 19:04:08 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953
+2025-05-14 19:04:08 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:04:08 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:04:27 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:04:27 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:04:27 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:04:27 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 19:04:31 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 19:04:31 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-14 19:04:31 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-14 19:04:31 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 19:04:31 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 19:04:31 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-14 19:04:31 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-14 19:04:32 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 19:04:32 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-14 19:04:32 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-05-14 19:04:32 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:04:32 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:04:32 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:04:32 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:04:33 [INFO] [REQUEST] PUT /users/messages/6820a3fe3c9a7d7aa92c2c48/read
+2025-05-14 19:04:33 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 19:04:33 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:04:33 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:18:10 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:18:10 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:18:10 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:18:10 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:28 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:28 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:28 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:28 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:38 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:38 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:39 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:39 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:40 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:40 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:41 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:41 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:19:43 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:19:43 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:23:55 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:23:55 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:23:55 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:23:55 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:23:57 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:23:57 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:23:57 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:23:57 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:29:50 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:29:51 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:29:51 [INFO] [REQUEST] GET /users/instructor/chats
+2025-05-14 19:29:51 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-05-14 19:29:52 [INFO] [REQUEST] PUT /users/messages/6820a3fe3c9a7d7aa92c2c48/read
+2025-05-14 19:29:52 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 19:29:52 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:29:52 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:29:59 [INFO] [REQUEST] POST /users/6820a3fe3c9a7d7aa92c2c48/createmessages
+2025-05-14 19:29:59 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 19:30:00 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 19:30:00 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:30:52 [INFO] [REQUEST] POST /users/6820a3fe3c9a7d7aa92c2c48/createmessages
+2025-05-14 19:30:52 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 19:30:52 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 19:30:52 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:30:58 [INFO] [REQUEST] POST /users/6820a3fe3c9a7d7aa92c2c48/createmessages
+2025-05-14 19:30:58 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 19:30:58 [INFO] [REQUEST] GET /users/messages/6820a3fe3c9a7d7aa92c2c48
+2025-05-14 19:30:59 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:31:03 [INFO] [REQUEST] PUT /users/messages/68245cee6411cc3e1995a50e/read
+2025-05-14 19:31:03 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:31:03 [INFO] [REQUEST] GET /users/messages/68245cee6411cc3e1995a50e
+2025-05-14 19:31:03 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:31:07 [INFO] [REQUEST] POST /users/68245cee6411cc3e1995a50e/createmessages
+2025-05-14 19:31:07 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 19:31:07 [INFO] [REQUEST] GET /users/messages/68245cee6411cc3e1995a50e
+2025-05-14 19:31:07 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:31:09 [INFO] [REQUEST] PUT /users/messages/6820a8f7a94d9539049ba953/read
+2025-05-14 19:31:09 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953
+2025-05-14 19:31:09 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:31:09 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:31:12 [INFO] [REQUEST] POST /users/6820a8f7a94d9539049ba953/createmessages
+2025-05-14 19:31:12 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 19:31:12 [INFO] [REQUEST] GET /users/messages/6820a8f7a94d9539049ba953
+2025-05-14 19:31:12 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:32:44 [INFO] [REQUEST] PUT /users/messages/68245cee6411cc3e1995a50e/read
+2025-05-14 19:32:44 [INFO] [REQUEST] GET /users/messages/68245cee6411cc3e1995a50e
+2025-05-14 19:32:44 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-05-14 19:32:44 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 19:32:47 [INFO] [REQUEST] POST /users/68245cee6411cc3e1995a50e/createmessages
+2025-05-14 19:32:47 [INFO] [RESPONSE] Status: 201 Message: Message created successfully
+2025-05-14 19:32:47 [INFO] [REQUEST] GET /users/messages/68245cee6411cc3e1995a50e
+2025-05-14 19:32:47 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-05-14 20:04:18 [INFO] [REQUEST] POST /users/logout
+2025-05-14 20:04:18 [INFO] [RESPONSE] Status: 200 Message: Logout successful

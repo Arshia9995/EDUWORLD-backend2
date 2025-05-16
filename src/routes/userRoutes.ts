@@ -202,19 +202,6 @@ userRouter.put(USER_ROUTES.MARK_MESSAGE_AS_READ, authenticateUser(), chatControl
 //.........................................................INSTRUCTOR SIDE CHAT.....................................................................................
 
 
-
-
-
-// userRouter.get(USER_ROUTES.GET_INSTRUCTOR_CHATS, authenticateUser(), chatController.getInstructorChats.bind(chatController) as any);
-
-// userRouter.get(USER_ROUTES.GET_INSTRUCTOR_CHAT_BY_COURSEID, authenticateUser(), chatController.getinstructorChatByCourseId.bind(chatController) as any);
-
-// userRouter.get(USER_ROUTES.INSTRUCTOR_GET_MESSAGES, authenticateUser(), chatController.getinstructorMessagesByChatId.bind(chatController) as any);
-
-// userRouter.post(USER_ROUTES.INSTRUCTOR_SEND_MESSAGES, authenticateUser(), chatController.instructorCreateMessage.bind(chatController) as any);
-
-
-
  userRouter.get(USER_ROUTES.INSTRUCTOR_CHATS, authenticateUser(), chatController.getInstructorChats.bind(chatController) as any);
 
  userRouter.get(USER_ROUTES.INSTRUCTOR_MESSAGES, authenticateUser(), chatController.getMessages.bind(chatController) as any);

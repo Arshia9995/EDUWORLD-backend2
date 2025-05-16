@@ -1,3 +1,4 @@
+import { title } from "process";
 import { AnnouncementDoc } from "../interfaces/IAdminAnnouncements";
 import { Announcement } from "../models/adminAnnouncements";
 import { BaseRepository } from "./baseRepository";
@@ -10,14 +11,20 @@ class AnnouncementRepository extends BaseRepository<AnnouncementDoc> {
   async findActiveAnnouncements(): Promise<AnnouncementDoc[]> {
     return await Announcement.find({ isActive: true })
       .populate("createdBy", "email")
-      .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+      .sort({ createdAt: -1 }) 
       .exec();
   }
+
+
+   async findAnnouncement(title: string, content: string):  Promise<any> {
+
+    return await Announcement.findOne({title: title, content: content})
+   }  
 
   async findAllAnnouncements(): Promise<AnnouncementDoc[]> {
     return await Announcement.find()
       .populate("createdBy", "email")
-      .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+      .sort({ createdAt: -1 }) 
       .exec();
   }
 

@@ -89,46 +89,9 @@ export class EnrollmentService implements IEnrollmentService {
   }
 
 
-// async enrollUser(userId: string, courseId: string): Promise<IEnrollment> {
-//     try {
-//       let objectIdUser: ObjectId, objectIdCourse: ObjectId;
-//       try {
-//         objectIdUser = new ObjectId(userId);
-//         objectIdCourse = new ObjectId(courseId);
-//       } catch (err) {
-//         throw new Error('Invalid userId or courseId format');
-//       }
-
-//       const existingEnrollment = await this._enrollmentRepository.findByUserAndCourse(userId, courseId);
-//       if (existingEnrollment) return existingEnrollment;
-
-//       const enrollment = await this._enrollmentRepository.create({
-//         userId: objectIdUser,
-//         courseId: objectIdCourse,
-//         enrolledAt: new Date(),
-//         completionStatus: 'enrolled',
-//       });
-//       return enrollment;
-//     } catch (error: any) {
-//       console.error('Error in EnrollmentService.enrollUser:', { message: error.message, userId, courseId });
-//       throw new Error(error.message || 'Failed to enroll user');
-//     }
-//   }
-
-//   async checkEnrollment(userId: string, courseId: string): Promise<boolean> {
-//     try {
-//       new ObjectId(userId);
-//       new ObjectId(courseId);
-//       const enrollment = await this._enrollmentRepository.findByUserAndCourse(userId, courseId);
-//       return !!enrollment;
-//     } catch (error: any) {
-//       console.error('Error in EnrollmentService.checkEnrollment:', error);
-//       throw new Error(error.message || 'Failed to check enrollment');
-//     }
-//   }
 
 
-// EnrollmentService.js
+
 async getEnrolledCourses(
     userId: string,
     page: number = 1,
@@ -250,19 +213,10 @@ async getEnrolledCourses(
         course.thumbnail = await this._userService.getDownloadUrl(key);
       }
 
-      // Get student progress for this course
-    //   const progress = await this._progressRepository.findProgress(studentId, courseId);
       
-      // Get total lessons count
       const totalLessons = course.lessons?.length || 0;
       
-      // Calculate progress percentage
-    //   const progressData = {
-    //     completedLessons: progress?.completedLessons || [],
-    //     progress: totalLessons > 0 
-    //       ? Math.round(((progress?.completedLessons?.length || 0) / totalLessons) * 100) 
-    //       : 0
-    //   };
+   
 
       return {
         success: true,

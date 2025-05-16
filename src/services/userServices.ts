@@ -244,59 +244,7 @@ export class UserService implements IUserService {
         }
     }
 
-    // async googleLogin(token: string) {
-    //     try {
-    //       const ticket = await client.verifyIdToken({
-    //         idToken: token,
-    //         audience: process.env.GOOGLE_CLIENT_ID,
-    //       });
     
-    //       const payload = ticket.getPayload();
-    //       if (!payload) {
-    //         return {
-    //           success: false,
-    //           message: "Invalid Google token",
-    //           data: null,
-    //         };
-    //       }
-    
-    //       const { email, name } = payload;
-    
-    //       let user = await this._userRepository.findByQuery({ email });
-    //       if (!user) {
-    //         user = await this._userRepository.create({
-    //           email,
-    //           name,
-    //           role: "student", // Default role
-    //           verified: true,
-    //           googleAuth: true, // Set googleAuth to true
-    //           isBlocked: false,
-    //         });
-    //       }
-    
-    //       return {
-    //         success: true,
-    //         message: "Google login successful",
-    //         data: {
-    //           _id: user._id,
-    //           name: user.name,
-    //           email: user.email,
-    //           role: user.role,
-    //           isBlocked: user.isBlocked,
-    //           verified: user.verified,
-    //           googleAuth: user.googleAuth,
-    //           profile: user.profile,
-    //         },
-    //       };
-    //     } catch (error) {
-    //       console.error("Google login error:", error);
-    //       return {
-    //         success: false,
-    //         message: "Internal Server Error",
-    //         data: null,
-    //       };
-    //     }
-    //   }
 
     async googleLogin(token: string) {
         try {

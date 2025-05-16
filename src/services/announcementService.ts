@@ -22,12 +22,14 @@ export class AnnouncementService implements IAnnouncementService {
     createdBy: mongoose.Types.ObjectId
   ){
     try {
+
+
       const announcement = await this._announcementRepository.create({
         title,
         content,
         createdBy,
         isActive: true,
-      });
+      }); 
 
       return {
         success: true,

@@ -36,17 +36,6 @@ export class CourseServices implements ICourseService {
            
           const course = await this._courseRepository.create(courseData);
 
-
-          // if(courseData.title === course.title){
-          //   return {
-          //     success: false,
-          //     message: "you can not add the course with same title",
-          //     data : null
-          //   }
-          // }
-       
-
-
           return {
             success: true,
             message: 'Course created successfully',
@@ -112,7 +101,7 @@ export class CourseServices implements ICourseService {
             isPublished: true,
           });
 
-                // Create chat room for the course
+                
       const existingChat = await this._chatRepository.findByCourseId(courseId);
       if (!existingChat) {
         await this._chatRepository.createChatRoom(courseId, instructorId);
@@ -202,11 +191,11 @@ export class CourseServices implements ICourseService {
         }
         const instructorRef =
   course?.instructor && typeof course.instructor === "object" 
-    ? course.instructor._id // Normalize to ObjectId
-    :new Types.ObjectId(course.instructor); // For string cases
+    ? course.instructor._id 
+    :new Types.ObjectId(course.instructor); 
     const instructor_Id=new Types.ObjectId(instructorId)
     console.log(instructorRef,instructor_Id,"thjis is the id")
-          // Check if the instructor is authorized to access this course
+          
           if (!course.instructor || !instructor_Id.equals(instructorRef)) {
             return {
               success: false,
@@ -338,22 +327,7 @@ export class CourseServices implements ICourseService {
           
           const course = await this._courseRepository.findById(courseId);
 
-          // const existingCourse = await this._courseRepository.findByQuery({title: "gbgfn"})
-
-          // if(existingCourse?._id === new ObectId(courseId)){
-          //   return {
-          //     success: false,
-          //     message: "you can not add the course with same title",
-          //     data: null
-          //   }
-
-          // }
-
-          
-
-         
-
-
+      
       
           if (!course) {
             return {

@@ -1,7 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import http from 'http';
 import { IMessage } from '../interfaces/IMessage';
-import { Message } from '../models/messageModel';
 import { Chat } from '../models/chatModel';
 const socket = require("socket.io");
 
@@ -12,7 +11,9 @@ interface ServerToClientEvents {
 
 interface ClientToServerEvents {
   sendMessage: (data: { chatId: string; content: string }) => void;
-  joinChat: (chatId: string) => void;
+  joinRoom: (chatId: string) => void;
+  newMessage: (data: IMessage) => void; 
+  leaveRoom: (chatId: string) => void;
 }
 
 interface SocketData {
@@ -20,7 +21,7 @@ interface SocketData {
 }
 
 const initializeSocket = (server: http.Server) => {
-  const io =  socket  (server, {
+  const io = socket(server, {
     cors: {
       origin: process.env.frontEnd_URL || 'http://localhost:5173',
       methods: ['GET', 'POST'],
@@ -28,10 +29,9 @@ const initializeSocket = (server: http.Server) => {
     },
   });
 
-  io.on('connection', (socket: Socket) => {
+  io.on('connection', (socket: Socket<ClientToServerEvents, ServerToClientEvents, any, SocketData>) => {
     console.log(`User connected: ${socket.id}`);
 
-    // Authenticate user (e.g., using token from handshake)
     const userId = socket.handshake.auth.userId;
     if (!userId) {
       socket.emit('error', { message: 'Authentication required' });
@@ -40,18 +40,14 @@ const initializeSocket = (server: http.Server) => {
     }
     socket.data.userId = userId;
 
-    // Join a chat room
     socket.on('joinRoom', async (chatId: string) => {
       try {
-        console.log("reacheddddd inside joinroom");
-        
         const chat = await Chat.findById(chatId).populate('participants');
         if (!chat) {
           socket.emit('error', { message: 'Chat room not found' });
           return;
         }
 
-        // Verify user is a participant
         const isParticipant = chat.participants.some(
           (participant: any) => participant._id.toString() === userId
         );
@@ -67,48 +63,38 @@ const initializeSocket = (server: http.Server) => {
       }
     });
 
-    // Handle sending messages
-    socket.on('newMessage', async (data) => {
-      try {
-        const { chatId, content } = data;
-
-        // Validate chat exists
-        const chat = await Chat.findById(chatId);
-        if (!chat) {
-          socket.emit('error', { message: 'Chat room not found' });
-          return;
-        }
-
-        // Verify sender is a participant
-        const isParticipant = chat.participants.some(
-          (participant: any) => participant._id.toString() === userId
-        );
-        if (!isParticipant) {
-          socket.emit('error', { message: 'Unauthorized: Not a participant' });
-          return;
-        }
-
-        // Create and save message
-        const message = new Message({
-          chatId,
-          senderId: userId,
-          content,
-          sentAt: new Date(),
-          isRead: false,
-        });
-        await message.save();
-
-        // Populate sender details for client
-        const populatedMessage = await Message.findById(message._id)
-          .populate('senderId', 'name email')
-          .lean();
-
-        // Broadcast message to all participants in the chat room
-        io.to(chatId).emit('message', populatedMessage as IMessage);
-      } catch (error: any) {
-        socket.emit('error', { message: 'Failed to send message' });
-      }
+    socket.on('leaveRoom', (chatId: string) => {
+      socket.leave(chatId);
+      console.log(`User ${userId} left chat ${chatId}`);
     });
+
+    socket.on('newMessage', async (message: IMessage) => {
+        try {
+          
+          const chatId = message.chatId.toString();
+      
+          const chat = await Chat.findById(chatId);
+          if (!chat) {
+            socket.emit('error', { message: 'Chat room not found' });
+            return;
+          }
+      
+          const isParticipant = chat.participants.some(
+            (participant: any) => participant._id.toString() === userId
+          );
+          if (!isParticipant) {
+            socket.emit('error', { message: 'Unauthorized: Not a participant' });
+            return;
+          }
+      
+          
+          socket.to(chatId).emit('message', message);
+      
+          console.log(`Broadcasted message to chat ${chatId} (excluding sender):`, message);
+        } catch (error: any) {
+          socket.emit('error', { message: 'Failed to broadcast message' });
+        }
+      });
 
     socket.on('disconnect', () => {
       console.log(`User disconnected: ${socket.id}`);
