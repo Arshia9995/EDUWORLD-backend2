@@ -1,1 +1,40 @@
+name: CI/CD Pipeline
 
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: edu-world
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }} .
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+
+      - name: Save SSH key
+        run: |
+          echo "${{ secrets.SSH_KEY }}" > ssh-key.pem
+          chmod 600 ssh-key.pem
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh-key.pem ubuntu@ec2-43-205-136-208.ap-south-1.compute.amazonaws.com << EOF
+            echo "${{ secrets.APPLICATION_ENV }}" | sudo tee /home/ubuntu/.env > /dev/null
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+            sudo docker rm -f edu-world || true
+            sudo docker run -d --name edu-world -p 3000:3000 --env-file /home/ubuntu/.env ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+          EOF
