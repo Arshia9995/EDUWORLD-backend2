@@ -28,6 +28,7 @@ const initializeSocket = (server: http.Server) => {
       credentials: true,
     },
   });
+  
 
   io.on('connection', (socket: Socket<ClientToServerEvents, ServerToClientEvents, any, SocketData>) => {
     console.log(`User connected: ${socket.id}`);

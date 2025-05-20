@@ -23,6 +23,14 @@ export class AnnouncementService implements IAnnouncementService {
   ){
     try {
 
+        const existingAnnouncement = await this._announcementRepository.findByTitle(title);
+    
+        if (existingAnnouncement) {
+          return {
+            success: false,
+            message: "An announcement with the same title already exists",
+          };
+        }
 
       const announcement = await this._announcementRepository.create({
         title,
@@ -95,6 +103,16 @@ export class AnnouncementService implements IAnnouncementService {
 
   async updateAnnouncement(id: string, title: string, content: string): Promise<AnnouncementServiceResponse> {
     try {
+
+        const existingAnnouncement = await this._announcementRepository.findByTitle(title, id);
+    
+        if (existingAnnouncement) {
+          return {
+            success: false,
+            message: "Another announcement with the same title already exists",
+          };
+        }
+
       const announcement = await this._announcementRepository.update(id, { title, content });
       if (!announcement) {
         return { success: false, message: "Announcement not found" };
