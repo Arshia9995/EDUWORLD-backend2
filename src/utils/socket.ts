@@ -23,12 +23,12 @@ interface SocketData {
 const initializeSocket = (server: http.Server) => {
   const io = socket(server, {
     cors: {
-      origin: process.env.frontEnd_URL || 'http://localhost:5173',
+      origin: process.env.frontEnd_URL || 'https://eduworld-frontend-eosin.vercel.app',
       methods: ['GET', 'POST'],
       credentials: true,
     },
   });
-  
+
 
   io.on('connection', (socket: Socket<ClientToServerEvents, ServerToClientEvents, any, SocketData>) => {
     console.log(`User connected: ${socket.id}`);
