@@ -166,3 +166,15 @@
 2025-05-20 13:17:00 [INFO] [RESPONSE] Status: 200 Message: Payment history fetched successfully
 2025-05-20 13:17:04 [INFO] [REQUEST] POST /users/logout
 2025-05-20 13:17:04 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-05-20 18:44:50 [INFO] [REQUEST] POST /users/login
+2025-05-20 18:44:50 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-05-20 18:44:54 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-05-20 18:44:54 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-05-20 18:44:54 [INFO] [REQUEST] GET /users/instructorwallet
+2025-05-20 18:44:54 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-05-20 18:44:54 [INFO] [REQUEST] GET /users/instructor-stats
+2025-05-20 18:44:54 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-20 18:44:56 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-05-20 18:44:56 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-05-20 18:44:56 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-05-20 18:44:56 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully

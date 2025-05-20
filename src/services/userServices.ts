@@ -651,7 +651,7 @@ async getDownloadUrl(key: string): Promise<string> {
         Expires: 86400, 
       };
       
-      return await this.s3.getSignedUrlPromise("getObject", downloadParams);
+      return (await this.s3.getSignedUrlPromise("getObject", downloadParams)).toString();
     } catch (error) {
       console.error("Error generating pre-signed download URL:", error);
       throw new Error("Failed to generate pre-signed download URL");
