@@ -23,7 +23,7 @@ interface SocketData {
 const initializeSocket = (server: http.Server) => {
   const io = socket(server, {
     cors: {
-      origin: process.env.frontEnd_URL || 'https://eduworld-frontend-eosin.vercel.app',
+      origin: process.env.frontEnd_URL || 'https://eduworld.space',
       methods: ['GET', 'POST'],
       credentials: true,
     },
