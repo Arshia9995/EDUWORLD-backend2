@@ -202,7 +202,7 @@ export class PaymentService implements IPaymentService {
               console.log(`Unhandled event type: ${event.type}`);
           }
         } catch (error: any) {
-          console.error('❌ Error in PaymentService.handleWebhookEvent:', {
+          console.error(' Error in PaymentService.handleWebhookEvent:', {
             message: error.message,
             type: event.type,
           });
