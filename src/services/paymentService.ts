@@ -87,8 +87,8 @@ export class PaymentService implements IPaymentService {
               },
             ],
             mode: 'payment',
-            success_url: `https://eduworld.space/enrollment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${courseId}`,
-            cancel_url: `https://eduworld.space/enrollment-cancel?course_id=${courseId}`,
+            success_url: `${process.env.frontEnd_URL}/enrollment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${courseId}`,
+            cancel_url: `${process.env.frontEnd_URL}/enrollment-cancel?course_id=${courseId}`,
             metadata: { courseId, userId, instructorId: course.instructor._id.toString() },
             billing_address_collection: 'auto',
           });
