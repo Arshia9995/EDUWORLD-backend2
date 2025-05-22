@@ -140,8 +140,8 @@ export class PaymentService implements IPaymentService {
               },
             ],
             mode: 'payment',
-            success_url: `${process.env.FRONTEND_URL}/retry-payment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${payment.courseId}`,
-            cancel_url: `${process.env.FRONTEND_URL}/payment-history`,
+            success_url: `${process.env.frontEnd_URL}/retry-payment-success?session_id={CHECKOUT_SESSION_ID}&course_id=${payment.courseId}`,
+            cancel_url: `${process.env.frontEnd_URL}/payment-history`,
             metadata: { courseId: payment.courseId.toString(), userId, instructorId: course.instructor._id.toString(), originalPaymentId: paymentId },
             billing_address_collection: 'auto',
           });
