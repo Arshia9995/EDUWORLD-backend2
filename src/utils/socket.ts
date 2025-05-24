@@ -24,7 +24,7 @@ const initializeSocket = (server: http.Server) => {
   const io = socket(server, {
     cors: {
       origin: process.env.frontEnd_URL || 'https://eduworld.space',
-      methods: ['GET', 'POST','OPTIONS'],
+      methods: ['GET', 'POST'],
       credentials: true,
     },
   });
