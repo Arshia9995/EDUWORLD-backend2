@@ -29,7 +29,14 @@ app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
 console.log(process.env.frontEnd_URL, 'frontend URL')
 
-
+app.use(
+    cors({
+    origin: process.env.frontEnd_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization","Accept"],
+    })
+);
 
 
 app.use(responseLogger);
