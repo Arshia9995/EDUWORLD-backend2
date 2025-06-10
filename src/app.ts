@@ -27,10 +27,11 @@ app.post("/webhook-payment", express.raw({ type: "application/json" }), paymentC
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
+console.log(process.env.frontEnd_URL, 'frontend URL')
 
 app.use(
     cors({
-    origin: process.env.frontEnd_URL || 'https://eduworld.space/',
+    origin: '*',
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization","Accept"],
