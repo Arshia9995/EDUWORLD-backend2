@@ -30,12 +30,13 @@ app.use(cookieParser());
 
 app.use(
     cors({
-    origin: process.env.frontEnd_URL || 'https://eduworld.space',
+    origin: process.env.frontEnd_URL || 'https://eduworld.space/',
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization","Accept"],
     })
 );
+
 
 app.use(responseLogger);
 
