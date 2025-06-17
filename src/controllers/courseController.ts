@@ -137,6 +137,59 @@ class CourseController {
         }
       }
 
+      async getDraftCourses(req: AuthRequest, res: Response) {
+  try {
+    if (!req.user?.id) {
+      return res.status(Status.UN_AUTHORISED).json({
+        success: false,
+        message: "Unauthorized: Instructor ID not found",
+      });
+    }
+
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 6;
+    const search = req.query.search as string || '';
+    const sortBy = req.query.sortBy as string || 'newest';
+    const category = req.query.category as string || '';
+    const priceRange = req.query.priceRange as string || '';
+    const language = req.query.language as string || '';
+
+    const result = await this._courseService.getDraftCoursesByInstructor(
+      req.user.id,
+      page,
+      limit,
+      search,
+      sortBy,
+      category,
+      priceRange,
+      language
+    );
+
+    if (!result.success) {
+      return res.status(Status.BAD_REQUEST).json({
+        success: false,
+        message: result.message,
+      });
+    }
+
+    return res.status(Status.OK).json({
+      success: true,
+      message: result.message,
+      courses: result.data,
+      totalCourses: result.totalCourses,
+      currentPage: result.currentPage,
+      totalPages: result.totalPages,
+    });
+  } catch (error: any) {
+    console.error("Error in getDraftCourses controller:", error);
+    return res.status(Status.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+}
+
+
       
       async getCourseById(req: AuthRequest, res: Response) {
         try {

@@ -177,6 +177,60 @@ export class CourseServices implements ICourseService {
         }
       }
 
+      async getDraftCoursesByInstructor(
+  instructorId: string,
+  page: number = 1,
+  limit: number = 6,
+  search: string = '',
+  sortBy: string = 'newest',
+  category: string = '',
+  priceRange: string = '',
+  language: string = ''
+) {
+  try {
+    const { courses, total } = await this._courseRepository.findDraftsByInstructor(
+      instructorId,
+      page,
+      limit,
+      search,
+      sortBy,
+      category,
+      priceRange,
+      language
+    );
+
+    const updatedCourses = await Promise.all(
+      courses.map(async (course) => {
+        if (course.thumbnail) {
+          const key = course.thumbnail.split(".amazonaws.com/")[1];
+          const downloadUrl = await this._userService.getDownloadUrl(key);
+          return { ...course.toObject(), thumbnail: downloadUrl };
+        }
+        return course.toObject();
+      })
+    );
+
+    return {
+      success: true,
+      message: "Draft courses fetched successfully",
+      data: updatedCourses,
+      totalCourses: total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+    };
+  } catch (error: any) {
+    console.error("Error fetching draft courses:", error);
+    return {
+      success: false,
+      message: error.message || "Internal server error",
+      data: null,
+      totalCourses: 0,
+      currentPage: page,
+      totalPages: 0,
+    };
+  }
+}
+
 
       async getCourseById(courseId: string, instructorId: string) {
         try {

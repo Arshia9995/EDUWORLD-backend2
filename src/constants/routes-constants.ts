@@ -22,6 +22,8 @@ export const USER_ROUTES = {
     ADD_LESSON: "/addlesson",
     PUBLISH_COURSE: "/publishcourse",
     GET_PUBLISHED_COURSES: "/getpublishedcourses",
+    GET_DRAFT_COURSES: "/getdraftcourses",
+
     GET_COURSE_BYID:  "/getcoursebyid/:courseId",
     GET_LESSONS_BY_COURSEID:"/getlessonbycourseid/:courseId",
     GET_UPDATE_LESSONS_BY_COURSEID:"/updategetlessonbycourseid/:courseId",

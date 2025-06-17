@@ -125,6 +125,9 @@ userRouter.get(USER_ROUTES.FETCH_ALL_CATEGORY,authenticateUser(),  categoryContr
 userRouter.post(USER_ROUTES.ADD_COURSE,authenticateUser(),  courseController.addCourse.bind(courseController) as any);
 userRouter.post(USER_ROUTES.PUBLISH_COURSE,authenticateUser(),  courseController.publishCourse.bind(courseController) as any);
 userRouter.get(USER_ROUTES.GET_PUBLISHED_COURSES,authenticateUser(),  courseController.getPublishedCourses.bind(courseController) as any);
+userRouter.get(USER_ROUTES.GET_DRAFT_COURSES,authenticateUser(),  courseController.getDraftCourses.bind(courseController) as any);
+
+
 userRouter.get(USER_ROUTES.GET_COURSE_BYID,authenticateUser(),  courseController.getCourseById.bind(courseController) as any);
 userRouter.get(USER_ROUTES.GET_ALL_PUBLISHED_COURSES,authenticateUser(),  courseController.getAllPublishedCourses.bind(courseController) as any);
 userRouter.get(USER_ROUTES.GET_STUDENT_COURSE_BYID,authenticateUser(),  courseController.getStudentCourseById.bind(courseController) as any);

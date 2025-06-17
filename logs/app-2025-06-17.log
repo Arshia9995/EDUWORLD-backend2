@@ -1,0 +1,684 @@
+2025-06-17 14:15:02 [INFO] [REQUEST] POST /users/login
+2025-06-17 14:15:02 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 14:15:23 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 14:15:23 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 14:15:23 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 14:15:23 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 14:15:23 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 14:15:23 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 14:15:24 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 14:15:24 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 14:15:24 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 14:15:24 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 14:15:26 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 14:15:26 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 14:15:27 [INFO] [REQUEST] GET /users/instructor/chats
+2025-06-17 14:15:28 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-06-17 14:15:28 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 14:15:28 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 14:15:28 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 14:15:28 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 14:15:29 [INFO] [REQUEST] GET /users/instructor/chats
+2025-06-17 14:15:30 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-06-17 14:15:31 [INFO] [REQUEST] PUT /users/messages/68314cae0d4647355c5bbc12/read
+2025-06-17 14:15:31 [INFO] [REQUEST] GET /users/messages/68314cae0d4647355c5bbc12
+2025-06-17 14:15:31 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-06-17 14:15:32 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-06-17 14:16:15 [INFO] [REQUEST] POST /admin/login
+2025-06-17 14:16:16 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 14:16:16 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 14:16:16 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 14:16:16 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 14:16:16 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 15:05:28 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 15:05:29 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:05:29 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 15:05:29 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 15:05:41 [INFO] [REQUEST] POST /users/get-s3-url
+2025-06-17 15:05:41 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:07:06 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 15:07:06 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 15:07:06 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:07:06 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:07:06 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 15:07:06 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:07:08 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:07:08 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:07:08 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:07:08 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 15:07:09 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:07:09 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:07:10 [INFO] [REQUEST] GET /users/instructor/chats
+2025-06-17 15:07:10 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-06-17 15:07:13 [INFO] [REQUEST] PUT /users/messages/684a50c2d5985f4528769d30/read
+2025-06-17 15:07:13 [INFO] [REQUEST] GET /users/messages/684a50c2d5985f4528769d30
+2025-06-17 15:07:13 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-06-17 15:07:13 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-06-17 15:09:03 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:09:03 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:09:03 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:03 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 15:09:04 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:09:04 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:09:04 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 15:09:04 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:07 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:09:07 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:09:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:07 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 15:09:08 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:09:08 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:09:08 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 15:09:08 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:08 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:09:08 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:09:08 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:09 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 15:09:11 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:09:11 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:09:12 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:09:12 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:09:12 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 15:09:12 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:12 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:09:12 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:09:12 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:09:12 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 15:09:58 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:10:03 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:10:03 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:10:03 [INFO] [RESPONSE] Status: 500 Message: connection <monitor> to 159.41.242.247:27017 timed out
+2025-06-17 15:10:08 [INFO] [RESPONSE] Status: 400 Message: Could not fetch published courses
+2025-06-17 15:10:08 [INFO] [RESPONSE] Status: 404 Message: Internal server error
+2025-06-17 15:10:10 [INFO] [REQUEST] POST /users/logout
+2025-06-17 15:10:10 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 15:10:24 [INFO] [REQUEST] POST /users/login
+2025-06-17 15:10:29 [INFO] [RESPONSE] Status: 401 Message: Internal Server Error
+2025-06-17 15:23:33 [INFO] [REQUEST] POST /users/login
+2025-06-17 15:23:34 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 15:23:38 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 15:23:38 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 15:23:38 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:23:38 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:23:38 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 15:23:38 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:23:39 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 15:23:39 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 15:23:39 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:23:39 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 15:23:40 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 15:23:40 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 15:23:41 [INFO] [REQUEST] GET /users/instructor/chats
+2025-06-17 15:23:41 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-06-17 15:23:43 [INFO] [REQUEST] POST /users/get-s3-url
+2025-06-17 15:23:43 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:30:34 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 15:30:34 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 15:30:34 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 15:30:34 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 16:44:32 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 16:44:33 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:44:33 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 16:44:33 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 16:45:13 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 16:45:13 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 16:45:13 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:45:13 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:45:13 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:45:14 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:48:17 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 16:48:17 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 16:48:17 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:48:17 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:48:17 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:48:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:48:20 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:48:20 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:48:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:48:20 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:48:22 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:48:22 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:48:22 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:48:22 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:48:24 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:48:24 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:48:24 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:48:24 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:48:36 [INFO] [REQUEST] POST /users/get-s3-url
+2025-06-17 16:48:36 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:48:40 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 16:48:40 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 16:48:40 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:48:40 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:48:40 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:48:41 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:49:09 [INFO] [REQUEST] POST /users/logout
+2025-06-17 16:49:09 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 16:49:42 [INFO] [REQUEST] POST /users/login
+2025-06-17 16:49:43 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 16:50:14 [INFO] [REQUEST] POST /users/logout
+2025-06-17 16:50:14 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 16:50:29 [INFO] [REQUEST] POST /users/login
+2025-06-17 16:50:30 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 16:51:04 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 16:51:04 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 16:51:04 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:51:04 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:51:04 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:51:04 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:36 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:36 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:36 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:36 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:37 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:37 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:37 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:56:37 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:40 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:40 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:40 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:40 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:49 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:49 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:49 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:56:49 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:49 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:50 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:50 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:50 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:50 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:50 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:50 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:56:50 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:51 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:51 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:51 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:51 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:52 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:52 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:52 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:56:52 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:52 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:52 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:52 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:53 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:53 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:53 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:53 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:56:53 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:54 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:54 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:54 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:54 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:56 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:56 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:57 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:57 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:57 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:57 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:57 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:57 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:56:58 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:56:58 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:56:58 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:56:58 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:56:59 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:56:59 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:57:00 [INFO] [REQUEST] GET /users/instructor/chats
+2025-06-17 16:57:01 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-06-17 16:57:02 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:57:02 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:57:02 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:57:02 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:57:10 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:57:10 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:57:10 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:57:10 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:57:20 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 16:57:20 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 16:57:20 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:57:20 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:57:20 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:57:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:57:22 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:57:22 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:57:22 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:57:22 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:57:23 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:57:23 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:57:33 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 16:57:33 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 16:57:34 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:57:34 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:57:34 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:57:34 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:57:35 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 16:57:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 16:57:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 16:57:35 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 16:57:35 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 16:57:35 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 16:57:35 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 16:57:36 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:00:59 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:00:59 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:00:59 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:00:59 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:07 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 17:01:07 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 17:01:07 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:08 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:08 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:01:08 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:16 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 17:01:16 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 17:01:16 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:16 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:01:17 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:17 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:17 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:01:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:19 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 17:01:19 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 17:01:19 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:19 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:01:28 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:28 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:29 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 17:01:29 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 17:01:29 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:29 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:01:32 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:32 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:33 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 17:01:33 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 17:01:33 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:34 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:01:34 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:35 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:35 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:01:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 17:01:35 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 17:01:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:01:36 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:01:36 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:36 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:37 [INFO] [REQUEST] GET /users/instructor/chats
+2025-06-17 17:01:38 [INFO] [RESPONSE] Status: 200 Message: Chats fetched successfully
+2025-06-17 17:01:39 [INFO] [REQUEST] PUT /users/messages/68314cae0d4647355c5bbc12/read
+2025-06-17 17:01:39 [INFO] [REQUEST] GET /users/messages/68314cae0d4647355c5bbc12
+2025-06-17 17:01:40 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-06-17 17:01:40 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-06-17 17:01:41 [INFO] [REQUEST] PUT /users/messages/68314da10d4647355c5bbc4c/read
+2025-06-17 17:01:41 [INFO] [REQUEST] GET /users/messages/68314da10d4647355c5bbc4c
+2025-06-17 17:01:41 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-06-17 17:01:41 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-06-17 17:01:42 [INFO] [REQUEST] PUT /users/messages/68314e6e0d4647355c5bbc7d/read
+2025-06-17 17:01:42 [INFO] [REQUEST] GET /users/messages/68314e6e0d4647355c5bbc7d
+2025-06-17 17:01:43 [INFO] [RESPONSE] Status: 200 Message: Messages fetched successfully
+2025-06-17 17:01:43 [INFO] [RESPONSE] Status: 200 Message: Marked 0 messages as read for user
+2025-06-17 17:01:46 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:01:46 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:01:46 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:01:46 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:03:20 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 17:03:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:03:20 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 17:03:20 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 17:10:27 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 17:10:28 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:10:28 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 17:10:28 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 17:32:07 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:32:07 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:32:28 [INFO] [REQUEST] POST /users/logout
+2025-06-17 17:32:28 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 17:36:17 [INFO] [REQUEST] POST /users/login
+2025-06-17 17:36:18 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 17:36:18 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:36:18 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:36:20 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 17:36:20 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 17:36:20 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:36:20 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:36:20 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:36:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:36:29 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:36:29 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:36:31 [INFO] [REQUEST] POST /users/logout
+2025-06-17 17:36:31 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 17:36:39 [INFO] [REQUEST] POST /users/login
+2025-06-17 17:36:39 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 17:36:39 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:36:39 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:38:27 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:38:27 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:38:28 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:38:28 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:38:39 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:38:39 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:38:40 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:38:40 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:38:50 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:38:50 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:38:53 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:38:53 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:39:02 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:39:02 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:39:10 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:39:10 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:39:13 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:39:13 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:50:18 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 17:50:18 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 17:50:18 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 17:50:18 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 17:50:18 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 17:50:18 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:50:19 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 17:50:19 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 17:50:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 17:50:20 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:51:33 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:51:33 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:54:49 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:54:49 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:54:50 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:54:50 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:54:51 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:54:51 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:54:55 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:54:55 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:54:58 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:54:58 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:00 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:00 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:08 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:08 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:11 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:11 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:15 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:15 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:18 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:18 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:27 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:27 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:35 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:35 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:55:36 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 17:55:36 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 17:56:09 [INFO] [REQUEST] POST /users/logout
+2025-06-17 17:56:09 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 18:11:21 [INFO] [REQUEST] POST /users/login
+2025-06-17 18:11:21 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 18:11:21 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:11:21 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:11:55 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 18:11:55 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 18:11:55 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 18:11:55 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 18:11:55 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 18:11:55 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:11:57 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:11:57 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:11:57 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:11:57 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:11:58 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 18:11:58 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 18:11:58 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 18:11:58 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:12:04 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:12:04 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:12:04 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:12:04 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:12:07 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:12:07 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:12:16 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 18:12:16 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 18:12:16 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 18:12:16 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 18:12:16 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 18:12:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:12:20 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:12:20 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:12:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:12:20 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:12:36 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 18:12:37 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:12:37 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 18:12:37 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 18:12:38 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:12:39 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:12:44 [INFO] [REQUEST] POST /users/logout
+2025-06-17 18:12:44 [INFO] [RESPONSE] Status: 200 Message: Logout successful
+2025-06-17 18:12:59 [INFO] [REQUEST] POST /users/login
+2025-06-17 18:12:59 [INFO] [RESPONSE] Status: 200 Message: Login successful
+2025-06-17 18:12:59 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:12:59 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:13:06 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 18:13:07 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 18:13:07 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 18:13:07 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 18:13:07 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 18:13:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:13:08 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:13:08 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:13:08 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:13:08 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:13:09 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:13:10 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:13:43 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 18:13:43 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 18:13:43 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 18:13:43 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 18:13:43 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 18:13:43 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:13:45 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:13:45 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:13:45 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:13:45 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:47:50 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:47:51 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:47:51 [INFO] [REQUEST] GET /users/getallpublishedcourses?page=1&limit=3&sortBy=newest
+2025-06-17 18:47:51 [INFO] [REQUEST] GET /admin/admin-stats
+2025-06-17 18:47:51 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:47:51 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:47:51 [INFO] [REQUEST] GET /admin/course-stats
+2025-06-17 18:47:51 [INFO] [RESPONSE] Status: 200 Message: Course statistics fetched successfully
+2025-06-17 18:47:52 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 18:47:52 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 18:47:52 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 18:47:52 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 18:47:52 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 18:47:52 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:47:56 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:47:56 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:47:56 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:47:56 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:48:17 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:48:17 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:48:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:48:17 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:48:19 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:48:19 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:48:19 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:48:19 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:48:20 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:48:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:48:27 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:48:27 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:48:27 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:48:28 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:48:30 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:48:30 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:49:28 [INFO] [REQUEST] POST /users/get-s3-url
+2025-06-17 18:49:28 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:49:55 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:49:55 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:50:10 [INFO] [REQUEST] POST /users/get-s3-url
+2025-06-17 18:50:10 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:52:18 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:52:18 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:52:20 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:52:20 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:52:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:52:20 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:52:30 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:52:30 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:52:30 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:52:30 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:52:35 [INFO] [REQUEST] GET /users/getcoursebyid/68516bd2d5985f4528769df6
+2025-06-17 18:52:35 [INFO] [RESPONSE] Status: 200 Message: Course details fetched successfully
+2025-06-17 18:52:35 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:52:35 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:52:42 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:52:42 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:52:42 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:52:42 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:52:48 [INFO] [REQUEST] GET /users/getcoursebyid/684a5064d5985f4528769d1b
+2025-06-17 18:52:48 [INFO] [RESPONSE] Status: 200 Message: Course details fetched successfully
+2025-06-17 18:52:48 [INFO] [REQUEST] GET /users/getlessonbycourseid/684a5064d5985f4528769d1b
+2025-06-17 18:52:48 [INFO] [RESPONSE] Status: 200 Message: Lessons fetched successfully
+2025-06-17 18:53:07 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:07 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:53:07 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:07 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:53:08 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:08 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:53:08 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:08 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:53:09 [INFO] [REQUEST] GET /users/getcoursebyid/68516bd2d5985f4528769df6
+2025-06-17 18:53:09 [INFO] [RESPONSE] Status: 200 Message: Course details fetched successfully
+2025-06-17 18:53:09 [INFO] [REQUEST] GET /users/getlessonbycourseid/68516bd2d5985f4528769df6
+2025-06-17 18:53:09 [INFO] [RESPONSE] Status: 200 Message: Lessons fetched successfully
+2025-06-17 18:53:16 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:16 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:53:16 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:17 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:53:20 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:20 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:53:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:20 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 18:53:22 [INFO] [REQUEST] GET /users/getcoursebyid/68516bd2d5985f4528769df6
+2025-06-17 18:53:22 [INFO] [RESPONSE] Status: 200 Message: Course details fetched successfully
+2025-06-17 18:53:22 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:22 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:25 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:25 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:53:25 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:25 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 18:53:28 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 18:53:28 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 18:53:28 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 18:53:28 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:01:46 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:01:46 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:01:46 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:01:46 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 19:02:05 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:02:05 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:02:05 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:02:05 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:04:53 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:04:53 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:04:53 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:04:53 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:05:09 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:05:09 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:05:09 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:05:09 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:05:10 [INFO] [REQUEST] GET /users/getcoursebyid/68516bd2d5985f4528769df6
+2025-06-17 19:05:10 [INFO] [RESPONSE] Status: 200 Message: Course details fetched successfully
+2025-06-17 19:05:10 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:05:10 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:05:12 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:05:12 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:05:12 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:05:12 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:05:15 [INFO] [REQUEST] POST /users/publishcourse
+2025-06-17 19:05:15 [INFO] [RESPONSE] Status: 200 Message: Course published successfully and chat room created
+2025-06-17 19:05:15 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:05:15 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:05:20 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:05:20 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:05:20 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:05:21 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 19:06:12 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:06:12 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:06:12 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:06:12 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:06:14 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 19:06:14 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 19:06:14 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 19:06:15 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:06:16 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:06:16 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:06:16 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:06:16 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:06:17 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:06:17 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:06:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:06:17 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 19:06:19 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:06:19 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:06:19 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:06:19 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:09:34 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:09:34 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:09:34 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:09:34 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:10:12 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:10:12 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:10:12 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:10:13 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:10:14 [INFO] [REQUEST] GET /users/getcoursebyid/68516f39d5985f4528769e0a
+2025-06-17 19:10:14 [INFO] [RESPONSE] Status: 200 Message: Course details fetched successfully
+2025-06-17 19:10:14 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:10:14 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:10:16 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:10:17 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:10:17 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:10:17 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:10:24 [INFO] [REQUEST] POST /users/publishcourse
+2025-06-17 19:10:24 [INFO] [RESPONSE] Status: 200 Message: Course published successfully and chat room created
+2025-06-17 19:10:24 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:10:24 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:12:39 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:12:39 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:12:39 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:12:39 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:13:28 [INFO] [REQUEST] GET /users/getinstructorbyid/67d2a7ff5f87b60018b67eef
+2025-06-17 19:13:29 [INFO] [RESPONSE] Status: 200 Message: Instructor data fetched successfully
+2025-06-17 19:13:29 [INFO] [REQUEST] GET /users/instructorwallet
+2025-06-17 19:13:29 [INFO] [RESPONSE] Status: 200 Message: Wallet details fetched successfully
+2025-06-17 19:13:29 [INFO] [REQUEST] GET /users/instructor-stats
+2025-06-17 19:13:29 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:13:30 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:13:30 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:13:30 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:13:30 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:15:27 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:15:27 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:15:27 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:15:27 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:15:27 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:15:27 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:15:27 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:15:27 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:15:36 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:15:36 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:15:36 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:15:36 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:15:39 [INFO] [REQUEST] POST /users/publishcourse
+2025-06-17 19:15:40 [INFO] [RESPONSE] Status: 200 Message: Course published successfully and chat room created
+2025-06-17 19:15:40 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:15:40 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully
+2025-06-17 19:15:44 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:15:44 [INFO] [REQUEST] GET /users/getpublishedcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:15:44 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:15:44 [INFO] [RESPONSE] Status: 200 Message: Published courses fetched successfully
+2025-06-17 19:15:45 [INFO] [REQUEST] GET /users/fetchallcategories
+2025-06-17 19:15:45 [INFO] [REQUEST] GET /users/getdraftcourses?page=1&limit=6&search=&sortBy=newest&category=&priceRange=&language=
+2025-06-17 19:15:45 [INFO] [RESPONSE] Status: 200 Message: No message
+2025-06-17 19:15:45 [INFO] [RESPONSE] Status: 200 Message: Draft courses fetched successfully

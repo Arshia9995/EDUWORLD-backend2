@@ -105,6 +105,92 @@ class CourseRepository extends BaseRepository<ICourse>{
       }
     }
 
+
+    async findDraftsByInstructor(
+  instructorId: string,
+  page: number = 1,
+  limit: number = 6,
+  search: string = '',
+  sortBy: string = 'newest',
+  category: string = '',
+  priceRange: string = '',
+  language: string = ''
+): Promise<{ courses: ICourse[]; total: number }> {
+  try {
+    const skip = (page - 1) * limit;
+
+    const query: any = {
+      instructor: instructorId,
+      isPublished: false, // Changed to fetch draft courses
+    };
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    if (language) {
+      query.language = language;
+    }
+
+    if (priceRange) {
+      if (priceRange === 'free') {
+        query.price = 0;
+      } else {
+        const [min, max] = priceRange.split('-').map(p => parseInt(p));
+        if (max) {
+          query.price = { $gte: min, $lte: max };
+        } else if (priceRange.includes('+')) {
+          const minPrice = parseInt(priceRange.replace('+', ''));
+          query.price = { $gte: minPrice };
+        }
+      }
+    }
+
+    let sortOptions: any = { createdAt: -1 }; // Default: newest first
+
+    switch (sortBy) {
+      case 'oldest':
+        sortOptions = { createdAt: 1 };
+        break;
+      case 'priceAsc':
+        sortOptions = { price: 1 };
+        break;
+      case 'priceDesc':
+        sortOptions = { price: -1 };
+        break;
+      case 'titleAsc':
+        sortOptions = { title: 1 };
+        break;
+      case 'titleDesc':
+        sortOptions = { title: -1 };
+        break;
+    }
+
+    const total = await this._model.countDocuments(query);
+
+    const courses = await this._model
+      .find(query)
+      .populate("category", "categoryName")
+      .populate("instructor", "name")
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    return { courses, total };
+  } catch (error) {
+    console.error("Error fetching draft courses by instructor:", error);
+    throw new Error("Could not fetch draft courses");
+  }
+}
+
       async findByIdWithPopulate(id: string): Promise<ICourse | null> {
         try {
           return await this._model.findById(id)
